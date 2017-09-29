@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">NeedSomeDoSome</string>
+<<<<<<< HEAD
 
     <string name="button_create_group">Create group</string>
 =======
+=======
+>>>>>>> 38a5606c5a4c708773893c9bbe42166259a38823
     <string name="title_activity_alexandre">AlexandreActivity</string>
->>>>>>> d687484306af7370b3bb5d3b2c60ff4fb0aaade0
 </resources>
