@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NeedSomeDoSome</string>
+    <string name="button_create_group">Create group</string>
 </resources>
