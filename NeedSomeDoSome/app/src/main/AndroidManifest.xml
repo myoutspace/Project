@@ -19,6 +19,10 @@
         <activity
             android:name=".AlexandreActivity"
             android:label="@string/title_activity_alexandre"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Password"
+            android:label="@string/title_activity_password"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

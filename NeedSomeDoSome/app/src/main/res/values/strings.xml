@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NeedSomeDoSome</string>
     <string name="title_activity_alexandre">AlexandreActivity</string>
+    <string name="title_activity_password">Password</string>
 </resources>
