@@ -1,9 +1,11 @@
-package com.example.julien.needsomedosome;
+package com.example.julien.needsomedosome.Display.Control;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class CreateGroup extends AppCompatActivity {
+import com.example.julien.needsomedosome.R;
+
+public class CreateGroupPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

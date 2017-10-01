@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Display.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,17 +17,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AlexandreActivity"
-            android:label="@string/title_activity_alexandre"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Password"
+            android:name=".Display.Password"
             android:label="@string/title_activity_password"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LandingPage" />
-        <activity android:name=".CreateGroup" />
-        <activity android:name=".CreateUser" />
-        <activity android:name=".DisplayUsers"></activity>
+        <activity android:name=".Display.LandingPage" />
+        <activity android:name=".Display.Control.CreateGroupPage" />
+        <activity android:name=".Display.Control.CreateUserPage" />
+        <activity android:name=".Display.DisplayUsers" />
+        <activity android:name=".Display.Control.DeleteGroupPage" />
+        <activity android:name=".Display.Control.DeleteUserPage" />
+        <activity android:name=".Display.HomePage"></activity>
     </application>
 
 </manifest>

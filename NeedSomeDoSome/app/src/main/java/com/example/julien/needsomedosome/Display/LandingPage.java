@@ -1,13 +1,13 @@
-package com.example.julien.needsomedosome;
+package com.example.julien.needsomedosome.Display;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class DisplayUsers extends AppCompatActivity {
+public class LandingPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_users);
+        setContentView(R.layout.activity_landing_page);
     }
 }
