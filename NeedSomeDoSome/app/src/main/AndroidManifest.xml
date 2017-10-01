@@ -23,7 +23,11 @@
         <activity
             android:name=".Password"
             android:label="@string/title_activity_password"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LandingPage" />
+        <activity android:name=".CreateGroup" />
+        <activity android:name=".CreateUser" />
+        <activity android:name=".DisplayUsers"></activity>
     </application>
 
 </manifest>
