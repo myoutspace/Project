@@ -3,6 +3,8 @@ package com.example.julien.needsomedosome.Display;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.julien.needsomedosome.R;
+
 public class LandingPage extends AppCompatActivity {
 
     @Override

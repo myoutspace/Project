@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.julien.needsomedosome.Display.Control.CreateGroupPage">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="You are here to create groups!!!" />
 </android.support.constraint.ConstraintLayout>

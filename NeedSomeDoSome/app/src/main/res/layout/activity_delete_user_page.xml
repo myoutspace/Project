@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.julien.needsomedosome.Display.Control.DeleteUserPage">
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="You are here to delete users!!!" />
 </android.support.constraint.ConstraintLayout>
