@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.julien.needsomedosome.R;
 
-public class ViewTask extends AppCompatActivity {
+public class AssignTask extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

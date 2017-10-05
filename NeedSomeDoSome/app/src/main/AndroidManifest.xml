@@ -26,7 +26,10 @@
         <activity android:name=".Display.DisplayUsers" />
         <activity android:name=".Display.Control.DeleteGroupPage" />
         <activity android:name=".Display.Control.DeleteUserPage" />
-        <activity android:name=".Display.HomePage"></activity>
+        <activity android:name=".Display.HomePage" />
+        <activity android:name=".Display.AssignTask" />
+        <activity android:name=".Display.ActivitySettings" />
+        <activity android:name=".Display.Control.ActivityEasterEgg"></activity>
     </application>
 
 </manifest>
