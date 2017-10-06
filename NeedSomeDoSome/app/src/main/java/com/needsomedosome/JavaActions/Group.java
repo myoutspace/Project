@@ -1,6 +1,7 @@
-package com.example.julien.needsomedosome.JavaActions;
+package com.needsomedosome.JavaActions;
 
 import java.util.LinkedList;
+
 
 /**
  * Created by Julien on 2017-10-06.

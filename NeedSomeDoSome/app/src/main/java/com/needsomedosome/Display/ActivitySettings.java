@@ -1,4 +1,4 @@
-package com.example.julien.needsomedosome.Display;
+package com.needsomedosome.Display;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

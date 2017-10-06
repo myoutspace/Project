@@ -1,4 +1,4 @@
-package com.example.julien.needsomedosome.JavaActions;
+package com.needsomedosome.JavaActions;
 
 /**
  * Created by Julien on 2017-10-06.
