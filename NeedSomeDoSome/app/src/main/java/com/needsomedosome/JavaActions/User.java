@@ -6,15 +6,17 @@ package com.needsomedosome.JavaActions;
 
 public class User {
     private String username;
-    private long pointAmount;
+    private String pointAmount;
     private String password;
     private String title;
+    private String groupName;
 
-    public User(String username, long pointAmount, String password, String title) {
+    public User(String username, String pointAmount, String password, String title, String groupName) {
         this.username = username;
         this.pointAmount = pointAmount;
         this.password = password;
         this.title = title;
+        this.groupName = groupName;
     }
 
     public String getUsername() {
@@ -25,11 +27,11 @@ public class User {
         this.username = username;
     }
 
-    public long getPointAmount() {
+    public String getPointAmount() {
         return pointAmount;
     }
 
-    public void setPointAmount(long pointAmount) {
+    public void setPointAmount(String pointAmount) {
         this.pointAmount = pointAmount;
     }
 
@@ -41,8 +43,16 @@ public class User {
         this.password = password;
     }
 
+    public void setGroupName(String password) {
+        this.password = password;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public String getGroupName() {
+        return groupName;
     }
 
     public void setTitle(String title) {
