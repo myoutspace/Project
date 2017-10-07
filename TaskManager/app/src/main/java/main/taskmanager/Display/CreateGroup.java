@@ -20,8 +20,8 @@ public class CreateGroup extends AppCompatActivity {
     public void onCreateGroup(View view){
         Intent intent = new Intent(this, GroupConfirmation.class);
         EditText group = (EditText) findViewById(R.id.edtTxtGrpName);
-        String groupeName = group.getText().toString();
-        intent.putExtra(GROUP_NAME, groupeName);
+        String groupName = group.getText().toString();
+        intent.putExtra(GROUP_NAME, groupName);
         startActivity(intent);
     }
 }
