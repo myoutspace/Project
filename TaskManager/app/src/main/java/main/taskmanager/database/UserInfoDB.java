@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.*;
+import android.provider.BaseColumns;
+
 import main.taskmanager.javaActions.*;
 import java.util.*;
 
@@ -20,23 +22,35 @@ public class UserInfoDB extends SQLiteOpenHelper {
     // User table name
     private static final String TABLE_USER_INFO = "userInfo";
     private static final String TABLE_GROUP_INFO = "groupInfo";
+
+    private String CREATE_USER_INFO_TABLE = "CREATE TABLE " + TABLE_USER_INFO  + "("+ UserInfoTable.UserInfo.KEY_ID + " INTEGER PRIMARY KEY," + UserInfoTable.UserInfo.KEY_NAME + " TEXT," +
+            UserInfoTable.UserInfo.KEY_PASSWORD + " TEXT," + UserInfoTable.UserInfo.KEY_GROUP_NAME + " TEXT," + UserInfoTable.UserInfo.KEY_POINTS + "TEXT," + UserInfoTable.UserInfo.KEY_TITLE + "TEXT" + ")";
+
+    private String CREATE_GROUP_INFO = "CREATE TABLE " + TABLE_GROUP_INFO  + "("+ UserInfoTable.UserInfo.KEY_ID + " INTEGER PRIMARY KEY," + UserInfoTable.UserInfo.KEY_GROUP_NAME + " TEXT" +")";
     // User Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_GROUP_NAME = "group";
-    private static final String KEY_PASSWORD = "password";
-    private static final String KEY_TITLE = "title";
-    private static final String KEY_POINTS = "points";
+
+    public final class UserInfoTable {
+        // This prevent someone to instantiate the userInfoTable class,
+        // make the constructor private.
+        private UserInfoTable() {}
+
+        public class UserInfo implements BaseColumns {
+            private static final String KEY_ID = "id";
+            private static final String KEY_NAME = "name";
+            private static final String KEY_GROUP_NAME = "group";
+            private static final String KEY_PASSWORD = "password";
+            private static final String KEY_TITLE = "title";
+            private static final String KEY_POINTS = "points";
+        }
+    }
 
     public UserInfoDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_USER_INFO_TABLE = "CREATE TABLE " + TABLE_USER_INFO  + "("+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," +
-                                        KEY_PASSWORD + " TEXT," + KEY_GROUP_NAME + " TEXT," + KEY_POINTS + "TEXT," + KEY_TITLE + "TEXT" + ")";
         db.execSQL(CREATE_USER_INFO_TABLE);
-        db.execSQL("CREATE TABLE " + TABLE_GROUP_INFO  + "("+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_GROUP_NAME + " TEXT" +")");
+        db.execSQL(CREATE_GROUP_INFO);
     }
 
     @Override
@@ -48,14 +62,18 @@ public class UserInfoDB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
+    }
+
     public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, user.getUsername()); // User Name
-        values.put(KEY_GROUP_NAME, user.getGroupName()); // User Group
-        values.put(KEY_PASSWORD, user.getPassword()); // User password
-        values.put(KEY_POINTS, user.getPointAmount()); // User points
-        values.put(KEY_TITLE, user.getTitle()); // User title
+        values.put(UserInfoTable.UserInfo.KEY_NAME, user.getUsername()); // User Name
+        values.put(UserInfoTable.UserInfo.KEY_GROUP_NAME, user.getGroupName()); // User Group
+        values.put(UserInfoTable.UserInfo.KEY_PASSWORD, user.getPassword()); // User password
+        values.put(UserInfoTable.UserInfo.KEY_POINTS, user.getPointAmount()); // User points
+        values.put(UserInfoTable.UserInfo.KEY_TITLE, user.getTitle()); // User title
         db.insert(TABLE_USER_INFO, null, values); // Inserting Row
         db.close(); // Closing database connection
     }
@@ -63,19 +81,19 @@ public class UserInfoDB extends SQLiteOpenHelper {
     public void addGroup(Group group) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_GROUP_NAME, group.getName()); // User Name
+        values.put(UserInfoTable.UserInfo.KEY_GROUP_NAME, group.getName()); // User Name
         db.insert(TABLE_GROUP_INFO, null, values); // Inserting Row
         db.close(); // Closing database connection
     }
 
     public User getUser(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_USER_INFO, new String[]{KEY_NAME, KEY_PASSWORD, KEY_GROUP_NAME, KEY_POINTS, KEY_TITLE}, KEY_NAME+ "=?",
+        Cursor cursor = db.query(TABLE_USER_INFO, new String[]{UserInfoTable.UserInfo.KEY_NAME, UserInfoTable.UserInfo.KEY_PASSWORD, UserInfoTable.UserInfo.KEY_GROUP_NAME, UserInfoTable.UserInfo.KEY_POINTS, UserInfoTable.UserInfo.KEY_TITLE}, UserInfoTable.UserInfo.KEY_NAME+ "=?",
         new String[]{String.valueOf(username)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
         User user = new User(cursor.getString(0), cursor.getString(3), cursor.getString(1), cursor.getString(4), cursor.getString(2));
-        db.close();
+        cursor.close();
         return user; // return User
     }
 
@@ -115,18 +133,18 @@ public class UserInfoDB extends SQLiteOpenHelper {
     public int updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, user.getUsername());
-        values.put(KEY_PASSWORD, user.getPassword());
-        values.put(KEY_GROUP_NAME, user.getGroupName());
-        values.put(KEY_POINTS, user.getPointAmount());
-        values.put(KEY_TITLE, user.getTitle());
-        return db.update(TABLE_USER_INFO, values, KEY_NAME + " = ?",
+        values.put(UserInfoTable.UserInfo.KEY_NAME, user.getUsername());
+        values.put(UserInfoTable.UserInfo.KEY_PASSWORD, user.getPassword());
+        values.put(UserInfoTable.UserInfo.KEY_GROUP_NAME, user.getGroupName());
+        values.put(UserInfoTable.UserInfo.KEY_POINTS, user.getPointAmount());
+        values.put(UserInfoTable.UserInfo.KEY_TITLE, user.getTitle());
+        return db.update(TABLE_USER_INFO, values, UserInfoTable.UserInfo.KEY_NAME + " = ?",
         new String[]{String.valueOf(user.getUsername())});
     }
 
     public void deleteUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_USER_INFO, KEY_NAME + " = ?",
+        db.delete(TABLE_USER_INFO, UserInfoTable.UserInfo.KEY_NAME + " = ?",
         new String[] { String.valueOf(user.getUsername()) });
         db.close();
     }    
