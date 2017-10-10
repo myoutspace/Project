@@ -9,7 +9,6 @@ import android.widget.EditText;
 import main.taskmanager.R;
 
 public class CreateGroup extends AppCompatActivity {
-    public static final String GROUP_NAME = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +20,7 @@ public class CreateGroup extends AppCompatActivity {
         Intent intent = new Intent(this, GroupConfirmation.class);
         EditText group = (EditText) findViewById(R.id.edtTxtGrpName);
         String groupName = group.getText().toString();
-        intent.putExtra(GROUP_NAME, groupName);
+        intent.putExtra("groupName", groupName);
         startActivity(intent);
     }
 }

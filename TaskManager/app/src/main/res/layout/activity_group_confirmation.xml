@@ -42,7 +42,7 @@
                 <Button
                     android:id="@+id/btnConfirmation"
                     android:layout_width="wrap_content"
-                    android:layout_height="75dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@android:color/white"
                     android:onClick="onConfirmation"
@@ -52,13 +52,13 @@
 
                 <Space
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/btnCancel"
                     android:layout_width="wrap_content"
-                    android:layout_height="75dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@android:color/white"
                     android:onClick="onCancel"
