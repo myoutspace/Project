@@ -13,7 +13,7 @@
     <string name="name">Name</string>
     <string name="title">Title</string>
     <string name="password">Password</string>
-    <string name="save">Save User</string>
+    <string name="save">Save</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 </resources>
