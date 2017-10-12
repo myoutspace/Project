@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_weight="1"
-                android:background="@android:color/white"
+                android:background="@android:color/transparent"
                 android:onClick="onCreateGroup"
                 android:text="@string/button_get_started"
                 android:textColor="#32CD32"
