@@ -50,4 +50,9 @@ public class DisplayUser extends Activity {
         }
         return true;
     }
+
+    public void addUser(View view){
+        Intent intent = new Intent(this, CreateUsers.class);
+        startActivity(intent);
+    }
 }
