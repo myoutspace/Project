@@ -26,7 +26,19 @@
         <activity android:name=".Display.DisplayUsers" />
         <activity android:name=".Display.Control.DeleteGroupPage" />
         <activity android:name=".Display.Control.DeleteUserPage" />
-        <activity android:name=".Display.HomePage"></activity>
+        <activity android:name=".Display.HomePage" />
+        <activity android:name=".Display.AssignTask" />
+        <activity android:name=".Display.ActivitySettings" />
+        <activity android:name=".Display.Control.ActivityEasterEgg" />
+        <activity
+            android:name=".Display.PeoplePartial"
+            android:label="@string/title_activity_people_partial"
+            android:parentActivityName=".Display.HomePage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.julien.needsomedosome.Display.HomePage" />
+        </activity>
     </application>
 
 </manifest>

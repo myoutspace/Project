@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Task Manager</string>
+    <string name="text_view_get_started">Get Started</string>
+    <string name="text_view_create_group">Create a group</string>
+    <string name="text_view_group_name">Group Name</string>
+    <string name="button_start">Start</string>
+    <string name="button_get_started">GET STARTED</string>
+    <string name="text_view_show_message">message</string>
+    <string name="button_confirmation">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="Add_New_User">Add a User</string>
+    <string name="delete_User">Delete a User</string>
+    <string name="name">Name</string>
+    <string name="title">Title</string>
+    <string name="password">Password</string>
+    <string name="save">Save</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>
