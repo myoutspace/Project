@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Display.CreateGroup" />
-        <activity android:name=".Display.GroupConfirmation" />
         <activity android:name=".Display.CreateUsers" />
         <activity android:name=".Display.DisplayUser"></activity>
     </application>

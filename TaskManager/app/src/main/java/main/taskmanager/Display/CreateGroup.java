@@ -20,14 +20,13 @@ public class CreateGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-
-
     }
 
     public void onCreateGroup(View view) {
         final Intent intent = new Intent(this, CreateUsers.class);
         EditText group = (EditText) findViewById(R.id.edtTxtGrpName);
         String groupName = group.getText().toString();
+        intent.putExtra("groupName", groupName);
         createAlert = new AlertDialog.Builder(this).create();
         createAlert.setTitle("Group name is " + groupName);
         createAlert.setMessage("Is that correct?");
