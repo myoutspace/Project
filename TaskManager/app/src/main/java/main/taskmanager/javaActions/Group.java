@@ -1,6 +1,7 @@
 package main.taskmanager.javaActions;
 
 import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -8,7 +9,7 @@ import java.util.LinkedList;
  */
 
 public class Group {
-    private LinkedList<User> userList;
+    private List<User> userList;
     private String name;
 
     public Group(String name) {
@@ -16,13 +17,15 @@ public class Group {
         this.name = name;
     }
 
-    public LinkedList<User> getUserList() {
+    public List<User> getUserList() {
         return userList;
     }
 
-    public void setUserList(LinkedList<User> userList) {
+    public void setUserList(List<User> userList) {
         this.userList = userList;
     }
+
+    public void addUser (User user) { this.userList.add(user); }
 
     public String getName() {
         return name;

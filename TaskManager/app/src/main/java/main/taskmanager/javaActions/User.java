@@ -11,6 +11,8 @@ public class User {
     private String title;
     private String groupName;
 
+
+
     public User(String username, String pointAmount, String password, String title, String groupName) {
         this.username = username;
         this.pointAmount = pointAmount;
