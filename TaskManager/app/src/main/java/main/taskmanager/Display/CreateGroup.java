@@ -10,22 +10,25 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 
 import main.taskmanager.R;
+import main.taskmanager.javaActions.*;
 
 public class CreateGroup extends AppCompatActivity {
 
     AlertDialog createAlert;
     boolean inPop = false;
+    DatabaseHelper database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
+        database = new DatabaseHelper(this.getApplicationContext());
     }
 
     public void onCreateGroup(View view) {
         final Intent intent = new Intent(this, CreateUsers.class);
         EditText group = (EditText) findViewById(R.id.edtTxtGrpName);
-        String groupName = group.getText().toString();
+        final String groupName = group.getText().toString();
         intent.putExtra("groupName", groupName);
         createAlert = new AlertDialog.Builder(this).create();
         createAlert.setTitle("Group name is " + groupName);
@@ -34,6 +37,8 @@ public class CreateGroup extends AppCompatActivity {
                 .OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Group group = new Group(groupName);
+                //database.addGroup(group);
                 startActivity(intent);
             }
         });
