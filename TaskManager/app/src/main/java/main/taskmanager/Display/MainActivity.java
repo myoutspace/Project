@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCreateGroup(View view){
-        startActivity(new Intent(this, HomePage.class));
+        startActivity(new Intent(this, CreateGroup.class));
     }
 }
