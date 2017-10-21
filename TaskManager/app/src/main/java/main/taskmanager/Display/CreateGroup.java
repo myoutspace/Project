@@ -38,7 +38,7 @@ public class CreateGroup extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Group group = new Group(groupName);
-                //database.addGroup(group);
+                database.addGroup(group);
                 startActivity(intent);
             }
         });
