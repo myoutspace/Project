@@ -22,7 +22,7 @@ public class CreateGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-        database = new DatabaseHelper(this.getApplicationContext());
+        database = new DatabaseHelper(this);
     }
 
     public void onCreateGroup(View view) {
