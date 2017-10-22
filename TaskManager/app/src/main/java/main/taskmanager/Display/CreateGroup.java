@@ -13,7 +13,6 @@ import main.taskmanager.R;
 import main.taskmanager.javaActions.*;
 
 public class CreateGroup extends AppCompatActivity {
-
     AlertDialog createAlert;
     boolean inPop = false;
     DatabaseHelper database;

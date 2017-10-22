@@ -24,8 +24,12 @@ import android.widget.Toast;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+import static main.taskmanager.Display.CreateUsers.groupName;
+
 public class DisplayUser extends Activity {
-    private static String groupName;
+
+    //private static String groupName;
+    //I swaped that into the CreateGroup as static
     private static TextView name;
     private static TextView title;
     private static TextView pass;
@@ -59,7 +63,7 @@ public class DisplayUser extends Activity {
         return true;
     }
 
-    public void btnAdd(View view) {
+    public void addUser(View view) {
         Intent intent = new Intent(this, CreateUsers.class);
         intent.putExtra("groupName", groupName);
         User user = new User(name.getText().toString(), "200", pass.getText().toString(), title
