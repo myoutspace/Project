@@ -20,7 +20,7 @@ public class CreateUsers extends AppCompatActivity {
         setContentView(R.layout.activity_create_users);
         TextView textView = (TextView) findViewById(R.id.txtViewShwMssg);
         groupName = getIntent().getStringExtra("groupName");
-        textView.setText("Group Name : "  + groupName);
+        textView.setText("Welcome "  + groupName);
     }
 
     @Override

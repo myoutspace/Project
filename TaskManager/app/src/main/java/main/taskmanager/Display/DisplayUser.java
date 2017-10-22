@@ -59,13 +59,14 @@ public class DisplayUser extends Activity {
         return true;
     }
 
-    public void addUser(View view) {
+    public void btnAdd(View view) {
         Intent intent = new Intent(this, CreateUsers.class);
         intent.putExtra("groupName", groupName);
         User user = new User(name.getText().toString(), "200", pass.getText().toString(), title
                 .getText().toString(), groupName);
         String date = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        database.addUser(user, date);
+        //I comment cause causing problems
+        //database.addUser(user, date);
         startActivity(intent);
     }
 }
