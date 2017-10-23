@@ -34,6 +34,15 @@ public class DisplayUser extends Activity {
     private static TextView pass;
     private static DatabaseHelper database;
 
+    /*
+    Notes:
+    - a mon avis avoir une méthode qui détermine le nombre d'utilisateurs dans la base de
+    donnée. Ainsi lorsqu'il y a deux utilisateur on crée un nouveau xml et classe identique à
+    displayUser mais avec un boutton secondaire pour continuer dans la page d'assigner une tache
+
+    - aussi au lieu d'utiliser intent.putExtra, on cherche directement l'information de la base
+    de données
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
