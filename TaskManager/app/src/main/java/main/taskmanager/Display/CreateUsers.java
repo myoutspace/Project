@@ -3,12 +3,17 @@ package main.taskmanager.Display;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import main.taskmanager.R;
+import main.taskmanager.javaActions.User;
 
 public class CreateUsers extends AppCompatActivity {
     public static String groupName;
@@ -47,5 +52,11 @@ public class CreateUsers extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void addPerson(View view) {
+        Intent intent = new Intent(this, DisplayUser.class);
+        intent.putExtra("groupName", groupName);
+        startActivity(intent);
     }
 }

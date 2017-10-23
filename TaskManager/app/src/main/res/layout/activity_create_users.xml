@@ -57,6 +57,13 @@
 
             </ScrollView>
 
+            <ImageButton
+                android:id="@+id/addPersonBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="addPerson"
+                app:srcCompat="@drawable/addperson" />
+
         </LinearLayout>
     </RelativeLayout>
 

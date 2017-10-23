@@ -28,8 +28,7 @@ import static main.taskmanager.Display.CreateUsers.groupName;
 
 public class DisplayUser extends Activity {
 
-    //private static String groupName;
-    //I swaped that into the CreateGroup as static
+    private static String groupName;
     private static TextView name;
     private static TextView title;
     private static TextView pass;
