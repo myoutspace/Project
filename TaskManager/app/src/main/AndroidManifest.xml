@@ -19,10 +19,7 @@
         <activity android:name=".Display.CreateGroup"/>
         <activity android:name=".Display.CreateUsers"/>
         <activity android:name=".Display.DisplayUser"/>
-        <activity
-            android:name=".Display.HomePage"
-            android:label="@string/title_activity_home_page"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".Display.HomePage">
         </activity>
     </application>
 

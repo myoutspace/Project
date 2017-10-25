@@ -13,7 +13,6 @@ import main.taskmanager.R;
 import main.taskmanager.javaActions.*;
 
 public class CreateGroup extends AppCompatActivity {
-
     AlertDialog createAlert;
     boolean inPop = false;
     DatabaseHelper database;
@@ -26,7 +25,7 @@ public class CreateGroup extends AppCompatActivity {
     }
 
     public void onCreateGroup(View view) {
-        final Intent intent = new Intent(this, CreateUsers.class);
+        final Intent intent = new Intent(this, DisplayUser.class);
         EditText group = (EditText) findViewById(R.id.edtTxtGrpName);
         final String groupName = group.getText().toString();
         intent.putExtra("groupName", groupName);
@@ -38,7 +37,9 @@ public class CreateGroup extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Group group = new Group(groupName);
-                database.addGroup(group);
+                //I put in comment cause it is not working
+                //database.addGroup(group);
+                //Goes to CreateUsers.class
                 startActivity(intent);
             }
         });

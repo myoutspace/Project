@@ -24,13 +24,25 @@ import android.widget.Toast;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+import static main.taskmanager.Display.CreateUsers.groupName;
+
 public class DisplayUser extends Activity {
+
     private static String groupName;
     private static TextView name;
     private static TextView title;
     private static TextView pass;
     private static DatabaseHelper database;
 
+    /*
+    Notes:
+    - a mon avis avoir une méthode qui détermine le nombre d'utilisateurs dans la base de
+    donnée. Ainsi lorsqu'il y a deux utilisateur on crée un nouveau xml et classe identique à
+    displayUser mais avec un boutton secondaire pour continuer dans la page d'assigner une tache
+
+    - aussi au lieu d'utiliser intent.putExtra, on cherche directement l'information de la base
+    de données
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +77,8 @@ public class DisplayUser extends Activity {
         User user = new User(name.getText().toString(), "200", pass.getText().toString(), title
                 .getText().toString(), groupName);
         String date = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        database.addUser(user, date);
+        //I comment cause causing problems
+        //database.addUser(user, date);
         startActivity(intent);
     }
 }
