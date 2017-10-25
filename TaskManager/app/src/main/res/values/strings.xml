@@ -8,7 +8,7 @@
     <string name="text_view_show_message">message</string>
     <string name="button_confirmation">OK</string>
     <string name="button_cancel">Cancel</string>
-    <string name="Add_New_User">Add a User</string>
+    <string name="Add_New_User">User registration</string>
     <string name="delete_User">Delete a User</string>
     <string name="name">Name</string>
     <string name="title">Title</string>

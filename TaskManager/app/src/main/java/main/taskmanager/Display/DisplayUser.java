@@ -77,8 +77,7 @@ public class DisplayUser extends Activity {
         User user = new User(name.getText().toString(), "200", pass.getText().toString(), title
                 .getText().toString(), groupName);
         String date = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        //I comment cause causing problems
-        //database.addUser(user, date);
+        database.addUser(user, date);
         startActivity(intent);
     }
 }
