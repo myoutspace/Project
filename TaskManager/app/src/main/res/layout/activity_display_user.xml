@@ -22,6 +22,17 @@
             android:gravity="center_vertical|center_horizontal"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30sp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/create_users"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="30sp"/>
+
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="wrap_content"
@@ -31,9 +42,10 @@
                 android:ems="10"
                 android:gravity="center_vertical|center_horizontal"
                 android:hint="(Enter your name)"
-                android:inputType="text">
+                android:inputType="text"
+                android:textAlignment="center">
 
-                <requestFocus />
+                <requestFocus/>
             </EditText>
 
             <TextView
@@ -53,7 +65,8 @@
                 android:ems="10"
                 android:gravity="center_vertical|center_horizontal"
                 android:hint="(Enter your title)"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textAlignment="center"/>
 
             <TextView
                 android:id="@+id/textView5"
@@ -72,7 +85,8 @@
                 android:ems="10"
                 android:gravity="center_vertical|center_horizontal"
                 android:hint="(Enter a password)"
-                android:inputType="textPassword"></EditText>
+                android:inputType="textPassword"
+                android:textAlignment="center"></EditText>
 
             <TextView
                 android:id="@+id/textView4"
@@ -92,7 +106,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:onClick="addUser"
-                android:src="@drawable/add"/>
+                android:src="@drawable/addperson"/>
 
         </LinearLayout>
 

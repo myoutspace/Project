@@ -7,8 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Production on 10/13/2017.
@@ -37,13 +35,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Table create Statements
     private static final String CREATE_TABLE_GROUP = "CREATE TABLE " + TABLE_GROUPS + "(" + KEY_ID
-            + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT" + ")";
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT" + ")";
 
     private static final String CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID
-
-            + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT," + KEY_GROUP + " TEXT," + KEY_TITLE +
-            " TEXT," + KEY_PASSWORD + " TEXT," + KEY_POINTS + " TEXT," + KEY_CREATED_AT + " TEXT"
-            + ")";
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_GROUP + " TEXT, "
+            + KEY_PASSWORD + " TEXT, " + KEY_POINTS + " TEXT, " + KEY_TITLE + " TEXT)";
 
 
     public DatabaseHelper(Context context) {
