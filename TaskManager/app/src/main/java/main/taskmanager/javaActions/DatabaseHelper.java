@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.List;
+
 
 /**
  * Created by Production on 10/13/2017.
@@ -95,6 +97,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
                 .getString(cursor.getColumnIndex(KEY_GROUP)));
 
+    }
+
+    public List<User> getAllUserFromGroup(String group){
+        //Aury could you build this function? It needs to return a list of users for a given group
+        return null;
     }
 
 

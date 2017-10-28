@@ -18,6 +18,7 @@
     <string name="no">No</string>
     <string name="create_users">Add User</string>
     <string name="title_activity_home_page">HomePage</string>
+    <string name="task_list">List of available tasks: </string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -29,5 +30,18 @@
         <item>Venus</item>
         <item>Earth</item>
         <item>Mars</item>
+    </string-array>
+
+    <string-array name="list_chapters">
+        <item>Chapter 1</item>
+        <item>Chepter 2</item>
+        <item>Chapter 3</item>
+        <item>Chapter 4</item>
+        <item>Chapter 5</item>
+        <item>Chapter 6</item>
+        <item>Chapter 7</item>
+        <item>Chapter 8</item>
+        <item>Chapter 9</item>
+        <item>Chapter 10</item>
     </string-array>
 </resources>

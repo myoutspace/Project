@@ -75,6 +75,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="15sp" />
 
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="onGoToHome"
+                android:text="bypass to HomePage"
+                android:textColor="#32CD32"
+                android:textSize="24sp"/>
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15sp" />

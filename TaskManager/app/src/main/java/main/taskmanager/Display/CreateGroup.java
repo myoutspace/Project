@@ -25,10 +25,11 @@ public class CreateGroup extends AppCompatActivity {
     }
 
     public void onCreateGroup(View view) {
-        final Intent intent = new Intent(this, DisplayUser.class);
         EditText group = (EditText) findViewById(R.id.edtTxtGrpName);
         final String groupName = group.getText().toString();
+        final Intent intent = new Intent(this, DisplayUser.class);
         intent.putExtra("groupName", groupName);
+
         createAlert = new AlertDialog.Builder(this).create();
         createAlert.setTitle("Group name is " + groupName);
         createAlert.setMessage("Is that correct?");
@@ -52,5 +53,10 @@ public class CreateGroup extends AppCompatActivity {
             }
         });
         createAlert.show();
+    }
+
+    public void onGoToHome(View view){
+        final Intent intent = new Intent(this, HomePage.class);
+        startActivity(intent);
     }
 }
