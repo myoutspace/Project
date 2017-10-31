@@ -46,6 +46,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_GROUP + " TEXT, "
             + KEY_PASSWORD + " TEXT, " + KEY_POINTS + " TEXT, " + KEY_TITLE + " TEXT)";
 
+    private static String activeGroup;
+    private static ArrayList<User> activeUsers;
+    private static ArrayList<Task> activeTasks;
+
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
@@ -102,22 +106,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<User> getAllUsers(String groupName) {
-        ArrayList<User> array_list = new ArrayList<User>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor =  db.rawQuery( "select * from users where team = '" + groupName + "'", null );
-        cursor.moveToFirst();
+        if(activeUsers == null) {
+            activeUsers = new ArrayList<>();
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery("select * from users where team = '" + groupName + "'", null);
 
-        while(cursor.isAfterLast() == false){
-            User user = new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), cursor
-                    .getString(cursor.getColumnIndex(KEY_POINTS)), cursor
-                    .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
-                    .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
-                    .getString(cursor.getColumnIndex(KEY_GROUP)));
-            array_list.add(user);
-            cursor.moveToNext();
+            cursor.moveToFirst();
+
+            while (cursor.isAfterLast() == false) {
+                User user = new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), cursor
+                        .getString(cursor.getColumnIndex(KEY_POINTS)), cursor
+                        .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
+                        .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
+                        .getString(cursor.getColumnIndex(KEY_GROUP)));
+                activeUsers.add(user);
+                cursor.moveToNext();
+            }
         }
 
-        return array_list;
+        return activeUsers;
     }
 
     public ArrayList<String> getAllGroups() {
