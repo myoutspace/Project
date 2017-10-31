@@ -19,10 +19,11 @@
     <string name="create_users">Add User</string>
     <string name="title_activity_home_page">HomePage</string>
     <string name="task_list">List of available tasks: </string>
-
+    <string name="empty_list_text">Empty</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="edit_user">Edit user</string>
+    <string name="delete_user">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
 
     <string-array name="planets_array">

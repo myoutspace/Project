@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
+import java.util.ArrayList;
+
 import main.taskmanager.R;
 import main.taskmanager.javaActions.*;
 
@@ -29,29 +31,43 @@ public class CreateGroup extends AppCompatActivity {
         final String groupName = group.getText().toString();
         final Intent intent = new Intent(this, DisplayUser.class);
         intent.putExtra("groupName", groupName);
+        ArrayList<String> groups = database.getAllGroups();
+        boolean check = false;
 
-        createAlert = new AlertDialog.Builder(this).create();
-        createAlert.setTitle("Group name is " + groupName);
-        createAlert.setMessage("Is that correct?");
-        createAlert.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface
-                .OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Group group = new Group(groupName);
-                database.addGroup(group);
-                //Goes to DisplayUsers.class
-                startActivity(intent);
-            }
-        });
+        if(groups.contains(groupName)){
+            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+            dlgAlert.setMessage("The group already exists, try another name.");
+            dlgAlert.setTitle("Sorry");
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+            check = true;
+        }
 
-        createAlert.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface
-                .OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                createAlert.dismiss();
-            }
-        });
-        createAlert.show();
+        if(check == false){
+            createAlert = new AlertDialog.Builder(this).create();
+            createAlert.setTitle("Group name is " + groupName);
+            createAlert.setMessage("Is that correct?");
+            createAlert.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface
+                    .OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Group group = new Group(groupName);
+                    database.addGroup(group);
+                    //Goes to DisplayUsers.class
+                    startActivity(intent);
+                }
+            });
+
+            createAlert.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface
+                    .OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    createAlert.dismiss();
+                }
+            });
+            createAlert.show();
+        }
     }
 
     public void onGoToHome(View view){

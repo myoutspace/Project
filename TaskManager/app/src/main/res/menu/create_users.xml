@@ -6,9 +6,4 @@
         android:title="@string/Add_New_User" >
     </item>
 
-    <item
-        android:id="@+id/Delete_User"
-        android:orderInCategory="100"
-        android:title="@string/delete_User" />
-
 </menu>
