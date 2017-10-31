@@ -101,14 +101,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<String> getAllUsers(String groupName) {
-        ArrayList<String> array_list = new ArrayList<String>();
+    public ArrayList<User> getAllUsers(String groupName) {
+        ArrayList<User> array_list = new ArrayList<User>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor =  db.rawQuery( "select * from users where team = '" + groupName + "'", null );
         cursor.moveToFirst();
 
         while(cursor.isAfterLast() == false){
-            String user = cursor.getString(cursor.getColumnIndex(KEY_NAME));
+            User user = new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), cursor
+                    .getString(cursor.getColumnIndex(KEY_POINTS)), cursor
+                    .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
+                    .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
+                    .getString(cursor.getColumnIndex(KEY_GROUP)));
             array_list.add(user);
             cursor.moveToNext();
         }

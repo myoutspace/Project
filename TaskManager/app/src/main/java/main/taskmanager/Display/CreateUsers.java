@@ -40,8 +40,12 @@ public class CreateUsers extends AppCompatActivity {
         groupName = getIntent().getStringExtra("groupName");
         textView.setText("Users in "  + groupName);
         database = new DatabaseHelper(this);
-        ArrayList<String> users = database.getAllUsers(groupName);
-        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, users);
+        ArrayList<User> users = database.getAllUsers(groupName);
+        ArrayList<String> usersName =  new ArrayList<String>();
+        for(User user : users){
+            usersName.add(user.getUsername());
+        }
+        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, usersName);
         listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
