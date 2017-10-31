@@ -44,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_GROUP + " TEXT, "
-            + KEY_PASSWORD + " TEXT, " + KEY_POINTS + " TEXT, " + KEY_TITLE + " TEXT, " + KEY_CREATED_AT + " TEXT)";
+            + KEY_PASSWORD + " TEXT, " + KEY_POINTS + " TEXT, " + KEY_TITLE + " TEXT)";
 
 
     public DatabaseHelper(Context context) {
@@ -79,7 +79,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, user.getPassword());
         values.put(KEY_POINTS, user.getPointAmount());
         values.put(KEY_GROUP, user.getGroupName());
-        values.put(KEY_CREATED_AT, dateCreation);
         long insert = database.insert(TABLE_USERS, null, values);
 
 
