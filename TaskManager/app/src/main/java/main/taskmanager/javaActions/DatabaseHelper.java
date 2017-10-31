@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +35,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_POINTS = "points";
     private static final String KEY_CREATED_AT = "createdAt";
     private static final String KEY_GROUP = "team";
+
+    // Static strings to save data
 
     //Table create Statements
     private static final String CREATE_TABLE_GROUP = "CREATE TABLE " + TABLE_GROUPS + "(" + KEY_ID
@@ -77,7 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_POINTS, user.getPointAmount());
         values.put(KEY_GROUP, user.getGroupName());
         values.put(KEY_CREATED_AT, dateCreation);
-        long insert = database.insert(TABLE_GROUPS, null, values);
+        long insert = database.insert(TABLE_USERS, null, values);
 
 
     }
@@ -99,9 +102,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<User> getAllUserFromGroup(String group){
-        //Aury could you build this function? It needs to return a list of users for a given group
-        return null;
+    public ArrayList<User> getAllUsers(String groupName) {
+        ArrayList<User> array_list = new ArrayList<User>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =  db.rawQuery( "select * from users where team = '" + groupName + "'", null );
+        cursor.moveToFirst();
+
+        while(cursor.isAfterLast() == false){
+            User user = new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), cursor
+                    .getString(cursor.getColumnIndex(KEY_POINTS)), cursor
+                    .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
+                    .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
+                    .getString(cursor.getColumnIndex(KEY_GROUP)));
+            array_list.add(user);
+            cursor.moveToNext();
+        }
+
+        return array_list;
+    }
+
+    public ArrayList<String> getAllGroups() {
+        ArrayList<String> array_list = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =  db.rawQuery( "select * from groups", null );
+        cursor.moveToFirst();
+
+        while(cursor.isAfterLast() == false){
+            String groupName = (cursor.getString(cursor.getColumnIndex(KEY_NAME)));
+            array_list.add(groupName);
+            cursor.moveToNext();
+        }
+
+        return array_list;
     }
 
 
