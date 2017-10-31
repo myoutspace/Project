@@ -36,7 +36,8 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        groupName = getIntent().getStringExtra("groupName");
+        groupName = databaseHelper.getActiveGroup();
+        getSupportActionBar().setTitle(groupName);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);

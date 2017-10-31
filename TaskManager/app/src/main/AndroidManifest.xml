@@ -21,6 +21,8 @@
         <activity android:name=".Display.DisplayUser"/>
         <activity android:name=".Display.HomePage">
         </activity>
+        <activity android:name=".Display.GroupSelection">
+        </activity>
     </application>
 
 </manifest>

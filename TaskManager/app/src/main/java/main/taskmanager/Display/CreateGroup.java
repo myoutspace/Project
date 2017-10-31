@@ -54,7 +54,7 @@ public class CreateGroup extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     Group group = new Group(groupName);
                     database.addGroup(group);
-                    //Goes to DisplayUsers.class
+                    database.setActiveGroup(group.getName());
                     startActivity(intent);
                 }
             });
@@ -72,6 +72,7 @@ public class CreateGroup extends AppCompatActivity {
 
     public void onGoToHome(View view){
         final Intent intent = new Intent(this, HomePage.class);
+        database.setActiveGroup(((EditText) findViewById(R.id.edtTxtGrpName)).getText().toString());
         startActivity(intent);
     }
 }

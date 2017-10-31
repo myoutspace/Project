@@ -24,9 +24,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCreateGroup(View view){
-        if(groups.isEmpty())
+        if(database.getActiveGroup() == null)
             startActivity(new Intent(this, CreateGroup.class));
         else
             startActivity(new Intent(this, HomePage.class));
+
     }
 }

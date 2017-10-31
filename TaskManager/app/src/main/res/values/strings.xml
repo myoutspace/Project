@@ -45,4 +45,5 @@
         <item>Chapter 9</item>
         <item>Chapter 10</item>
     </string-array>
+    <string name="title_activity_group_selection">GroupSelection</string>
 </resources>

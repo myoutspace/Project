@@ -75,6 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long insert = database.insert(TABLE_GROUPS, null, values);
     }
 
+
     public void addUser(User user, String dateCreation) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -145,6 +146,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Integer deleteUser (int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete("users", "id = ? ", new String[] { Integer.toString(id) });
+    }
+
+    public static String getActiveGroup() {
+        return activeGroup;
+
+    }
+
+    public static void setActiveGroup(String activeGroup) {
+        DatabaseHelper.activeGroup = activeGroup;
     }
 
 
