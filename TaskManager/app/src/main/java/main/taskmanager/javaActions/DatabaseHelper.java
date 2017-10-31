@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_PASSWORD = "pass";
     private static final String KEY_POINTS = "points";
     private static final String KEY_CREATED_AT = "createdAt";
-    private static final String KEY_GROUP = "group";
+    private static final String KEY_GROUP = "team";
 
     //Table create Statements
     private static final String CREATE_TABLE_GROUP = "CREATE TABLE " + TABLE_GROUPS + "(" + KEY_ID
