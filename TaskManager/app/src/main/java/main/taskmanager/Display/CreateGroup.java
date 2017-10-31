@@ -38,9 +38,8 @@ public class CreateGroup extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Group group = new Group(groupName);
-                //I put in comment cause it is not working
-                //database.addGroup(group);
-                //Goes to CreateUsers.class
+                database.addGroup(group);
+                //Goes to DisplayUsers.class
                 startActivity(intent);
             }
         });
