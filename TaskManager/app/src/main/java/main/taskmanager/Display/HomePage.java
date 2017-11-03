@@ -44,16 +44,12 @@ public class HomePage extends AppCompatActivity {
         contentList = (ListView) findViewById(R.id.TaskList);
 
 
-        //For now the list is fixed since there is no database functions made for it yet.
-        mStringOfPlanets = this.getResources().getStringArray(R.array.planets_array);
-        mStringAdaptor = new ArrayAdapter<>(this, R.layout.drawer_list_item, mStringOfPlanets);
-
         //To be used when the database works
-        //userList = databaseHelper.getAllUserFromGroup(groupName);
-        //userListAdaptor = new ArrayAdapter<User>(this, R.layout.drawer_list_item, userList);
+        userList = databaseHelper.getAllActiveUsers();
+        userListAdaptor = new ArrayAdapter<User>(this, R.layout.drawer_list_item, userList);
 
         // Set the adapter for the list view
-        mDrawerList.setAdapter(mStringAdaptor);
+        mDrawerList.setAdapter(userListAdaptor);
 
 
         //For now the list for the tasks is fixed as there are no database methods implemented yet.
@@ -61,8 +57,8 @@ public class HomePage extends AppCompatActivity {
         contentAdapter = new ArrayAdapter<>(this, R.layout.task_list_item, stringTaskList);
 
         //To be used when the database works
-        //stringTaskList = databaseHelper.getTasksFromGroup(groupName);
-        //contentAdapter = new ArrayAdapter(this, R.layout,activity_home_page, contentTaskList);
+        //stringTaskList = databaseHelper.getActiveTasks;
+        //contentAdapter = new ArrayAdapter(this, R.layout.task_list_item, stringTaskList);
 
         contentList.setAdapter(contentAdapter);
     }

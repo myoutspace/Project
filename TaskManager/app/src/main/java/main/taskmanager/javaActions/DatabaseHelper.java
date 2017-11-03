@@ -105,11 +105,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<User> getAllUsers(String groupName) {
+    public ArrayList<User> getAllActiveUsers() {
         if(activeUsers == null) {
             activeUsers = new ArrayList<>();
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select * from users where team = '" + groupName + "'", null);
+            Cursor cursor = db.rawQuery("select * from users where team = '" + getActiveGroup() + "'", null);
 
             cursor.moveToFirst();
 
@@ -126,6 +126,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return activeUsers;
     }
+
+    /*public  ArrayList<Task> getActiveTasks() {
+        if(activeTasks == null){
+            activeTasks = new ArrayList<>();
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery("select * from tasks where team = '" + getActiveGroup() + "'", null);
+
+            cursor.moveToFirst();
+
+            while (cursor.isAfterLast() == false) {
+                Task task = new Task(cursor.getString(cursor.getColumnIndex(KEY_USER)), cursor
+                        .getInt(cursor.getColumnIndex(KEY_POINTS)), cursor
+                        .getString(cursor.getColumnIndex(KEY_TAG)), cursor
+                        .getString(cursor.getColumnIndex(KEY_DESCRIPTION));
+                activeTasks.add(task);
+                cursor.moveToNext();
+            }
+        }
+
+        return activeTasks;
+    }*/
 
     public ArrayList<String> getAllGroups() {
         ArrayList<String> array_list = new ArrayList<String>();
