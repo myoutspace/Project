@@ -9,12 +9,16 @@ public class Task {
     private String userResolve;
     private int pointAmount;
     private String completionDate;
+    private String tag;
+    private String description;
 
-    public Task(String userPost, String userResolve, int pointAmount, String completionDate) {
+    public Task(String userPost, String userResolve, int pointAmount, String completionDate, String tag, String description) {
         this.userPost = userPost;
         this.userResolve = userResolve;
         this.pointAmount = pointAmount;
         this.completionDate = completionDate;
+        this.tag = tag;
+        this.description = description;
     }
 
     public String getUserPost() {
@@ -48,4 +52,12 @@ public class Task {
     public void setCompletionDate(String completionDate) {
         this.completionDate = completionDate;
     }
+
+    public String getTag() { return tag; }
+
+    public void setTag(String tag) { this.tag = tag; }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
 }

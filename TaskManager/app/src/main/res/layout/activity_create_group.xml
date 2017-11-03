@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Enter a group name"
+                android:hint="Enter a group groupName"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
                 android:textColor="#515151" />

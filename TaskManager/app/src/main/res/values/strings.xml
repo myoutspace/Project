@@ -1,40 +1,40 @@
 <resources>
-    <string name="app_name">Task Manager</string>
-    <string name="logo">App logo</string>
-    <string name="text_view_get_started">Get Started</string>
-    <string name="text_view_create_group">Create a group</string>
-    <string name="text_view_group_name">Group Name</string>
-    <string name="button_start">Start</string>
-    <string name="button_get_started">GET STARTED</string>
-    <string name="text_view_show_message">message</string>
-    <string name="button_confirmation">OK</string>
-    <string name="button_cancel">Cancel</string>
-    <string name="Add_New_User">User registration</string>
-    <string name="delete_User">Delete a User</string>
-    <string name="name">Name</string>
-    <string name="title">Title</string>
-    <string name="password">Password</string>
-    <string name="save">Save</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="create_users">Add User</string>
-    <string name="title_activity_home_page">HomePage</string>
-    <string name="task_list">List of available tasks: </string>
-    <string name="empty_list_text">Empty</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="edit_user">Edit user</string>
-    <string name="delete_user">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
+    <string groupName="app_name">Task Manager</string>
+    <string groupName="logo">App logo</string>
+    <string groupName="text_view_get_started">Get Started</string>
+    <string groupName="text_view_create_group">Create a group</string>
+    <string groupName="text_view_group_name">Group Name</string>
+    <string groupName="button_start">Start</string>
+    <string groupName="button_get_started">GET STARTED</string>
+    <string groupName="text_view_show_message">message</string>
+    <string groupName="button_confirmation">OK</string>
+    <string groupName="button_cancel">Cancel</string>
+    <string groupName="Add_New_User">User registration</string>
+    <string groupName="delete_User">Delete a User</string>
+    <string groupName="groupName">Name</string>
+    <string groupName="title">Title</string>
+    <string groupName="password">Password</string>
+    <string groupName="save">Save</string>
+    <string groupName="yes">Yes</string>
+    <string groupName="no">No</string>
+    <string groupName="create_users">Add User</string>
+    <string groupName="title_activity_home_page">HomePage</string>
+    <string groupName="task_list">List of available tasks: </string>
+    <string groupName="empty_list_text">Empty</string>
+    <string groupName="navigation_drawer_open">Open navigation drawer</string>
+    <string groupName="navigation_drawer_close">Close navigation drawer</string>
+    <string groupName="edit_user">Edit user</string>
+    <string groupName="delete_user">Close navigation drawer</string>
+    <string groupName="action_settings">Settings</string>
 
-    <string-array name="planets_array">
+    <string-array groupName="planets_array">
         <item>Mercury</item>
         <item>Venus</item>
         <item>Earth</item>
         <item>Mars</item>
     </string-array>
 
-    <string-array name="list_chapters">
+    <string-array groupName="list_chapters">
         <item>Chapter 1</item>
         <item>Chepter 2</item>
         <item>Chapter 3</item>
@@ -46,5 +46,5 @@
         <item>Chapter 9</item>
         <item>Chapter 10</item>
     </string-array>
-    <string name="title_activity_group_selection">GroupSelection</string>
+    <string groupName="title_activity_group_selection">GroupSelection</string>
 </resources>
