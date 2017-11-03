@@ -10,7 +10,7 @@ public class Task {
     private String tag;
     private String description;
 
-    public Task(String userPost, String userResolve, int pointAmount, String completionDate, String tag, String description) {
+    public Task(String userPost, int pointAmount, String tag, String description) {
         this.userPost = userPost;
         this.pointAmount = pointAmount;
         this.tag = tag;
