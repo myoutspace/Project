@@ -6,17 +6,13 @@ package main.taskmanager.javaActions;
 
 public class Task {
     private String userPost;
-    private String userResolve;
     private int pointAmount;
-    private String completionDate;
     private String tag;
     private String description;
 
     public Task(String userPost, String userResolve, int pointAmount, String completionDate, String tag, String description) {
         this.userPost = userPost;
-        this.userResolve = userResolve;
         this.pointAmount = pointAmount;
-        this.completionDate = completionDate;
         this.tag = tag;
         this.description = description;
     }
@@ -29,14 +25,6 @@ public class Task {
         this.userPost = userPost;
     }
 
-    public String getUserResolve() {
-        return userResolve;
-    }
-
-    public void setUserResolve(String userResolve) {
-        this.userResolve = userResolve;
-    }
-
     public int getPointAmount() {
         return pointAmount;
     }
@@ -44,15 +32,7 @@ public class Task {
     public void setPointAmount(int pointAmount) {
         this.pointAmount = pointAmount;
     }
-
-    public String getCompletionDate() {
-        return completionDate;
-    }
-
-    public void setCompletionDate(String completionDate) {
-        this.completionDate = completionDate;
-    }
-
+    
     public String getTag() { return tag; }
 
     public void setTag(String tag) { this.tag = tag; }
