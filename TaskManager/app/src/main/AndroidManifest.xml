@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="main.taskmanager">
 
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="25" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,19 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:groupName=".Display.MainActivity">
+        <activity android:name=".Display.MainActivity">
             <intent-filter>
-                <action android:groupName="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:groupName="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:groupName=".Display.CreateGroup"/>
-        <activity android:groupName=".Display.CreateUsers"/>
-        <activity android:groupName=".Display.DisplayUser"/>
-        <activity android:groupName=".Display.HomePage">
+        <activity android:name=".Display.CreateGroup"/>
+        <activity android:name=".Display.CreateUsers"/>
+        <activity android:name=".Display.DisplayUser"/>
+        <activity android:name=".Display.HomePage">
         </activity>
-        <activity android:groupName=".Display.GroupSelection">
+        <activity android:name=".Display.GroupSelection">
         </activity>
     </application>
 
