@@ -9,19 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Display.MainActivity">
+        <activity android:groupName=".Display.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:groupName="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:groupName="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Display.CreateGroup"/>
-        <activity android:name=".Display.CreateUsers"/>
-        <activity android:name=".Display.DisplayUser"/>
-        <activity android:name=".Display.HomePage">
+        <activity android:groupName=".Display.CreateGroup"/>
+        <activity android:groupName=".Display.CreateUsers"/>
+        <activity android:groupName=".Display.DisplayUser"/>
+        <activity android:groupName=".Display.HomePage">
         </activity>
-        <activity android:name=".Display.GroupSelection">
+        <activity android:groupName=".Display.GroupSelection">
         </activity>
     </application>
 

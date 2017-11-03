@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -71,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addGroup(Group group) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, group.getName());
+        values.put(KEY_NAME, group.getGroupName());
         long insert = database.insert(TABLE_GROUPS, null, values);
     }
 

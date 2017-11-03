@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 
@@ -54,7 +53,7 @@ public class CreateGroup extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     Group group = new Group(groupName);
                     database.addGroup(group);
-                    database.setActiveGroup(group.getName());
+                    database.setActiveGroup(group.getGroupName());
                     startActivity(intent);
                 }
             });
