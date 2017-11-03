@@ -6,14 +6,14 @@ package main.taskmanager.javaActions;
 
 public class User {
     private String username;
-    private String pointAmount;
+    private int pointAmount;
     private String password;
     private String title;
     private String groupName;
 
 
 
-    public User(String username, String pointAmount, String password, String title, String groupName) {
+    public User(String username, int pointAmount, String password, String title, String groupName) {
         this.username = username;
         this.pointAmount = pointAmount;
         this.password = password;
@@ -29,11 +29,11 @@ public class User {
         this.username = username;
     }
 
-    public String getPointAmount() {
+    public int getPointAmount() {
         return pointAmount;
     }
 
-    public void setPointAmount(String pointAmount) {
+    public void setPointAmount(int pointAmount) {
         this.pointAmount = pointAmount;
     }
 

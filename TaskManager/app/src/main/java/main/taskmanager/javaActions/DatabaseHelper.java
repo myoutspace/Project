@@ -99,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else return null;
 
         return new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), cursor
-                .getString(cursor.getColumnIndex(KEY_POINTS)), cursor
+                .getInt(cursor.getColumnIndex(KEY_POINTS)), cursor
                 .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
                 .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
                 .getString(cursor.getColumnIndex(KEY_GROUP)));
@@ -116,7 +116,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             while (cursor.isAfterLast() == false) {
                 User user = new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), cursor
-                        .getString(cursor.getColumnIndex(KEY_POINTS)), cursor
+                        .getInt(cursor.getColumnIndex(KEY_POINTS)), cursor
                         .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
                         .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
                         .getString(cursor.getColumnIndex(KEY_GROUP)));
