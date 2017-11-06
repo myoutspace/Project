@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Names
     private static final String TABLE_USERS = "users";
     private static final String TABLE_GROUPS = "groups";
+    private static final String TABLE_TASKS = "tasks";
 
     //Same colum names
     private static final String KEY_ID = "id";
@@ -31,9 +32,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Users Table columns
     private static final String KEY_TITLE = "title";
     private static final String KEY_PASSWORD = "pass";
-    private static final String KEY_POINTS = "points";
+    private static final String KEY_POINTS = "points";  // Same column name also in tasks table
     private static final String KEY_CREATED_AT = "createdAt";
     private static final String KEY_GROUP = "team";
+
+    //Tasks Table columns
+    private static final String KEY_USER_POST = "userpost";
+    private static final String KEY_DESCRIPTION = "description";
+    private static final String KEY_TAG = "tag";
+
 
     // Static strings to save data
 
@@ -44,6 +51,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_GROUP + " TEXT, "
             + KEY_PASSWORD + " TEXT, " + KEY_POINTS + " TEXT, " + KEY_TITLE + " TEXT)";
+
+    private static final String CREATE_TABLE_TASK = "CREATE TABLE " + TABLE_TASKS + "(" + KEY_ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USER_POST + " TEXT, " + KEY_POINTS + " TEXT, "
+            + KEY_TAG + " TEXT, " + KEY_DESCRIPTION + " TEXT)";
 
     private static String activeGroup;
     private static ArrayList<User> activeUsers;
@@ -58,12 +69,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_GROUP);
         database.execSQL(CREATE_TABLE_USER);
+        database.execSQL(CREATE_TABLE_TASK);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int OldVersion, int newVersion) {
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUPS);
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        database.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS);
         onCreate(database);
     }
 
@@ -127,26 +140,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return activeUsers;
     }
 
-    /*public  ArrayList<Task> getActiveTasks() {
-        if(activeTasks == null){
+    /*
+        Before using this method, we need to discuss how we want to work with the static variables,
+     */
+
+    public  ArrayList<Task> getActiveTasks() {
             activeTasks = new ArrayList<>();
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select * from tasks where team = '" + getActiveGroup() + "'", null);
+            Cursor cursor = db.rawQuery("select * from tasks", null);
 
             cursor.moveToFirst();
 
             while (cursor.isAfterLast() == false) {
-                Task task = new Task(cursor.getString(cursor.getColumnIndex(KEY_USER)), cursor
+                Task task = new Task(cursor.getString(cursor.getColumnIndex(KEY_USER_POST)), cursor
                         .getInt(cursor.getColumnIndex(KEY_POINTS)), cursor
                         .getString(cursor.getColumnIndex(KEY_TAG)), cursor
-                        .getString(cursor.getColumnIndex(KEY_DESCRIPTION));
+                        .getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
                 activeTasks.add(task);
                 cursor.moveToNext();
             }
-        }
 
         return activeTasks;
-    }*/
+    }
 
     public ArrayList<String> getAllGroups() {
         ArrayList<String> array_list = new ArrayList<String>();
