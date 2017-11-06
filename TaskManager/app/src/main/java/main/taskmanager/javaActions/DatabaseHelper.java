@@ -59,6 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static String activeGroup;
     private static ArrayList<User> activeUsers;
     private static ArrayList<Task> activeTasks;
+    private boolean add;
 
 
     public DatabaseHelper(Context context) {
@@ -143,6 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
 
     public  ArrayList<Task> getActiveTasks() {
+        if(activeTasks == null) {
             activeTasks = new ArrayList<>();
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from tasks", null);
@@ -154,9 +156,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         .getInt(cursor.getColumnIndex(KEY_POINTS)), cursor
                         .getString(cursor.getColumnIndex(KEY_TAG)), cursor
                         .getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
-                activeTasks.add(task);
+                add;
                 cursor.moveToNext();
             }
+        }
 
         return activeTasks;
     }
