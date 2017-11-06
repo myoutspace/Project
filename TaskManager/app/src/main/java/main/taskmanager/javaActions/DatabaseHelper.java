@@ -119,8 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<User> getAllActiveUsers() {
-        if(activeUsers == null) {
-            activeUsers = new ArrayList<>();
+        activeUsers = new ArrayList<User>();
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from users where team = '" + getActiveGroup() + "'", null);
 
@@ -135,7 +134,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 activeUsers.add(user);
                 cursor.moveToNext();
             }
-        }
 
         return activeUsers;
     }
