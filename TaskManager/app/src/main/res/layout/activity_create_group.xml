@@ -21,13 +21,14 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="50sp" />
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
 
             <TextView
                 android:id="@+id/txtViewCreateGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="@string/text_view_create_group"
                 android:textAlignment="center"
                 android:textColor="#515151"
@@ -38,24 +39,21 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="#515151"
                 android:ems="10"
-                android:hint="Enter a group groupName"
+                android:hint="Enter a group name"
                 android:inputType="textPersonName"
+                android:shadowColor="#515151"
                 android:textAlignment="center"
-                android:textColor="#515151" />
+                android:textColor="#515151"
+                android:textColorHighlight="#515151"
+                android:textColorHint="#898989"
+                android:textCursorDrawable="@null" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="15sp" />
-
-            <TextView
-                android:id="@+id/txtViewGrpName"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/text_view_group_name"
-                android:textAlignment="center"
-                android:textColor="#515151" />
+                android:layout_weight="2" />
 
             <Button
                 android:id="@+id/btnStart"
@@ -66,10 +64,6 @@
                 android:text="@string/button_start"
                 android:textColor="#32CD32"
                 android:textSize="24sp" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15sp" />
 
             <Space
                 android:layout_width="match_parent"
