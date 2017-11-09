@@ -7,10 +7,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import main.taskmanager.R;
 import main.taskmanager.javaActions.DatabaseHelper;
+import main.taskmanager.javaActions.MainDrawerListAdapter;
 import main.taskmanager.javaActions.User;
 
 // https://www.anintegratedworld.com/creating-a-simple-navigation-drawer-in-android/
@@ -22,7 +25,7 @@ public class HomePage extends AppCompatActivity {
     private ArrayAdapter mStringAdaptor;
     private ListAdapter userListAdaptor;
     private String[] mStringOfPlanets;
-    private List<User> userList;
+    private ArrayList<User> userList;
 
     private String[] stringTaskList;
     private ArrayAdapter contentAdapter;
@@ -35,6 +38,7 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        databaseHelper = new DatabaseHelper(this);
         setContentView(R.layout.activity_home_page);
         groupName = databaseHelper.getActiveGroup();
         getSupportActionBar().setTitle(groupName);
@@ -46,7 +50,7 @@ public class HomePage extends AppCompatActivity {
 
         //To be used when the database works
         userList = databaseHelper.getAllActiveUsers();
-        userListAdaptor = new ArrayAdapter<User>(this, R.layout.drawer_list_item, userList);
+        userListAdaptor = new MainDrawerListAdapter(this, userList);
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(userListAdaptor);

@@ -65,12 +65,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, 1);
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_GROUP);
         database.execSQL(CREATE_TABLE_USER);
         database.execSQL(CREATE_TABLE_TASK);
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int OldVersion, int newVersion) {
@@ -98,6 +101,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_GROUP, user.getGroupName());
         long insert = database.insert(TABLE_USERS, null, values);
 
+        if(activeUsers != null) activeUsers.add(user);
+
 
     }
 
@@ -119,7 +124,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<User> getAllActiveUsers() {
-        activeUsers = new ArrayList<User>();
+        if(activeUsers == null) {
+            activeUsers = new ArrayList<User>();
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from users where team = '" + getActiveGroup() + "'", null);
 
@@ -134,7 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 activeUsers.add(user);
                 cursor.moveToNext();
             }
-
+        }
         return activeUsers;
     }
 
@@ -142,7 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Before using this method, we need to discuss how we want to work with the static variables,
      */
 
-    public  ArrayList<Task> getActiveTasks() {
+    public  ArrayList<Task> getAllActiveTasks() {
         if(activeTasks == null) {
             activeTasks = new ArrayList<>();
             SQLiteDatabase db = this.getReadableDatabase();

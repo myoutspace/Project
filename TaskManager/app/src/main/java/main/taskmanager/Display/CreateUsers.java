@@ -37,7 +37,7 @@ public class CreateUsers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_users);
         TextView textView = (TextView) findViewById(R.id.txtViewShwMssg);
-        groupName = getIntent().getStringExtra("groupName");
+        groupName = database.getActiveGroup();
         textView.setText("Users in "  + groupName);
         database = new DatabaseHelper(this);
         ArrayList<User> users = database.getAllActiveUsers();
@@ -97,11 +97,10 @@ public class CreateUsers extends AppCompatActivity {
 
     public void onConfirmGroup(View view) {
         final Intent intent = new Intent(this, HomePage.class);
-        intent.putExtra("groupName", groupName);
 
         createAlert = new AlertDialog.Builder(this).create();
         createAlert.setTitle("Confirm users in " + groupName);
-        createAlert.setMessage("Are you sure to create a group with this users?");
+        createAlert.setMessage("Are you sure to create a group with these users?");
         createAlert.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface
                 .OnClickListener() {
             @Override
