@@ -20,54 +20,37 @@ import main.taskmanager.R;
 
 public class MainDrawerListAdapter extends ArrayAdapter<User> {
 
-    private ArrayList<User> userList;
-    Context context;
-
-    public MainDrawerListAdapter(Context context, ArrayList<User> items) {
-        super(context, R.layout.drawer_list_item, items);
-        this.context = context;
-        userList = items;
-    }
-
-    /*private view holder class*/
     private static class ViewHolder {
-        static TextView pointAmount;
-        static TextView userName;
+        private TextView userName;
+        private TextView pointAmount;
     }
 
-    private int lastPosition = -1;
+    public MainDrawerListAdapter(Context context, int textViewResourceId, ArrayList<User> items) {
+        super(context, textViewResourceId, items);
+    }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        User user = getItem(position);
         ViewHolder viewHolder;
 
-        final View result;
-
-        if(convertView == null){
+        if (convertView == null) {
+            convertView = LayoutInflater.from(this.getContext())
+                    .inflate(R.layout.drawer_list_item, parent, false);
 
             viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.drawer_list_item,parent,false);
-
-            ViewHolder.userName = (TextView) convertView.findViewById(R.id.userName);
+            viewHolder.userName = (TextView) convertView.findViewById(R.id.userName);
             viewHolder.pointAmount = (TextView) convertView.findViewById(R.id.pointAmount);
 
-            result = convertView;
-
             convertView.setTag(viewHolder);
-        }
-        else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            result = convertView;
         }
 
-        lastPosition = position;
-
-        viewHolder.userName.setText(user.getUsername());
-        viewHolder.pointAmount.setText(user.getPointAmount());
+        User user = getItem(position);
+        if (user!= null) {
+            viewHolder.userName.setText(user.getUsername());
+            viewHolder.pointAmount.setText(String.valueOf(user.getPointAmount()));
+        }
 
         return convertView;
-
     }
 }
-
