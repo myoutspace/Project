@@ -15,16 +15,21 @@
             android:theme="@style/MainActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Display.CreateGroup" />
-        <activity android:name=".Display.CreateUsers" />
-        <activity android:name=".Display.DisplayUser" />
-        <activity android:name=".Display.HomePage"></activity>
-        <activity android:name=".Display.GroupSelection"></activity>
-        <activity android:name=".Display.CreateTask"></activity>
+        <activity android:name=".Display.CreateGroup"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Display.CreateUsers"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Display.DisplayUser"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Display.HomePage"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Display.GroupSelection"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Display.CreateTask"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
