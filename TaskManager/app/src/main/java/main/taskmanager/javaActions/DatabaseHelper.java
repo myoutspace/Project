@@ -98,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_TITLE, user.getTitle());
         values.put(KEY_PASSWORD, user.getPassword());
         values.put(KEY_POINTS, user.getPointAmount());
-        values.put(KEY_GROUP, user.getGroupName());
+        values.put(KEY_GROUP, getActiveGroup());
         long insert = database.insert(TABLE_USERS, null, values);
 
         if(activeUsers != null) activeUsers.add(user);
@@ -189,12 +189,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete("users", "id = ? ", new String[] { Integer.toString(id) });
     }
 
-    public static String getActiveGroup() {
+    public String getActiveGroup() {
         return activeGroup;
 
     }
 
-    public static void setActiveGroup(String activeGroup) {
+    public void setActiveGroup(String activeGroup) {
         DatabaseHelper.activeGroup = activeGroup;
     }
 
