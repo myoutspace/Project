@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,8 +19,9 @@
             android:paddingTop="40dp"
             android:text="@string/app_name"
             android:textAlignment="center"
-            android:textColor="#515151"
-            android:textSize="45sp" />
+            android:textColor="#4CAF50"
+            android:textSize="45sp"
+            android:textStyle="normal|bold" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -28,7 +30,7 @@
             android:layout_weight="3"
             android:contentDescription="@string/logo"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/handshake" />
+            app:srcCompat="@drawable/checklist" />
 
 
         <Button
@@ -43,4 +45,4 @@
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
