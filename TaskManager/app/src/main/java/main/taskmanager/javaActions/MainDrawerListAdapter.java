@@ -19,31 +19,38 @@ import main.taskmanager.R;
  */
 
 public class MainDrawerListAdapter extends ArrayAdapter<User> {
-    
 
-    public MainDrawerListAdapter(Context context, ArrayList<User> items) {
-        super(context, R.layout.drawer_list_item, items);
+    private static class ViewHolder {
+        private TextView userName;
+        private TextView pointAmount;
     }
 
-
+    public MainDrawerListAdapter(Context context, int textViewResourceId, ArrayList<User> items) {
+        super(context, textViewResourceId, items);
+    }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater daInflater = LayoutInflater.from(getContext());
-        View customView = daInflater.inflate(R.layout.drawer_list_item,parent,false);
+        ViewHolder viewHolder;
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(this.getContext())
+                    .inflate(R.layout.drawer_list_item, parent, false);
+
+            viewHolder = new ViewHolder();
+            viewHolder.userName = (TextView) convertView.findViewById(R.id.userName);
+            viewHolder.pointAmount = (TextView) convertView.findViewById(R.id.pointAmount);
+
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
         User user = getItem(position);
+        if (user!= null) {
+            viewHolder.userName.setText(user.getUsername());
+            viewHolder.pointAmount.setText(String.valueOf(user.getPointAmount()));
+        }
 
-        String userName = user.getUsername();
-        String pointAmount = String.valueOf(user.getPointAmount());
-
-        TextView displayName = (TextView) customView.findViewById(R.id.userName);
-        TextView displayPoints = (TextView) customView.findViewById(R.id.pointAmount);
-
-        displayName.setText(userName);
-        displayPoints.setText(pointAmount);
-
-
-        return customView;
-
+        return convertView;
     }
 }
-

@@ -56,7 +56,7 @@ public class HomePage extends AppCompatActivity {
 
         userList = databaseHelper.getAllActiveUsers();
         //userListAdaptor = new ArrayAdapter<User>(this,R.layout.drawer_list_item,userList);
-        userListAdaptor = new MainDrawerListAdapter(this, userList);
+        userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item,userList);
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(userListAdaptor);
