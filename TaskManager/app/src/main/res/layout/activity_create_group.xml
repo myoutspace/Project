@@ -36,13 +36,14 @@
 
             <EditText
                 android:id="@+id/edtTxtGrpName"
-                android:layout_width="250dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="#515151"
                 android:ems="10"
                 android:hint="Enter a group name"
                 android:inputType="textPersonName"
+                android:paddingTop="-1dp"
                 android:shadowColor="#515151"
                 android:textAlignment="center"
                 android:textColor="#515151"

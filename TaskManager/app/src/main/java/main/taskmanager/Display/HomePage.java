@@ -38,7 +38,7 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = DatabaseHelper.getInstance(getApplicationContext());
         setContentView(R.layout.activity_home_page);
         groupName = databaseHelper.getActiveGroup();
         getSupportActionBar().setTitle(groupName);

@@ -59,9 +59,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static String activeGroup;
     private static ArrayList<User> activeUsers;
     private static ArrayList<Task> activeTasks;
+    private static DatabaseHelper instance;
 
+    public static DatabaseHelper getInstance(Context context){
+        if(instance==null)
+            instance=new DatabaseHelper(context);
+        return instance;
+    }
 
-    public DatabaseHelper(Context context) {
+    private DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
     }
 

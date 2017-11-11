@@ -56,7 +56,7 @@ public class DisplayUser extends Activity {
         pass = (TextView) findViewById(R.id.editTextPass);
         groupName = getIntent().getStringExtra("groupName");
 
-        database = new DatabaseHelper(this.getApplicationContext());
+        database = DatabaseHelper.getInstance(getApplicationContext());
 
         Bundle extras = getIntent().getExtras();
 

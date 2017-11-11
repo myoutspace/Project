@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        database = new DatabaseHelper(this);
+        database = DatabaseHelper.getInstance(getApplicationContext());
         groups = database.getAllGroups();
     }
 

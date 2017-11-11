@@ -18,13 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Display.CreateGroup"/>
-        <activity android:name=".Display.CreateUsers"/>
-        <activity android:name=".Display.DisplayUser"/>
-        <activity android:name=".Display.HomePage">
-        </activity>
-        <activity android:name=".Display.GroupSelection">
-        </activity>
+        <activity android:name=".Display.CreateGroup" />
+        <activity android:name=".Display.CreateUsers" />
+        <activity android:name=".Display.DisplayUser" />
+        <activity android:name=".Display.HomePage"></activity>
+        <activity android:name=".Display.GroupSelection"></activity>
+        <activity android:name=".Display.CreateTask"></activity>
     </application>
 
 </manifest>

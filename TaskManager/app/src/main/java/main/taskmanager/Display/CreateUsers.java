@@ -39,7 +39,7 @@ public class CreateUsers extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.txtViewShwMssg);
         groupName = database.getActiveGroup();
         textView.setText("Users in "  + groupName);
-        database = new DatabaseHelper(this);
+        database = DatabaseHelper.getInstance(getApplicationContext());
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usersName =  new ArrayList<String>();
         for(User user : users){

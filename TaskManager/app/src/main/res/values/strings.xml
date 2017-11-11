@@ -1,4 +1,7 @@
 <resources>
+    <string name="text_box_hint_tag">Tag</string>
+    <string name="text_box_hint_description">Description</string>
+    <string name="text_box_hint_amount">Amount</string>
     <string name="app_name">Task Manager</string>
     <string name="logo">App logo</string>
     <string name="text_view_get_started">Get Started</string>
