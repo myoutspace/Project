@@ -37,9 +37,10 @@ public class CreateUsers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_users);
         TextView textView = (TextView) findViewById(R.id.txtViewShwMssg);
+        database = DatabaseHelper.getInstance(getApplicationContext());
         groupName = database.getActiveGroup();
         textView.setText("Users in "  + groupName);
-        database = DatabaseHelper.getInstance(getApplicationContext());
+
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usersName =  new ArrayList<String>();
         for(User user : users){
