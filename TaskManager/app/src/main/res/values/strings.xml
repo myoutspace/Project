@@ -29,6 +29,7 @@
     <string name="edit_user">Edit user</string>
     <string name="delete_user">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+    <string name="choose_a_group">Select your group</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>
