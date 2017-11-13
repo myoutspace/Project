@@ -33,16 +33,6 @@
             app:srcCompat="@drawable/checklist" />
 
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="@android:color/transparent"
-            android:onClick="onCreateGroup"
-            android:text="@string/button_get_started"
-            android:textColor="@android:color/holo_blue_light"
-            android:textSize="24sp" />
-
     </LinearLayout>
 
 </RelativeLayout>
