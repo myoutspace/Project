@@ -1,10 +1,62 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@android:id/text1"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceListItemSmall"
-          android:gravity="center_vertical"
-          android:paddingLeft="16dp"
-          android:paddingRight="16dp"
-          android:background="?android:attr/activatedBackgroundIndicator"
-          android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/staticPostingUer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/task_user_post"/>
+
+            <TextView
+                android:id="@+id/postingUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="THEUSERPOST"/>
+
+            <TextView
+                android:id="@+id/staticPointAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/task_point_amount"/>
+
+            <TextView
+                android:id="@+id/pointAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="THEPOINTS"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/staticTaskDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/task_description"/>
+
+        <TextView
+            android:id="@+id/taskDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TASKDESCRIPTION"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

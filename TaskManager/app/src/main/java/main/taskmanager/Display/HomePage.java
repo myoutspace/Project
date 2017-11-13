@@ -16,6 +16,8 @@ import java.util.List;
 import main.taskmanager.R;
 import main.taskmanager.javaActions.DatabaseHelper;
 import main.taskmanager.javaActions.MainDrawerListAdapter;
+import main.taskmanager.javaActions.Task;
+import main.taskmanager.javaActions.TaskListAdapter;
 import main.taskmanager.javaActions.User;
 
 // https://www.anintegratedworld.com/creating-a-simple-navigation-drawer-in-android/
@@ -25,12 +27,12 @@ public class HomePage extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ArrayAdapter mStringAdaptor;
-    private ListAdapter userListAdaptor;
+    private MainDrawerListAdapter userListAdaptor;
     private String[] mStringOfPlanets;
     private ArrayList<User> userList;
 
     private String[] stringTaskList;
-    private ArrayAdapter contentAdapter;
+    private TaskListAdapter contentAdapter;
     private ListView contentList;
 
     private String groupName;
@@ -64,13 +66,20 @@ public class HomePage extends AppCompatActivity {
         mDrawerList.setAdapter(userListAdaptor);
 
 
+        ArrayList<Task> testTaskList= new ArrayList<>();
+
+        testTaskList.add(new Task("Jack",5000, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
+        testTaskList.add(new Task("Jack",00, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
+        testTaskList.add(new Task("Jack",10, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
+
+
         //For now the list for the tasks is fixed as there are no database methods implemented yet.
-        stringTaskList = this.getResources().getStringArray(R.array.list_chapters);
-        contentAdapter = new ArrayAdapter<>(this, R.layout.task_list_item, stringTaskList);
+        //stringTaskList = this.getResources().getStringArray(R.array.list_chapters);
+        //contentAdapter = new ArrayAdapter<>(this, R.layout.task_list_item, stringTaskList);
 
         //To be used when the database works
         //stringTaskList = databaseHelper.getActiveTasks;
-        //contentAdapter = new ArrayAdapter(this, R.layout.task_list_item, stringTaskList);
+        contentAdapter = new TaskListAdapter(this, testTaskList);
 
         contentList.setAdapter(contentAdapter);
     }

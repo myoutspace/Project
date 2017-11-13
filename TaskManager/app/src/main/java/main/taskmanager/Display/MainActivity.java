@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(database.getActiveGroup() == null)
-                    startActivity(new Intent(MainActivity.this, CreateGroup.class));
+                    startActivity(new Intent(MainActivity.this, GroupSelection.class));
                 else
                     startActivity(new Intent(MainActivity.this, HomePage.class));
                 finish();
