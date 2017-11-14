@@ -33,7 +33,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_TITLE = "title";
     private static final String KEY_PASSWORD = "pass";
     private static final String KEY_POINTS = "points";  // Same column name also in tasks table
-    private static final String KEY_CREATED_AT = "createdAt";
     private static final String KEY_GROUP = "team";
 
     //Tasks Table columns
@@ -97,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void addUser(User user, String dateCreation) {
+    public void addUser(User user) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, user.getUsername());
@@ -108,25 +107,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long insert = database.insert(TABLE_USERS, null, values);
 
         if(activeUsers != null) activeUsers.add(user);
-
-
     }
 
-    public User getUser(int id) {
-        SQLiteDatabase database = this.getReadableDatabase();
+    public void addTask(Task task) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_USER_POST, task.getUserPost());
+        values.put(KEY_DESCRIPTION, task.getDescription());
+        values.put(KEY_TAG, task.getTag());
+        values.put(KEY_POINTS, task.getPointAmount());
+        long insert = database.insert(TABLE_USERS, null, values);
 
-        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_ID + " = " + id;
-
-        Cursor cursor = database.rawQuery(query, null);
-        if (cursor != null) cursor.moveToFirst();
-        else return null;
-
-        return new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), cursor
-                .getInt(cursor.getColumnIndex(KEY_POINTS)), cursor
-                .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
-                .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
-                .getString(cursor.getColumnIndex(KEY_GROUP)));
-
+        if (activeTasks != null) activeTasks.add(task);
     }
 
     public ArrayList<User> getAllActiveUsers() {
@@ -190,9 +182,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return array_list;
     }
 
-    public Integer deleteUser (int id) {
+    public Integer deleteUser(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete("users", "id = ? ", new String[] { Integer.toString(id) });
+        return db.delete(TABLE_USERS, KEY_NAME + "= ? ", new String[]{username});
+    }
+
+    public Integer deleteTask(Task task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_TASKS, KEY_TAG + "= ? ", new String[]{task.getTag()});
+    }
+
+    public Integer deleteGroup(Group group) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_GROUPS, KEY_NAME + "= ? ", new String[]{group.getGroupName()});
     }
 
     public String getActiveGroup() {

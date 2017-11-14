@@ -28,7 +28,6 @@ public class CreateUsers extends AppCompatActivity {
     public static String groupName;
     private ListView listView;
     DatabaseHelper database;
-    private SimpleCursorAdapter adapter;
     AlertDialog createAlert;
     int id_to_update = 0;
 
@@ -42,10 +41,12 @@ public class CreateUsers extends AppCompatActivity {
         textView.setText("Users in "  + groupName);
 
         ArrayList<User> users = database.getAllActiveUsers();
-        ArrayList<String> usersName =  new ArrayList<String>();
+        final ArrayList<String> usersName = new ArrayList<String>();
+
         for(User user : users){
             usersName.add(user.getUsername());
         }
+
         ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, usersName);
         listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(arrayAdapter);
@@ -53,7 +54,9 @@ public class CreateUsers extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 int id_to_update = arg2 + 1;
+                String name = usersName.get(id_to_update - 1);
                 Bundle dataBundle = new Bundle();
+                dataBundle.putString("name", name);
                 dataBundle.putInt("id", id_to_update);
                 Intent intent = new Intent(getApplicationContext(),DisplayUser.class);
                 intent.putExtras(dataBundle);
@@ -63,7 +66,7 @@ public class CreateUsers extends AppCompatActivity {
         });
     }
 
-        @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.create_users, menu);

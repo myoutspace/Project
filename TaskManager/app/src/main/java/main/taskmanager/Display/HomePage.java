@@ -51,13 +51,6 @@ public class HomePage extends AppCompatActivity {
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         contentList = (ListView) findViewById(R.id.TaskList);
 
-
-        //To be used when the database works
-        databaseHelper.addUser(new User("pat", 500, "j","leGrand",databaseHelper.getActiveGroup()),"hello");
-        databaseHelper.addUser(new User("jack", 500, "j","leMoyen",databaseHelper.getActiveGroup()),"hello");
-        databaseHelper.addUser(new User("max", 500, "j","lePetit",databaseHelper.getActiveGroup()),"hello");
-
-
         userList = databaseHelper.getAllActiveUsers();
         //userListAdaptor = new ArrayAdapter<User>(this,R.layout.drawer_list_item,userList);
         userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item,userList);

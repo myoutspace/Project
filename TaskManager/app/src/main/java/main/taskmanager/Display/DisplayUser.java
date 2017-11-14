@@ -34,6 +34,7 @@ public class DisplayUser extends Activity {
     private static TextView title;
     private static TextView pass;
     private static DatabaseHelper database;
+    private ArrayList<User> users;
     int id_To_Update = 0;
 
     /*
@@ -61,12 +62,18 @@ public class DisplayUser extends Activity {
         Bundle extras = getIntent().getExtras();
 
         if(extras !=null) {
-            int value = extras.getInt("id");
-            if(value>0){
-                //means this is the view part not the add contact part.
-                User user = database.getUser(value);
-                id_To_Update = value;
+            String value = extras.getString("name");
+            int id = extras.getInt("id");
+            users = database.getAllActiveUsers();
+            if (id > 0) {
 
+                User user = null;
+                for (User u : users) {
+                    if (u.getUsername().equals(value))
+                        user = u;
+                }
+
+                id_To_Update = id;
                 String name1 = user.getUsername();
                 String title1 = user.getTitle();
                 String password = user.getPassword();
@@ -125,7 +132,7 @@ public class DisplayUser extends Activity {
                 builder.setMessage(R.string.delete_User)
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                database.deleteUser(id_To_Update);
+                                database.deleteUser(name.getText().toString());
                                 Toast.makeText(getApplicationContext(), "Deleted Successfully",
                                         Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
@@ -154,8 +161,21 @@ public class DisplayUser extends Activity {
         intent.putExtra("groupName", groupName);
         User user = new User(name.getText().toString(), 500, pass.getText().toString(), title
                 .getText().toString(), groupName);
-        String date = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        database.addUser(user, date);
-        startActivity(intent);
+        ArrayList<User> users = database.getAllActiveUsers();
+        ArrayList<String> usernames = new ArrayList<String>();
+
+        for (User u : users) {
+            usernames.add(u.getUsername());
+        }
+
+        if (usernames.contains(user.getUsername())) {
+            Toast.makeText(this.getApplicationContext(), "The user exists already!",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this.getApplicationContext(), "User added succesfully",
+                    Toast.LENGTH_LONG).show();
+            database.addUser(user);
+            startActivity(intent);
+        }
     }
 }
