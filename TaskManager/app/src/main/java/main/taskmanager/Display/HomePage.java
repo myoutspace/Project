@@ -58,25 +58,16 @@ public class HomePage extends AppCompatActivity {
         // Set the adapter for the list view
         mDrawerList.setAdapter(userListAdaptor);
 
-
-        ArrayList<Task> testTaskList = new ArrayList<>();
-
-        //ArrayList<Task> taskList = databaseHelper.getAllActiveTasks();
-
-        //Task task = taskList.get(0);
-
-        testTaskList.add(new Task("Jack",5000, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
-        testTaskList.add(new Task("Jack",00, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
-        testTaskList.add(new Task("Jack",10, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
+        //ArrayList<Task> testTaskList = new ArrayList<>();
+        //testTaskList.add(new Task("Jack",5000, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
+        //testTaskList.add(new Task("Jack",00, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
+        //testTaskList.add(new Task("Jack",10, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
         //testTaskList.add(task);
 
-        //For now the list for the tasks is fixed as there are no database methods implemented yet.
-        //stringTaskList = this.getResources().getStringArray(R.array.list_chapters);
-        //contentAdapter = new ArrayAdapter<>(this, R.layout.task_list_item, stringTaskList);
+        ArrayList<Task> taskList;
+        taskList = databaseHelper.getAllActiveTasks();
 
-        //To be used when the database works
-        //stringTaskList = databaseHelper.getActiveTasks;
-        contentAdapter = new TaskListAdapter(this, testTaskList);
+        contentAdapter = new TaskListAdapter(this, taskList);
 
         contentList.setAdapter(contentAdapter);
     }
