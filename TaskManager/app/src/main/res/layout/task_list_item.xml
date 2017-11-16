@@ -19,21 +19,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/task_user_post"/>
+                android:text="@string/task_user_post"
+                android:textColor="#4CAF50"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/postingUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="THEUSERPOST"/>
+                android:text="THEUSERPOST"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/staticPointAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/task_point_amount"/>
+                android:text="@string/task_point_amount"
+                android:textColor="#4CAF50"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/pointAmount"
@@ -49,13 +54,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/task_description"/>
+            android:text="@string/task_description"
+            android:textColor="#4CAF50"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/taskDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TASKDESCRIPTION"/>
+            android:text="TASKDESCRIPTION"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

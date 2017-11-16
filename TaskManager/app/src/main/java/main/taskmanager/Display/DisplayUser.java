@@ -81,6 +81,9 @@ public class DisplayUser extends Activity {
                 ImageButton b = (ImageButton)findViewById(R.id.btnAdd);
                 b.setVisibility(View.INVISIBLE);
 
+                TextView passText = (TextView) findViewById(R.id.textView4);
+                passText.setVisibility(View.INVISIBLE);
+
                 name.setText((CharSequence)name1);
                 name.setFocusable(false);
                 name.setClickable(false);
@@ -89,9 +92,7 @@ public class DisplayUser extends Activity {
                 title.setFocusable(false);
                 title.setClickable(false);
 
-                pass.setText((CharSequence)password);
-                pass.setFocusable(false);
-                pass.setClickable(false);
+                pass.setVisibility(View.INVISIBLE);
             }
         }
     }
