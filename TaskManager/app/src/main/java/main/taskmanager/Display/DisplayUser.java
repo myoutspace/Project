@@ -51,7 +51,6 @@ public class DisplayUser extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_user);
-
         name = (TextView) findViewById(R.id.editTextName);
         title = (TextView) findViewById(R.id.editTextTitle);
         pass = (TextView) findViewById(R.id.editTextPass);
