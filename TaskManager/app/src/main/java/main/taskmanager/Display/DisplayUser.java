@@ -158,24 +158,27 @@ public class DisplayUser extends Activity {
 
     public void addUser(View view) {
         Intent intent = new Intent(this, CreateUsers.class);
-        intent.putExtra("groupName", groupName);
         User user = new User(name.getText().toString(), 500, pass.getText().toString(), title
                 .getText().toString(), groupName);
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usernames = new ArrayList<String>();
 
+        //A REVOIR, (le check est pas efficasse)
         for (User u : users) {
             usernames.add(u.getUsername());
         }
 
         if (usernames.contains(user.getUsername())) {
-            Toast.makeText(this.getApplicationContext(), "The user exists already!",
+            Toast.makeText(this.getApplicationContext(), "The user already exists.",
                     Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this.getApplicationContext(), "User added succesfully",
+            Toast.makeText(this.getApplicationContext(), "User added succesfully!",
                     Toast.LENGTH_LONG).show();
             database.addUser(user);
-            startActivity(intent);
+
+            String previousActivity = getIntent().getExtras().getString("previousActivity");
+            if(previousActivity.equals("HomePage")) this.finish();
+            else startActivity(intent);
         }
     }
 }
