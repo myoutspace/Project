@@ -210,5 +210,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public User getUser(String name) {
+        for(User user : activeUsers){
+            if (user.getUsername().equals(name)) return user;
+        }
+
+        return null;
+    }
+
 
 }

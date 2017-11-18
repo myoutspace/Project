@@ -95,7 +95,7 @@ public class CreateUsers extends AppCompatActivity {
 
     public void addPerson(View view) {
         Intent intent = new Intent(this, DisplayUser.class);
-        intent.putExtra("groupName", groupName);
+        intent.putExtra("previousActivity", "CreateUser");
         startActivity(intent);
     }
 

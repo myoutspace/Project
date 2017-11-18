@@ -58,12 +58,25 @@ public class CreateTask extends AppCompatActivity {
     }
 
     public void addTask(View view) {
-        Task task = new Task(from.getSelectedItem().toString(), Integer.parseInt(amount.getText().toString()), tag.getText().toString(), description.getText().toString());
-        database.addTask(task);
-        Toast.makeText(this.getApplicationContext(), "Task added succesfully",
-                Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
+
+        Integer pointsToRemove = Integer.parseInt(amount.getText().toString());
+        User userPost = database.getUser((String) from.getSelectedItem());
+
+        if(userPost.getPointAmount() - pointsToRemove < 0) {
+            Toast.makeText(this.getApplicationContext(), "You do not have enough points to create this task",
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this.getApplicationContext(), "Task added succesfully",
+                    Toast.LENGTH_LONG).show();
+            Task task = new Task(userPost.getUsername(), pointsToRemove, tag.getText().toString(), description.getText().toString());
+            database.addTask(task);
+
+            userPost.removePoints(pointsToRemove);
+
+            Intent intent = new Intent(this, HomePage.class);
+            startActivity(intent);
+        }
     }
 
     public void onCancelTask(View view) {

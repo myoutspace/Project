@@ -1,9 +1,11 @@
 package main.taskmanager.Display;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -52,11 +54,13 @@ public class HomePage extends AppCompatActivity {
         contentList = (ListView) findViewById(R.id.TaskList);
 
         userList = databaseHelper.getAllActiveUsers();
-        //userListAdaptor = new ArrayAdapter<User>(this,R.layout.drawer_list_item,userList);
         userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item,userList);
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(userListAdaptor);
+        View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.drawer_list_footer, null, false);
+        mDrawerList.addFooterView(footerView);
+
 
         //ArrayList<Task> testTaskList = new ArrayList<>();
         //testTaskList.add(new Task("Jack",5000, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
@@ -75,5 +79,21 @@ public class HomePage extends AppCompatActivity {
     public void addTask(View view) {
         Intent intent = new Intent(this, CreateTask.class);
         startActivity(intent);
+    }
+
+
+    public void addUser(View view) {
+        Intent intent = new Intent(this,DisplayUser.class);
+        intent.putExtra("previousActivity", "HomePage");
+        startActivityForResult(intent,1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        userList = databaseHelper.getAllActiveUsers();
+        userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item,userList);
+
+        // Set the adapter for the list view
+        mDrawerList.setAdapter(userListAdaptor);
     }
 }
