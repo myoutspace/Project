@@ -26,10 +26,14 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(database.getActiveGroup() == null)
-                    startActivity(new Intent(MainActivity.this, GroupSelection.class));
-                else
-                    startActivity(new Intent(MainActivity.this, HomePage.class));
+                if(groups.isEmpty())
+                    startActivity(new Intent(MainActivity.this, CreateGroup.class));
+                else{
+                    if(database.getActiveGroup() == null)
+                        startActivity(new Intent(MainActivity.this, GroupSelection.class));
+                    else
+                        startActivity(new Intent(MainActivity.this, HomePage.class));
+                }
                 finish();
             }
         },SPLAH_TIME_OUT);

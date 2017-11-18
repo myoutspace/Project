@@ -13,7 +13,11 @@
             android:id="@+id/groupButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20sp"
             android:layout_weight="1"
-            android:text="Button"/>
+            android:background="@android:color/transparent"
+            android:text="Button"
+            android:textColor="#4CAF50"
+            android:textSize="24sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

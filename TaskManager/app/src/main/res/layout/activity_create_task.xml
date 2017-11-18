@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="From"
+                android:textColor="#000080"
                 android:textSize="18sp" />
 
             <Spinner
@@ -51,7 +52,8 @@
                 android:id="@+id/editTextTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/text_box_hint_tag" />
+                android:hint="@string/text_box_hint_tag"
+                android:textColorHint="#000080" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -64,7 +66,8 @@
                 android:id="@+id/editTextDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/text_box_hint_description" />
+                android:hint="@string/text_box_hint_description"
+                android:textColorHint="#000080" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -77,7 +80,8 @@
                 android:id="@+id/editTextAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/text_box_hint_amount" />
+                android:hint="@string/text_box_hint_amount"
+                android:textColorHint="#000080" />
 
         </android.support.design.widget.TextInputLayout>
 
