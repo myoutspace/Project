@@ -62,10 +62,10 @@ public class User {
     }
 
     public void removePoints(Integer pointsToRemove){
-        this.pointAmount =- pointsToRemove;
+        this.pointAmount = this.pointAmount - pointsToRemove;
     }
 
     public void addPoints(Integer pointsToAdd){
-        this.pointAmount =+ pointsToAdd;
+        this.pointAmount = this.pointAmount + pointsToAdd;
     }
 }
