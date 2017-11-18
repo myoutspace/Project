@@ -177,7 +177,7 @@ public class DisplayUser extends Activity {
             database.addUser(user);
 
             String previousActivity = getIntent().getExtras().getString("previousActivity");
-            if(previousActivity.equals("HomePage")) this.finish();
+            if(previousActivity != null &&previousActivity.equals("HomePage")) this.finish();
             else startActivity(intent);
         }
     }

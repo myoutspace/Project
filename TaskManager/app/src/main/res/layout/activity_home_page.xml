@@ -26,22 +26,22 @@
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="30sp"
+                    android:layout_margin="0dp"
                     android:fontFamily="sans-serif"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
                     android:text="@string/task_list"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="#000080"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <ListView
                     android:id="@+id/TaskList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="30sp" />
+                    android:layout_marginBottom="5dp"/>
             </LinearLayout>
 
         </FrameLayout>
@@ -54,8 +54,8 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="addTask"
-            android:padding="48dp"
-            app:srcCompat="@drawable/addnocircle" />
+            android:padding="20dp"
+            app:srcCompat="@drawable/addnocircle"/>
 
     </LinearLayout>
 

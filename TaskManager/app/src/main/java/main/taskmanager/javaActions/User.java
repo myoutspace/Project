@@ -60,4 +60,12 @@ public class User {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public void removePoints(Integer pointsToRemove){
+        this.pointAmount =- pointsToRemove;
+    }
+
+    public void addPoints(Integer pointsToAdd){
+        this.pointAmount =+ pointsToAdd;
+    }
 }
