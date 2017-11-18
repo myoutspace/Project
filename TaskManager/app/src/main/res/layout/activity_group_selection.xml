@@ -17,7 +17,7 @@
         android:paddingTop="10sp"
         android:text="@string/choose_a_group"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="#000080"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
