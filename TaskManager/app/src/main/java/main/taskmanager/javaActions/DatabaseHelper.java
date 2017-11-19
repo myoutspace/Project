@@ -187,9 +187,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(TABLE_USERS, KEY_NAME + "= ? ", new String[]{username});
     }
 
-    public Integer deleteTask(Task task) {
+    public Integer deleteTask(Task task, String groupName) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_TASKS, KEY_TAG + "= ? ", new String[]{task.getTag()});
+        return db.delete(TABLE_TASKS, KEY_TAG + "= ? AND " + KEY_GROUP + " = ? AND " +
+                KEY_DESCRIPTION + " = ? AND " + KEY_POINTS + " = ?", new
+                String[]{task
+                .getTag(), groupName, task.getDescription(), Integer.toString(task.getPointAmount
+                ())});
     }
 
     public Integer deleteGroup(Group group) {

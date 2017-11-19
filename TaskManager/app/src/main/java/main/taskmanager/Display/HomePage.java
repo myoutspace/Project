@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -63,12 +64,27 @@ public class HomePage extends AppCompatActivity {
         View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.drawer_list_footer, null, false);
         mDrawerList.addFooterView(footerView);
 
-        ArrayList<Task> taskList;
+        final ArrayList<Task> taskList;
         taskList = databaseHelper.getAllActiveTasks();
 
         contentAdapter = new TaskListAdapter(this, taskList);
 
         contentList.setAdapter(contentAdapter);
+
+        contentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), CompleteTask.class);
+                Task task = taskList.get(i);
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("from", task.getUserPost());
+                dataBundle.putString("tag", task.getTag());
+                dataBundle.putString("desc", task.getDescription());
+                dataBundle.putInt("amount", task.getPointAmount());
+                intent.putExtras(dataBundle);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

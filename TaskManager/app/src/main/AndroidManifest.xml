@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="main.taskmanager">
+    package="main.taskmanager">
 
-    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="25" />
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="25" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,25 +17,34 @@
         android:roundIcon="@mipmap/ic_checklist"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Display.MainActivity"
+        <activity
+            android:name=".Display.MainActivity"
             android:theme="@style/MainActivityTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Display.CreateGroup"
+        <activity
+            android:name=".Display.CreateGroup"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Display.CreateUsers"
+        <activity
+            android:name=".Display.CreateUsers"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Display.DisplayUser"
+        <activity
+            android:name=".Display.DisplayUser"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Display.HomePage"
+        <activity
+            android:name=".Display.HomePage"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Display.GroupSelection"
+        <activity
+            android:name=".Display.GroupSelection"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Display.CreateTask"
+        <activity
+            android:name=".Display.CreateTask"
             android:theme="@style/AppTheme" />
+        <activity android:name=".Display.CompleteTask"></activity>
     </application>
 
 </manifest>
