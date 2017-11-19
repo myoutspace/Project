@@ -6,6 +6,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -61,19 +63,32 @@ public class HomePage extends AppCompatActivity {
         View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.drawer_list_footer, null, false);
         mDrawerList.addFooterView(footerView);
 
-
-        //ArrayList<Task> testTaskList = new ArrayList<>();
-        //testTaskList.add(new Task("Jack",5000, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
-        //testTaskList.add(new Task("Jack",00, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
-        //testTaskList.add(new Task("Jack",10, "urgent", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor nisl quis eros luctus consectetur. Suspendisse placerat dolor ornare nibh consectetur, a consectetur nisl fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper metus mauris, sed suscipit enim ullamcorper a. "));
-        //testTaskList.add(task);
-
         ArrayList<Task> taskList;
         taskList = databaseHelper.getAllActiveTasks();
 
         contentAdapter = new TaskListAdapter(this, taskList);
 
         contentList.setAdapter(contentAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch(item.getItemId()) {
+            case R.id.action_switch_group:
+                Intent intent = new Intent(this, GroupSelection.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void addTask(View view) {

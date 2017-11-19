@@ -99,11 +99,7 @@ public class DisplayUser extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-            if (id_To_Update > 0) {
-                getMenuInflater().inflate(R.menu.display_user, menu);
-            } else {
-                getMenuInflater().inflate(R.menu.create_users, menu);
-            }
+        getMenuInflater().inflate(R.menu.create_users, menu);
         return true;
     }
 
