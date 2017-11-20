@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,17 +25,32 @@ public class CreateGroup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
         database = DatabaseHelper.getInstance(getApplicationContext());
+        final EditText edittext = (EditText) findViewById(R.id.edtTxtGrpName);
+        edittext.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    createGroup();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
-    public void onCreateGroup(View view) {
+    public void createGroup() {
         EditText group = (EditText) findViewById(R.id.edtTxtGrpName);
         final String groupName = group.getText().toString();
         final Intent intent = new Intent(this, DisplayUser.class);
-        intent.putExtra("groupName", groupName);
         ArrayList<String> groups = database.getAllGroups();
         boolean check = false;
+        Bundle dataBundle = new Bundle();
+        dataBundle.putString("groupName", group.getText().toString().toLowerCase());
+        intent.putExtras(dataBundle);
 
-        if(groups.contains(groupName)){
+        if (groups.contains(groupName.toLowerCase())) {
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
             dlgAlert.setMessage("The group already exists, try another name.");
             dlgAlert.setTitle("Sorry");
@@ -57,7 +73,7 @@ public class CreateGroup extends AppCompatActivity {
                         .OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Group group = new Group(groupName);
+                        Group group = new Group(groupName.toLowerCase());
                         database.addGroup(group);
                         database.setActiveGroup(group.getGroupName());
                         startActivity(intent);
@@ -74,5 +90,9 @@ public class CreateGroup extends AppCompatActivity {
                 createAlert.show();
             }
         }
+    }
+
+    public void onCreateGroup(View view) {
+        createGroup();
     }
 }

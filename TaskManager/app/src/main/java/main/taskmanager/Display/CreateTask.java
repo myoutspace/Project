@@ -26,13 +26,14 @@ public class CreateTask extends AppCompatActivity {
     private static TextInputEditText description;
     private static TextInputEditText amount;
     private static DatabaseHelper database;
+    private static String groupName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
         database = DatabaseHelper.getInstance(getApplicationContext());
-
+        groupName = database.getActiveGroup();
         ArrayList<User> users = database.getAllActiveUsers();
         String[] usersArray = new String[users.size()];
 
@@ -70,7 +71,7 @@ public class CreateTask extends AppCompatActivity {
             Toast.makeText(this.getApplicationContext(), "Task added succesfully",
                     Toast.LENGTH_LONG).show();
             Task task = new Task(userPost.getUsername(), pointsToRemove, tag.getText().toString(), description.getText().toString());
-            database.addTask(task);
+            database.addTask(task, groupName);
 
             userPost.removePoints(pointsToRemove);
 

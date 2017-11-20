@@ -65,7 +65,7 @@ public class HomePage extends AppCompatActivity {
         mDrawerList.addFooterView(footerView);
 
         final ArrayList<Task> taskList;
-        taskList = databaseHelper.getAllActiveTasks();
+        taskList = databaseHelper.getAllActiveTasks(groupName);
 
         contentAdapter = new TaskListAdapter(this, taskList);
 

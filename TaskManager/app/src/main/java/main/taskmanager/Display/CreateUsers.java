@@ -53,11 +53,10 @@ public class CreateUsers extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                int id_to_update = arg2 + 1;
-                String name = usersName.get(id_to_update - 1);
+                String name = usersName.get(arg2);
                 Bundle dataBundle = new Bundle();
                 dataBundle.putString("name", name);
-                dataBundle.putInt("id", id_to_update);
+                dataBundle.putInt("id", arg2);
                 Intent intent = new Intent(getApplicationContext(),DisplayUser.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);

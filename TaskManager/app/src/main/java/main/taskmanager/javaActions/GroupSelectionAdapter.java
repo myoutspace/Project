@@ -57,7 +57,7 @@ public class GroupSelectionAdapter extends ArrayAdapter<String> {
             viewHolder.groupButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    databaseHelper.setActiveGroup(groupName);
+                    databaseHelper.setActiveGroup(groupName.toLowerCase());
                     Intent intent = new Intent(activityContext, HomePage.class);
                     activityContext.startActivity(intent);
                 }

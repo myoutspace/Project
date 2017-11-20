@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +36,6 @@ public class DisplayUser extends Activity {
     private static TextView pass;
     private static DatabaseHelper database;
     private ArrayList<User> users;
-    int id_To_Update = 0;
 
     /*
     Notes:
@@ -52,27 +52,29 @@ public class DisplayUser extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_user);
         name = (TextView) findViewById(R.id.editTextName);
+        setClickEvent(name);
         title = (TextView) findViewById(R.id.editTextTitle);
+        setClickEvent(title);
         pass = (TextView) findViewById(R.id.editTextPass);
-        groupName = getIntent().getStringExtra("groupName");
+        setClickEvent(pass);
 
         database = DatabaseHelper.getInstance(getApplicationContext());
 
+        groupName = database.getActiveGroup();
+
         Bundle extras = getIntent().getExtras();
 
-        if(extras !=null) {
+        if (extras.getString("name") != null) {
             String value = extras.getString("name");
             int id = extras.getInt("id");
             users = database.getAllActiveUsers();
-            if (id > 0) {
-
+            if (!users.isEmpty()) {
                 User user = null;
                 for (User u : users) {
                     if (u.getUsername().equals(value))
                         user = u;
                 }
 
-                id_To_Update = id;
                 String name1 = user.getUsername();
                 String title1 = user.getTitle();
                 String password = user.getPassword();
@@ -128,7 +130,10 @@ public class DisplayUser extends Activity {
                 builder.setMessage(R.string.delete_User)
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                database.deleteUser(name.getText().toString());
+                                User user = new User(name.getText().toString(), 0, pass.getText()
+                                        .toString(), title
+                                        .getText().toString(), groupName);
+                                database.deleteUser(user);
                                 Toast.makeText(getApplicationContext(), "Deleted Successfully",
                                         Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
@@ -152,9 +157,9 @@ public class DisplayUser extends Activity {
         }
     }
 
-    public void addUser(View view) {
+    public void add() {
         Intent intent = new Intent(this, CreateUsers.class);
-        User user = new User(name.getText().toString(), 500, pass.getText().toString(), title
+        User user = new User(name.getText().toString().toLowerCase(), 500, pass.getText().toString(), title
                 .getText().toString(), groupName);
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usernames = new ArrayList<String>();
@@ -164,8 +169,12 @@ public class DisplayUser extends Activity {
             usernames.add(u.getUsername());
         }
 
-        if (usernames.contains(user.getUsername())) {
+        if (usernames.contains(user.getUsername().toLowerCase())) {
             Toast.makeText(this.getApplicationContext(), "The user already exists.",
+                    Toast.LENGTH_LONG).show();
+        } else if (name.getText().toString().length() == 0 || pass.getText().toString().length()
+                == 0) {
+            Toast.makeText(this.getApplicationContext(), "Enter your name and password",
                     Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this.getApplicationContext(), "User added succesfully!",
@@ -173,8 +182,27 @@ public class DisplayUser extends Activity {
             database.addUser(user);
 
             String previousActivity = getIntent().getExtras().getString("previousActivity");
-            if(previousActivity != null &&previousActivity.equals("HomePage")) this.finish();
+            if (previousActivity != null && previousActivity.equals("HomePage")) this.finish();
             else startActivity(intent);
         }
     }
-}
+
+    public void setClickEvent(View view) {
+        view.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    add();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void addUser(View view) {
+        add();
+    }
+    }
