@@ -72,7 +72,10 @@ public class CompleteTask extends AppCompatActivity {
 
     public void onCompleteTask(View view){
         User userPost = database.getUser((String) completedBy.getSelectedItem());
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        User userComplete = database.getUser((String)((Spinner) findViewById(R.id.spinnerCompleteTask)).
+                getSelectedItem());
+
+        /*AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_enter_group_name, null);
         dialog.setView(dialogView);
@@ -95,10 +98,11 @@ public class CompleteTask extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        dialog.show();
+        dialog.show(); */
 
-        Task task = new Task(postedBy, points, tag, description);
-        database.deleteTask(task, database.getActiveGroup());
+        database.deleteTask(tag);
+        userComplete.setPointAmount(userComplete.getPointAmount() + points);
+
         Toast.makeText(getApplicationContext(), "Deleted Successfully",
                 Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, HomePage.class);

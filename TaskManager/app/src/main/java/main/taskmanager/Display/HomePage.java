@@ -109,7 +109,7 @@ public class HomePage extends AppCompatActivity {
 
     public void addTask(View view) {
         Intent intent = new Intent(this, CreateTask.class);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
 
@@ -126,5 +126,7 @@ public class HomePage extends AppCompatActivity {
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(userListAdaptor);
+
+
     }
 }

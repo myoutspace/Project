@@ -26,14 +26,13 @@ public class CreateTask extends AppCompatActivity {
     private static TextInputEditText description;
     private static TextInputEditText amount;
     private static DatabaseHelper database;
-    private static String groupName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
         database = DatabaseHelper.getInstance(getApplicationContext());
-        groupName = database.getActiveGroup();
+
         ArrayList<User> users = database.getAllActiveUsers();
         String[] usersArray = new String[users.size()];
 
@@ -62,21 +61,41 @@ public class CreateTask extends AppCompatActivity {
 
         Integer pointsToRemove = Integer.parseInt(amount.getText().toString());
         User userPost = database.getUser((String) from.getSelectedItem());
+        ArrayList<Task> allTasks= database.getAllActiveTasks(database.getActiveGroup());
 
         if(userPost.getPointAmount() - pointsToRemove < 0) {
             Toast.makeText(this.getApplicationContext(), "You do not have enough points to create this task",
                     Toast.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(this.getApplicationContext(), "Task added succesfully",
-                    Toast.LENGTH_LONG).show();
-            Task task = new Task(userPost.getUsername(), pointsToRemove, tag.getText().toString(), description.getText().toString());
-            database.addTask(task, groupName);
 
-            userPost.removePoints(pointsToRemove);
+            Task task;
+            String taskTag = tag.getText().toString();
 
-            Intent intent = new Intent(this, HomePage.class);
-            startActivity(intent);
+            int i = 0;
+            if(!allTasks.isEmpty()) {
+                while (allTasks.get(i) != null && allTasks.get(i).getTag() != taskTag) {
+                    i++;
+                }
+
+                if(allTasks.get(i).getTag().equals(taskTag)) {
+                    Toast.makeText(this.getApplicationContext(), "Task with this tag already exists",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+            if(allTasks.isEmpty() || allTasks.get(i).getTag().equals(taskTag)){
+                Toast.makeText(this.getApplicationContext(), "Task added succesfully",
+                        Toast.LENGTH_LONG).show();
+                task = new Task(userPost.getUsername(), pointsToRemove, taskTag, description.getText().toString());
+
+                database.addTask(task,database.getActiveGroup());
+
+                userPost.removePoints(pointsToRemove);
+
+                Intent intent = new Intent(this, HomePage.class);
+                startActivity(intent);
+            }
         }
     }
 

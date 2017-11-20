@@ -194,6 +194,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String[]{user.getUsername(), user.getGroupName()});
     }
 
+    public Integer deleteTask(String tag) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int index = findTaskIndex(tag);
+        activeTasks.remove(index);
+
+        return db.delete(TABLE_TASKS, KEY_TAG + "= ? AND " + KEY_GROUP + " = ?",
+                new String[]{tag, getActiveGroup()});
+    }
+
+    private Integer findTaskIndex(String tag){
+        int i = 0;
+        if(activeTasks != null && !activeTasks.isEmpty()){
+            while(!activeTasks.get(i).getTag().equals(tag)) {
+                i++;
+            }
+        }
+
+        return i;
+    }
+
     public Integer deleteTask(Task task, String groupName) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_TASKS, KEY_GROUP + "= ? AND " + KEY_DESCRIPTION + " = ? AND " +
