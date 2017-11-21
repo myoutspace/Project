@@ -92,6 +92,7 @@ public class CreateTask extends AppCompatActivity {
                 database.addTask(task,database.getActiveGroup());
 
                 userPost.removePoints(pointsToRemove);
+                database.updateUser(userPost);
 
                 Intent intent = new Intent(this, HomePage.class);
                 startActivity(intent);

@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/groupName"
             android:imeOptions="actionDone"
-            android:inputType="textPassword" />
+            android:inputType="none|text" />
 
     </android.support.design.widget.TextInputLayout>
 </FrameLayout>

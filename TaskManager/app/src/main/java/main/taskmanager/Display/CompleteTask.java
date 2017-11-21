@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -72,24 +73,34 @@ public class CompleteTask extends AppCompatActivity {
 
     public void onCompleteTask(View view){
         User userPost = database.getUser((String) completedBy.getSelectedItem());
-        User userComplete = database.getUser((String)((Spinner) findViewById(R.id.spinnerCompleteTask)).
+        final User userComplete = database.getUser((String)((Spinner) findViewById(R.id.spinnerCompleteTask)).
                 getSelectedItem());
 
-        /*AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_enter_group_name, null);
         dialog.setView(dialogView);
         final EditText editText = (EditText) dialogView.findViewById(R.id.editTxtPass);
-        dialog.setTitle("Delete group");
-        dialog.setMessage("Group name");
+        editText.setHint("Password");
+        editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        dialog.setTitle("User password");
+        dialog.setMessage("password");
         dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                User user;
-                user = new User(editText.getText().toString().toLowerCase(), 0, "", "", database
-                        .getActiveGroup());
-                Intent intent = new Intent(getApplicationContext(), HomePage.class);
-                startActivity(intent);
+                if(userComplete.getPassword().equals(editText.getText().toString())){
+                    database.deleteTask(tag, database.getActiveGroup());
+                    userComplete.setPointAmount(userComplete.getPointAmount() + points);
+                    database.updateUser(userComplete);
+                    Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "Task completed",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Wrong password",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -98,14 +109,6 @@ public class CompleteTask extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        dialog.show(); */
-
-        database.deleteTask(tag);
-        userComplete.setPointAmount(userComplete.getPointAmount() + points);
-
-        Toast.makeText(getApplicationContext(), "Deleted Successfully",
-                Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
+        dialog.show();
     }
 }

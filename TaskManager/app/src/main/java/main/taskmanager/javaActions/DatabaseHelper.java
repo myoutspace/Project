@@ -214,13 +214,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return i;
     }
 
-    public Integer deleteTask(Task task, String groupName) {
+    public Integer deleteTask(String tag, String groupName) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_TASKS, KEY_GROUP + "= ? AND " + KEY_DESCRIPTION + " = ? AND " +
-                KEY_TAG + " = ? AND " + KEY_POINTS + " = ? AND " + KEY_USER_POST + " = ?", new
-                String[]{groupName, task.getDescription(), task.getTag(), Integer.toString(task
-                .getPointAmount()
-        ), task.getUserPost()});
+        return db.delete(TABLE_TASKS, KEY_GROUP + "= ? AND " + KEY_TAG + " = ?", new
+                String[]{groupName, tag});
     }
 
     public Integer deleteGroup(Group group) {
@@ -250,4 +247,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return null;
     }
+
+    public void updateUser(User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_POINTS, user.getPointAmount());
+        db.update(TABLE_USERS, contentValues,
+                "name = ?", new String[]{user.getUsername()});
+    }
+
 }
