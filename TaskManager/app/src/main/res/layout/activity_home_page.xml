@@ -27,15 +27,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
+                    android:background="@android:color/transparent"
                     android:fontFamily="sans-serif"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
+                    android:padding="10sp"
+                    android:paddingBottom="10sp"
                     android:text="@string/task_list"
-                    android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="#000080"
-                    android:textSize="30sp"
-                    android:textStyle="bold"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <ListView
                     android:id="@+id/TaskList"
