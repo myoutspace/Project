@@ -1,7 +1,9 @@
 package main.taskmanager.javaActions;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import main.taskmanager.Display.GroupSelection;
 import main.taskmanager.Display.HomePage;
 import main.taskmanager.R;
 
@@ -25,6 +28,7 @@ public class GroupSelectionAdapter extends ArrayAdapter<String> {
 
     DatabaseHelper databaseHelper;
     Context activityContext;
+
     final int BACKGROUND_COLOR = ContextCompat.getColor(getContext(), R.color.colorLightGray);
     private static class ViewHolder {
         private Button groupButton;
@@ -69,9 +73,25 @@ public class GroupSelectionAdapter extends ArrayAdapter<String> {
             viewHolder.groupButton.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    return false;
+                    AlertDialog deleteDialog;
+                    deleteDialog = new android.app.AlertDialog.Builder(activityContext).create();
+                    deleteDialog.setTitle("Are you sure you want to delete the group " + groupName + "?");
+                    deleteDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface
+                            .OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Group group = new Group(groupName.toLowerCase());
+                            databaseHelper.deleteGroup(group);
+                            Intent reloadPage = new Intent(activityContext, GroupSelection.class);
+                            activityContext.startActivity(reloadPage);
+                        }
+                    });
+                    deleteDialog.show();
+                    return true;
                 }
+
             });
+
         }
 
         return convertView;
