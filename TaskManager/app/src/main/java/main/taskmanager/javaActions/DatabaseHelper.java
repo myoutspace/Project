@@ -198,7 +198,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         int index = findTaskIndex(tag);
         activeTasks.remove(index);
-
         return db.delete(TABLE_TASKS, KEY_TAG + "= ? AND " + KEY_GROUP + " = ?",
                 new String[]{tag, getActiveGroup()});
     }
@@ -253,6 +252,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_POINTS, user.getPointAmount());
+        contentValues.put(KEY_TITLE, user.getTitle());
+        contentValues.put(KEY_PASSWORD, user.getPassword());
         db.update(TABLE_USERS, contentValues,
                 "name = ?", new String[]{user.getUsername()});
     }

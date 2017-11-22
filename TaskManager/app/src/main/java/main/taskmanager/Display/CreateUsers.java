@@ -29,7 +29,6 @@ public class CreateUsers extends AppCompatActivity {
     private ListView listView;
     DatabaseHelper database;
     AlertDialog createAlert;
-    int id_to_update = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

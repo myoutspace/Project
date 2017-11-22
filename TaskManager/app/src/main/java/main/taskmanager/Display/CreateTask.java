@@ -34,10 +34,10 @@ public class CreateTask extends AppCompatActivity {
         database = DatabaseHelper.getInstance(getApplicationContext());
 
         ArrayList<User> users = database.getAllActiveUsers();
-        String[] usersArray = new String[users.size()];
+        ArrayList<String> usersArray = new ArrayList<String>();
 
-        for(int i = 0; i<users.size(); i++) {
-            usersArray[i] = users.get(i).getUsername();
+        for (User u : users) {
+            usersArray.add(u.getUsername());
         }
 
 
@@ -93,7 +93,6 @@ public class CreateTask extends AppCompatActivity {
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag, description.getText().toString());
 
                 database.addTask(task,database.getActiveGroup());
-
                 userPost.removePoints(pointsToRemove);
                 database.updateUser(userPost);
 

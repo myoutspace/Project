@@ -29,17 +29,11 @@ import main.taskmanager.javaActions.User;
 // https://android.jlelse.eu/android-adding-badge-or-count-to-the-navigation-drawer-84c93af1f4d9
 
 public class HomePage extends AppCompatActivity {
-    private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    private ArrayAdapter mStringAdaptor;
     private MainDrawerListAdapter userListAdaptor;
-    private String[] mStringOfPlanets;
     private ArrayList<User> userList;
-
-    private String[] stringTaskList;
     private TaskListAdapter contentAdapter;
     private ListView contentList;
-
     private String groupName;
     private DatabaseHelper databaseHelper;
 
@@ -52,7 +46,6 @@ public class HomePage extends AppCompatActivity {
         groupName = databaseHelper.getActiveGroup();
         getSupportActionBar().setTitle(groupName);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         contentList = (ListView) findViewById(R.id.TaskList);
 
@@ -81,7 +74,6 @@ public class HomePage extends AppCompatActivity {
                 dataBundle.putString("tag", task.getTag());
                 dataBundle.putString("desc", task.getDescription());
                 dataBundle.putInt("amount", task.getPointAmount());
-
                 intent.putExtras(dataBundle);
                 startActivityForResult(intent,1);
             }

@@ -30,7 +30,6 @@ public class CompleteTask extends AppCompatActivity {
     private static String tag;
     private static Spinner completedBy;
     private static String description;
-    private static String groupName;
     private static DatabaseHelper database;
 
     @Override
@@ -38,12 +37,11 @@ public class CompleteTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_task);
         database = DatabaseHelper.getInstance(getApplicationContext());
-        groupName = database.getActiveGroup();
         ArrayList<User> users = database.getAllActiveUsers();
-        String[] usersArray = new String[users.size()];
+        ArrayList<String> usersArray = new ArrayList<String>();
 
-        for (int i = 0; i < users.size(); i++) {
-            usersArray[i] = users.get(i).getUsername();
+        for (User u : users) {
+            usersArray.add(u.getUsername());
         }
 
         completedBy = (Spinner) findViewById(R.id.spinnerCompleteTask);
@@ -61,6 +59,7 @@ public class CompleteTask extends AppCompatActivity {
         points = getIntent().getIntExtra("amount", 0);
         tag = getIntent().getStringExtra("tag");
         description = getIntent().getStringExtra("desc");
+
         TextView poster = (TextView) findViewById(R.id.postingUser);
         TextView amount = (TextView) findViewById(R.id.pointAmount);
         TextView theTag = (TextView) findViewById(R.id.tag);
@@ -72,7 +71,7 @@ public class CompleteTask extends AppCompatActivity {
     }
 
     public void onCompleteTask(View view){
-        final User userPost = database.getUser((String) postedBy);
+        final User userPost = database.getUser(postedBy);
         final User userComplete = database.getUser((String)((Spinner) findViewById(R.id.spinnerCompleteTask)).
                 getSelectedItem());
 
@@ -90,7 +89,7 @@ public class CompleteTask extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if(userPost.getPassword().equals(editText.getText().toString())){
                     database.deleteTask(tag, database.getActiveGroup());
-                    userComplete.setPointAmount(userComplete.getPointAmount() + points);
+                    userComplete.addPoints(points);
                     database.updateUser(userComplete);
                     finish();
                     Toast.makeText(getApplicationContext(), "Task completed",
