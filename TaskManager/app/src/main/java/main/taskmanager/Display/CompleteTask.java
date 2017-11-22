@@ -64,7 +64,7 @@ public class CompleteTask extends AppCompatActivity {
         TextView poster = (TextView) findViewById(R.id.postingUser);
         TextView amount = (TextView) findViewById(R.id.pointAmount);
         TextView theTag = (TextView) findViewById(R.id.tag);
-        TextView theDescription = (TextView) findViewById(R.id.taskDescription);
+        TextView theDescription = (TextView) findViewById(R.id.taskDescription2);
         poster.setText(postedBy);
         amount.setText(Integer.toString(points));
         theTag.setText(tag);
@@ -72,7 +72,7 @@ public class CompleteTask extends AppCompatActivity {
     }
 
     public void onCompleteTask(View view){
-        User userPost = database.getUser((String) completedBy.getSelectedItem());
+        final User userPost = database.getUser((String) completedBy.getSelectedItem());
         final User userComplete = database.getUser((String)((Spinner) findViewById(R.id.spinnerCompleteTask)).
                 getSelectedItem());
 
@@ -83,12 +83,12 @@ public class CompleteTask extends AppCompatActivity {
         final EditText editText = (EditText) dialogView.findViewById(R.id.editTxtPass);
         editText.setHint("Password");
         editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        dialog.setTitle("User password");
+        dialog.setTitle("Enter password of the user that created the task.");
         dialog.setMessage("password");
         dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(userComplete.getPassword().equals(editText.getText().toString())){
+                if(userPost.getPassword().equals(editText.getText().toString())){
                     database.deleteTask(tag, database.getActiveGroup());
                     userComplete.setPointAmount(userComplete.getPointAmount() + points);
                     database.updateUser(userComplete);

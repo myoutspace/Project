@@ -74,17 +74,20 @@ public class CreateTask extends AppCompatActivity {
 
             int i = 0;
             if(!allTasks.isEmpty()) {
-                while (allTasks.get(i) != null && allTasks.get(i).getTag() != taskTag) {
+                int taskListSize = allTasks.size();
+
+                while (i < taskListSize && !allTasks.get(i).getTag().equals(taskTag))
+                {
                     i++;
                 }
 
-                if(allTasks.get(i).getTag().equals(taskTag)) {
+                if(allTasks.get(i-1).getTag().equals(taskTag)) {
                     Toast.makeText(this.getApplicationContext(), "Task with this tag already exists",
                             Toast.LENGTH_LONG).show();
                 }
             }
 
-            if(allTasks.isEmpty() || allTasks.get(i).getTag().equals(taskTag)){
+            if(allTasks.isEmpty() || !allTasks.get(i-1).getTag().equals(taskTag)){
                 Toast.makeText(this.getApplicationContext(), "Task added succesfully",
                         Toast.LENGTH_LONG).show();
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag, description.getText().toString());

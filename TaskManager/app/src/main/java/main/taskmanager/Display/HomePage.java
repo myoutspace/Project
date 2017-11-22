@@ -81,6 +81,7 @@ public class HomePage extends AppCompatActivity {
                 dataBundle.putString("tag", task.getTag());
                 dataBundle.putString("desc", task.getDescription());
                 dataBundle.putInt("amount", task.getPointAmount());
+
                 intent.putExtras(dataBundle);
                 startActivity(intent);
             }
