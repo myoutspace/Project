@@ -214,9 +214,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return i;
     }
 
-    public Integer deleteTask(String tag, String groupName) {
+    public void deleteTask(String tag, String groupName) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_TASKS, KEY_GROUP + "= ? AND " + KEY_TAG + " = ?", new
+        activeTasks.remove((int) findTaskIndex(tag));
+        db.delete(TABLE_TASKS, KEY_GROUP + "= ? AND " + KEY_TAG + " = ?", new
                 String[]{groupName, tag});
     }
 
