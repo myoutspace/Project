@@ -160,8 +160,7 @@ public class DisplayUser extends Activity {
     public void add() {
         Intent intent = new Intent(this, CreateUsers.class);
         User user = new User(name.getText().toString().toLowerCase(), 500, pass.getText()
-                .toString(), title
-                .getText().toString(), groupName);
+                .toString(), title .getText().toString(), groupName);
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usernames = new ArrayList<String>();
 

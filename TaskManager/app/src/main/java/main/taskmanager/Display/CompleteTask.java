@@ -72,7 +72,7 @@ public class CompleteTask extends AppCompatActivity {
     }
 
     public void onCompleteTask(View view){
-        final User userPost = database.getUser((String) completedBy.getSelectedItem());
+        final User userPost = database.getUser((String) postedBy);
         final User userComplete = database.getUser((String)((Spinner) findViewById(R.id.spinnerCompleteTask)).
                 getSelectedItem());
 
