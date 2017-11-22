@@ -83,7 +83,7 @@ public class HomePage extends AppCompatActivity {
                 dataBundle.putInt("amount", task.getPointAmount());
 
                 intent.putExtras(dataBundle);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
     }
@@ -128,6 +128,12 @@ public class HomePage extends AppCompatActivity {
         // Set the adapter for the list view
         mDrawerList.setAdapter(userListAdaptor);
 
+        final ArrayList<Task> taskList;
+        taskList = databaseHelper.getAllActiveTasks(groupName);
+
+        contentAdapter = new TaskListAdapter(this, taskList);
+
+        contentList.setAdapter(contentAdapter);
 
     }
 }

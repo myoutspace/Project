@@ -92,8 +92,7 @@ public class CompleteTask extends AppCompatActivity {
                     database.deleteTask(tag, database.getActiveGroup());
                     userComplete.setPointAmount(userComplete.getPointAmount() + points);
                     database.updateUser(userComplete);
-                    Intent intent = new Intent(getApplicationContext(), HomePage.class);
-                    startActivity(intent);
+                    finish();
                     Toast.makeText(getApplicationContext(), "Task completed",
                             Toast.LENGTH_SHORT).show();
                 }
