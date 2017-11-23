@@ -22,6 +22,7 @@ import java.util.Date;
 import main.taskmanager.R;
 import main.taskmanager.javaActions.DatabaseHelper;
 import main.taskmanager.javaActions.Group;
+import main.taskmanager.javaActions.SimpleAction;
 import main.taskmanager.javaActions.User;
 
 public class CreateUsers extends AppCompatActivity {
@@ -37,14 +38,14 @@ public class CreateUsers extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.txtViewShwMssg);
         database = DatabaseHelper.getInstance(getApplicationContext());
         groupName = database.getActiveGroup();
-        textView.setText("Users in "  + groupName);
+        textView.setText("Users in " + SimpleAction.capitalizeString(groupName));
         final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
         database.setActiveUsers(null);
         final ArrayList<User> users = database.getAllActiveUsers();
         final ArrayList<String> usersName = new ArrayList<String>();
 
         for(User user : users){
-            usersName.add(user.getUsername());
+            usersName.add(SimpleAction.capitalizeString(user.getUsername()));
         }
 
         ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, usersName);

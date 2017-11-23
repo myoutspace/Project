@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import main.taskmanager.R;
 import main.taskmanager.javaActions.DatabaseHelper;
 import main.taskmanager.javaActions.Group;
+import main.taskmanager.javaActions.SimpleAction;
 import main.taskmanager.javaActions.Task;
 import main.taskmanager.javaActions.User;
 
@@ -42,8 +43,9 @@ public class CompleteTask extends AppCompatActivity {
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usersArray = new ArrayList<String>();
         tasks = database.getAllActiveTasks();
+
         for (User u : users) {
-            usersArray.add(u.getUsername());
+            usersArray.add(SimpleAction.capitalizeString(u.getUsername()));
         }
 
         completedBy = (Spinner) findViewById(R.id.spinnerCompleteTask);
@@ -75,8 +77,9 @@ public class CompleteTask extends AppCompatActivity {
 
     public void onCompleteTask(View view){
         final User userPost = database.getUser(postedBy);
-        final User userComplete = database.getUser((String)((Spinner) findViewById(R.id.spinnerCompleteTask)).
-                getSelectedItem());
+        final User userComplete = database.getUser(((Spinner) findViewById(R.id
+                .spinnerCompleteTask)).
+                getSelectedItem().toString().toLowerCase());
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -84,7 +87,6 @@ public class CompleteTask extends AppCompatActivity {
         dialog.setView(dialogView);
         final EditText editText = (EditText) dialogView.findViewById(R.id.editTxtPass);
         editText.setHint("Password");
-        editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         dialog.setTitle("Enter password of the user that created the task.");
         dialog.setMessage("password");
         dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {

@@ -23,6 +23,7 @@ import java.util.List;
 import main.taskmanager.R;
 import main.taskmanager.javaActions.DatabaseHelper;
 import main.taskmanager.javaActions.MainDrawerListAdapter;
+import main.taskmanager.javaActions.SimpleAction;
 import main.taskmanager.javaActions.Task;
 import main.taskmanager.javaActions.TaskListAdapter;
 import main.taskmanager.javaActions.User;
@@ -46,7 +47,7 @@ public class HomePage extends AppCompatActivity {
         databaseHelper = DatabaseHelper.getInstance(getApplicationContext());
         setContentView(R.layout.activity_home_page);
         groupName = databaseHelper.getActiveGroup();
-        getSupportActionBar().setTitle(groupName);
+        getSupportActionBar().setTitle(SimpleAction.capitalizeString(groupName));
         databaseHelper.setActiveTasks(null);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         contentList = (ListView) findViewById(R.id.TaskList);

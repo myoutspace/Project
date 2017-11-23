@@ -75,6 +75,34 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="10sp"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:paddingTop="10sp">
+
+            <TextView
+                android:id="@+id/staticTag"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="5sp"
+                android:text="@string/text_box_hint_tag"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TAG"
+                android:textColor="#000080"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/staticTaskDescription"
             android:layout_width="match_parent"

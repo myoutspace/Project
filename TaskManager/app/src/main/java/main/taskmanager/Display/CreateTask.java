@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import main.taskmanager.R;
 import main.taskmanager.javaActions.DatabaseHelper;
+import main.taskmanager.javaActions.SimpleAction;
 import main.taskmanager.javaActions.Task;
 import main.taskmanager.javaActions.User;
 
@@ -37,7 +38,7 @@ public class CreateTask extends AppCompatActivity {
         ArrayList<String> usersArray = new ArrayList<String>();
 
         for (User u : users) {
-            usersArray.add(u.getUsername());
+            usersArray.add(SimpleAction.capitalizeString(u.getUsername()));
         }
 
 
@@ -60,7 +61,7 @@ public class CreateTask extends AppCompatActivity {
     public void addTask(View view) {
 
         Integer pointsToRemove = Integer.parseInt(amount.getText().toString());
-        User userPost = database.getUser((String) from.getSelectedItem());
+        User userPost = database.getUser(from.getSelectedItem().toString().toLowerCase());
         ArrayList<Task> allTasks = database.getAllActiveTasks();
 
         if(userPost.getPointAmount() - pointsToRemove < 0) {
@@ -71,7 +72,7 @@ public class CreateTask extends AppCompatActivity {
         else {
 
             Task task;
-            String taskTag = tag.getText().toString();
+            String taskTag = tag.getText().toString().toLowerCase();
             boolean check = false;
 
             for (Task t : allTasks) {
@@ -86,7 +87,8 @@ public class CreateTask extends AppCompatActivity {
             else {
                 Toast.makeText(this.getApplicationContext(), "Task added succesfully",
                         Toast.LENGTH_LONG).show();
-                task = new Task(userPost.getUsername(), pointsToRemove, taskTag, description.getText().toString());
+                task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
+                        description.getText().toString());
 
                 database.addTask(task,database.getActiveGroup());
                 userPost.removePoints(pointsToRemove);

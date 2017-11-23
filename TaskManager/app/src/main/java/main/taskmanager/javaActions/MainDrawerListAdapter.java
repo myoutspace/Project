@@ -47,7 +47,7 @@ public class MainDrawerListAdapter extends ArrayAdapter<User> {
 
         User user = getItem(position);
         if (user!= null) {
-            viewHolder.userName.setText(user.getUsername());
+            viewHolder.userName.setText(SimpleAction.capitalizeString(user.getUsername()));
             viewHolder.pointAmount.setText(String.valueOf(user.getPointAmount()));
         }
 

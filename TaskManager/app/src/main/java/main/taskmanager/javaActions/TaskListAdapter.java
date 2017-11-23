@@ -21,6 +21,7 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         private TextView taskUser;
         private TextView taskPoint;
         private TextView taskDescription;
+        private TextView taskTag;
     }
 
     public TaskListAdapter(Context context, ArrayList<Task> items) {
@@ -37,6 +38,7 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
             viewHolder = new TaskListAdapter.ViewHolder();
             viewHolder.taskUser = (TextView) convertView.findViewById(R.id.postingUser);
             viewHolder.taskPoint = (TextView) convertView.findViewById(R.id.pointAmount);
+            viewHolder.taskTag = (TextView) convertView.findViewById(R.id.tag);
             viewHolder.taskDescription = (TextView) convertView.findViewById(R.id.taskDescription);
 
             convertView.setTag(viewHolder);
@@ -46,8 +48,9 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
 
         Task task = getItem(position);
         if (task!= null) {
-            viewHolder.taskUser.setText(task.getUserPost());
+            viewHolder.taskUser.setText(SimpleAction.capitalizeString(task.getUserPost()));
             viewHolder.taskPoint.setText(String.valueOf(task.getPointAmount()));
+            viewHolder.taskTag.setText(SimpleAction.capitalizeString(task.getTag()));
             viewHolder.taskDescription.setText(task.getDescription());
         }
 

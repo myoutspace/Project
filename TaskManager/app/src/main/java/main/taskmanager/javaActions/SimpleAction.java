@@ -8,7 +8,7 @@ import android.view.View;
  */
 
 public class SimpleAction {
-    public static String capitalizeName(String name){
+    public static String capitalizeString(String name) {
         name = name.substring(0,1).toUpperCase() + name.substring(1,name.length());
         return name;
     }
