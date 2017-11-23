@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper database;
     ArrayList<String> groups;
-    private static int SPLAH_TIME_OUT = 4000;
+    private static int SPLAH_TIME_OUT = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
