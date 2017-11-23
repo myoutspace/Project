@@ -38,8 +38,9 @@ public class CreateUsers extends AppCompatActivity {
         database = DatabaseHelper.getInstance(getApplicationContext());
         groupName = database.getActiveGroup();
         textView.setText("Users in "  + groupName);
-
-        ArrayList<User> users = database.getAllActiveUsers();
+        final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
+        database.setActiveUsers(null);
+        final ArrayList<User> users = database.getAllActiveUsers();
         final ArrayList<String> usersName = new ArrayList<String>();
 
         for(User user : users){
@@ -62,6 +63,40 @@ public class CreateUsers extends AppCompatActivity {
 
             }
         });
+
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long
+                    id) {
+                final User user = users.get(position);
+                deleteDialog.setTitle("Are you sure you want to delete " + user.getUsername() +
+                        "?");
+                deleteDialog.setButton(deleteDialog.BUTTON_POSITIVE, "Yes", new DialogInterface
+                        .OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        database.deleteUser(user);
+                        Intent reloadPage = new Intent(getApplicationContext(), CreateUsers.class);
+                        getApplicationContext().startActivity(reloadPage);
+                    }
+                });
+                deleteDialog.setButton(deleteDialog.BUTTON_NEGATIVE, "No", new DialogInterface
+                        .OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteDialog.dismiss();
+                    }
+                });
+                deleteDialog.show();
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     @Override

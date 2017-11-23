@@ -37,11 +37,28 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/txtViewNoTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif"
+                    android:padding="10sp"
+                    android:paddingBottom="10sp"
+                    android:text="NO TASKS"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="normal"
+                    android:visibility="gone" />
+
                 <ListView
                     android:id="@+id/TaskList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"/>
+                    android:layout_marginBottom="5dp"
+                    android:paddingTop="10sp" />
             </LinearLayout>
 
         </FrameLayout>

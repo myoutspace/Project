@@ -157,6 +157,15 @@ public class DisplayUser extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getIntent().getStringExtra("previousActivity") != null) {
+            super.onBackPressed();
+        } else {
+
+        }
+    }
+
     public void add() {
         Intent intent = new Intent(this, CreateUsers.class);
         User user = new User(name.getText().toString().toLowerCase(), 500, pass.getText()

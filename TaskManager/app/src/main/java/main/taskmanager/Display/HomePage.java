@@ -2,6 +2,7 @@ package main.taskmanager.Display;
 
 import android.content.Context;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -45,7 +47,7 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
         groupName = databaseHelper.getActiveGroup();
         getSupportActionBar().setTitle(groupName);
-
+        databaseHelper.setActiveTasks(null);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         contentList = (ListView) findViewById(R.id.TaskList);
 
@@ -58,26 +60,33 @@ public class HomePage extends AppCompatActivity {
         mDrawerList.addFooterView(footerView);
 
         final ArrayList<Task> taskList;
-        taskList = databaseHelper.getAllActiveTasks(groupName);
+        taskList = databaseHelper.getAllActiveTasks();
 
-        contentAdapter = new TaskListAdapter(this, taskList);
+        if (taskList.isEmpty()) {
+            TextView noTask = (TextView) findViewById(R.id.txtViewNoTask);
+            contentList.setVisibility(View.GONE);
+            noTask.setText("There are currently no tasks available");
+            noTask.setVisibility(View.VISIBLE);
+        } else {
+            contentAdapter = new TaskListAdapter(this, taskList);
 
-        contentList.setAdapter(contentAdapter);
+            contentList.setAdapter(contentAdapter);
 
-        contentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), CompleteTask.class);
-                Task task = taskList.get(i);
-                Bundle dataBundle = new Bundle();
-                dataBundle.putString("from", task.getUserPost());
-                dataBundle.putString("tag", task.getTag());
-                dataBundle.putString("desc", task.getDescription());
-                dataBundle.putInt("amount", task.getPointAmount());
-                intent.putExtras(dataBundle);
-                startActivityForResult(intent,1);
-            }
-        });
+            contentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(getApplicationContext(), CompleteTask.class);
+                    Task task = taskList.get(i);
+                    Bundle dataBundle = new Bundle();
+                    dataBundle.putString("from", task.getUserPost());
+                    dataBundle.putString("tag", task.getTag());
+                    dataBundle.putString("desc", task.getDescription());
+                    dataBundle.putInt("amount", task.getPointAmount());
+                    intent.putExtras(dataBundle);
+                    startActivityForResult(intent, 1);
+                }
+            });
+        }
     }
 
     @Override
@@ -92,6 +101,8 @@ public class HomePage extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         switch(item.getItemId()) {
             case R.id.action_switch_group:
+                databaseHelper.setActiveTasks(null);
+                databaseHelper.setActiveUsers(null);
                 Intent intent = new Intent(this, GroupSelection.class);
                 startActivity(intent);
                 return true;
@@ -121,7 +132,7 @@ public class HomePage extends AppCompatActivity {
         mDrawerList.setAdapter(userListAdaptor);
 
         final ArrayList<Task> taskList;
-        taskList = databaseHelper.getAllActiveTasks(groupName);
+        taskList = databaseHelper.getAllActiveTasks();
 
         contentAdapter = new TaskListAdapter(this, taskList);
 

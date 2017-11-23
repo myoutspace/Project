@@ -31,6 +31,8 @@ public class CompleteTask extends AppCompatActivity {
     private static Spinner completedBy;
     private static String description;
     private static DatabaseHelper database;
+    private static ArrayList<Task> tasks;
+    private static Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class CompleteTask extends AppCompatActivity {
         database = DatabaseHelper.getInstance(getApplicationContext());
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usersArray = new ArrayList<String>();
-
+        tasks = database.getAllActiveTasks();
         for (User u : users) {
             usersArray.add(u.getUsername());
         }
@@ -68,6 +70,7 @@ public class CompleteTask extends AppCompatActivity {
         amount.setText(Integer.toString(points));
         theTag.setText(tag);
         theDescription.setText(description);
+        task = new Task(postedBy, points, tag, description);
     }
 
     public void onCompleteTask(View view){
@@ -88,12 +91,13 @@ public class CompleteTask extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(userPost.getPassword().equals(editText.getText().toString())){
-                    database.deleteTask(tag, database.getActiveGroup());
+                    database.deleteTask(task);
                     userComplete.addPoints(points);
                     database.updateUser(userComplete);
-                    finish();
                     Toast.makeText(getApplicationContext(), "Task completed",
                             Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Wrong password",

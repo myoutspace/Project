@@ -73,10 +73,11 @@ public class GroupSelectionAdapter extends ArrayAdapter<String> {
             viewHolder.groupButton.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    AlertDialog deleteDialog;
+                    final AlertDialog deleteDialog;
                     deleteDialog = new android.app.AlertDialog.Builder(activityContext).create();
                     deleteDialog.setTitle("Are you sure you want to delete the group " + groupName + "?");
-                    deleteDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface
+                    deleteDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE,
+                            "Yes", new DialogInterface
                             .OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -84,6 +85,13 @@ public class GroupSelectionAdapter extends ArrayAdapter<String> {
                             databaseHelper.deleteGroup(group);
                             Intent reloadPage = new Intent(activityContext, GroupSelection.class);
                             activityContext.startActivity(reloadPage);
+                        }
+                    });
+                    deleteDialog.setButton(deleteDialog.BUTTON_NEGATIVE, "No", new
+                            DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteDialog.dismiss();
                         }
                     });
                     deleteDialog.show();

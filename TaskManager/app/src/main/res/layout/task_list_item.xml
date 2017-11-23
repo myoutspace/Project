@@ -12,7 +12,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
             android:background="#E8E8E8"
             android:orientation="horizontal">
 
@@ -91,8 +90,9 @@
             android:id="@+id/taskDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:layout_marginTop="5sp"
+            android:paddingBottom="10sp"
+            android:paddingLeft="10sp"
+            android:paddingTop="5sp"
             android:text="TASKDESCRIPTION"
             android:textColor="#000080"
             android:textSize="18sp" />

@@ -61,33 +61,29 @@ public class CreateTask extends AppCompatActivity {
 
         Integer pointsToRemove = Integer.parseInt(amount.getText().toString());
         User userPost = database.getUser((String) from.getSelectedItem());
-        ArrayList<Task> allTasks= database.getAllActiveTasks(database.getActiveGroup());
+        ArrayList<Task> allTasks = database.getAllActiveTasks();
 
         if(userPost.getPointAmount() - pointsToRemove < 0) {
             Toast.makeText(this.getApplicationContext(), "You do not have enough points to create this task",
                     Toast.LENGTH_LONG).show();
         }
+
         else {
 
             Task task;
             String taskTag = tag.getText().toString();
+            boolean check = false;
 
-            int i = 0;
-            if(!allTasks.isEmpty()) {
-                int taskListSize = allTasks.size();
-
-                while (i < taskListSize && !allTasks.get(i).getTag().equals(taskTag))
-                {
-                    i++;
-                }
-
-                if(allTasks.get(i-1).getTag().equals(taskTag)) {
-                    Toast.makeText(this.getApplicationContext(), "Task with this tag already exists",
-                            Toast.LENGTH_LONG).show();
-                }
+            for (Task t : allTasks) {
+                if (t.getTag().equals(taskTag))
+                    check = true;
             }
 
-            if(allTasks.isEmpty() || !allTasks.get(i-1).getTag().equals(taskTag)){
+            if (check)
+                Toast.makeText(this.getApplicationContext(), "A task with that tag already exits!",
+                        Toast.LENGTH_LONG).show();
+
+            else {
                 Toast.makeText(this.getApplicationContext(), "Task added succesfully",
                         Toast.LENGTH_LONG).show();
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag, description.getText().toString());

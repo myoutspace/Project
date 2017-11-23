@@ -150,12 +150,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Before using this method, we need to discuss how we want to work with the static variables,
      */
 
-    public ArrayList<Task> getAllActiveTasks(String groupName) {
+    public ArrayList<Task> getAllActiveTasks() {
         if (activeTasks == null) {
             activeTasks = new ArrayList<>();
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from " + TABLE_TASKS + " where " + KEY_GROUP +
-                    " = ?", new String[]{groupName});
+                    " = ?", new String[]{getActiveGroup()});
 
             cursor.moveToFirst();
 
@@ -188,36 +188,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return array_list;
     }
 
-    public Integer deleteUser(User user) {
+    public void deleteUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_USERS, KEY_NAME + "= ? AND " + KEY_GROUP + " = ?", new
+        db.delete(TABLE_USERS, KEY_NAME + "= ? AND " + KEY_GROUP + " = ?", new
                 String[]{user.getUsername(), user.getGroupName()});
+        activeUsers.remove(user);
     }
 
-    public Integer deleteTask(String tag) {
+    public void deleteTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int index = findTaskIndex(tag);
-        activeTasks.remove(index);
-        return db.delete(TABLE_TASKS, KEY_TAG + "= ? AND " + KEY_GROUP + " = ?",
-                new String[]{tag, getActiveGroup()});
-    }
-
-    private Integer findTaskIndex(String tag){
-        int i = 0;
-        if(activeTasks != null && !activeTasks.isEmpty()){
-            while(!activeTasks.get(i).getTag().equals(tag)) {
-                i++;
-            }
-        }
-
-        return i;
-    }
-
-    public void deleteTask(String tag, String groupName) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        activeTasks.remove((int) findTaskIndex(tag));
         db.delete(TABLE_TASKS, KEY_GROUP + "= ? AND " + KEY_TAG + " = ?", new
-                String[]{groupName, tag});
+                String[]{getActiveGroup(), task.getTag()});
+        activeTasks.remove(task);
     }
 
     public Integer deleteGroup(Group group) {
@@ -235,6 +217,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper.activeGroup = activeGroup;
     }
 
+    public void setActiveUsers(ArrayList<User> activeUsers) {
+        DatabaseHelper.activeUsers = activeUsers;
+    }
+
+    public void setActiveTasks(ArrayList<Task> activeTasks) {
+        DatabaseHelper.activeTasks = activeTasks;
+    }
+
     public void closeConnection() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.close();
@@ -244,7 +234,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for(User user : activeUsers){
             if (user.getUsername().equals(name)) return user;
         }
-
         return null;
     }
 
@@ -252,8 +241,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_POINTS, user.getPointAmount());
-        contentValues.put(KEY_TITLE, user.getTitle());
-        contentValues.put(KEY_PASSWORD, user.getPassword());
         db.update(TABLE_USERS, contentValues,
                 "name = ?", new String[]{user.getUsername()});
     }
