@@ -1,9 +1,9 @@
 package main.taskmanager.Display;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.opengl.Visibility;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,22 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import main.taskmanager.R;
-import main.taskmanager.javaActions.DatabaseHelper;
-import main.taskmanager.javaActions.MainDrawerListAdapter;
-import main.taskmanager.javaActions.SimpleAction;
-import main.taskmanager.javaActions.Task;
-import main.taskmanager.javaActions.TaskListAdapter;
-import main.taskmanager.javaActions.User;
+import main.taskmanager.javaActions.*;
+
 
 // https://www.anintegratedworld.com/creating-a-simple-navigation-drawer-in-android/
 // https://android.jlelse.eu/android-adding-badge-or-count-to-the-navigation-drawer-84c93af1f4d9
@@ -40,7 +31,6 @@ public class HomePage extends AppCompatActivity {
     private String groupName;
     private DatabaseHelper databaseHelper;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +41,7 @@ public class HomePage extends AppCompatActivity {
         databaseHelper.setActiveTasks(null);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         contentList = (ListView) findViewById(R.id.TaskList);
-
+        final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
         userList = databaseHelper.getAllActiveUsers();
         userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item,userList);
 
@@ -85,6 +75,35 @@ public class HomePage extends AppCompatActivity {
                     dataBundle.putInt("amount", task.getPointAmount());
                     intent.putExtras(dataBundle);
                     startActivityForResult(intent, 1);
+                }
+            });
+
+            contentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long
+                        l) {
+                    final Task task = taskList.get(i);
+                    deleteDialog.setTitle("Are you sure you want to delete with the tag " + task
+                            .getTag() +
+                            "?");
+                    deleteDialog.setButton(deleteDialog.BUTTON_POSITIVE, "Yes", new DialogInterface
+                            .OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            databaseHelper.deleteTask(task);
+                            Intent reloadPage = new Intent(getApplicationContext(), HomePage.class);
+                            getApplicationContext().startActivity(reloadPage);
+                        }
+                    });
+                    deleteDialog.setButton(deleteDialog.BUTTON_NEGATIVE, "No", new DialogInterface
+                            .OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteDialog.dismiss();
+                        }
+                    });
+                    deleteDialog.show();
+                    return true;
                 }
             });
         }
