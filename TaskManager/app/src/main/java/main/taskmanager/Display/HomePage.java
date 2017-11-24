@@ -11,8 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import main.taskmanager.R;
@@ -41,7 +43,8 @@ public class HomePage extends AppCompatActivity {
         databaseHelper.setActiveTasks(null);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         contentList = (ListView) findViewById(R.id.TaskList);
-        final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        final LayoutInflater inflater = this.getLayoutInflater();
         userList = databaseHelper.getAllActiveUsers();
         userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item,userList);
 
@@ -83,26 +86,35 @@ public class HomePage extends AppCompatActivity {
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long
                         l) {
                     final Task task = taskList.get(i);
-                    deleteDialog.setTitle("Are you sure you want to delete with the tag " + task
-                            .getTag() +
-                            "?");
-                    deleteDialog.setButton(deleteDialog.BUTTON_POSITIVE, "Yes", new DialogInterface
-                            .OnClickListener() {
+                    final User user = databaseHelper.getUser(task.getUserPost());
+                    final View dialogView = inflater.inflate(R.layout.dialog_enter_group_name, null);
+                    dialog.setView(dialogView);
+                    final EditText editText = (EditText) dialogView.findViewById(R.id.editTxtPass);
+                    editText.setHint("Password");
+                    dialog.setTitle("Enter password of the user that created the task.");
+                    dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            databaseHelper.deleteTask(task);
-                            Intent reloadPage = new Intent(getApplicationContext(), HomePage.class);
-                            getApplicationContext().startActivity(reloadPage);
+                            if(user.getPassword().equals(editText.getText().toString())){
+                                databaseHelper.deleteTask(task);
+                                Toast.makeText(getApplicationContext(), "Task deleted",
+                                        Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(), "Wrong password",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
-                    deleteDialog.setButton(deleteDialog.BUTTON_NEGATIVE, "No", new DialogInterface
-                            .OnClickListener() {
+                    dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            deleteDialog.dismiss();
+                            dialog.dismiss();
                         }
                     });
-                    deleteDialog.show();
+                    dialog.show();
                     return true;
                 }
             });
