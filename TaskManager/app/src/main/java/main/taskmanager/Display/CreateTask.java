@@ -59,8 +59,13 @@ public class CreateTask extends AppCompatActivity {
     }
 
     public void addTask(View view) {
-
-        Integer pointsToRemove = Integer.parseInt(amount.getText().toString());
+        Integer pointsToRemove;
+        try
+        {
+            pointsToRemove = Integer.parseInt(amount.getText().toString());
+        }catch(NumberFormatException e){
+            pointsToRemove = 0;
+        }
         User userPost = database.getUser(from.getSelectedItem().toString().toLowerCase());
         ArrayList<Task> allTasks = database.getAllActiveTasks();
 
