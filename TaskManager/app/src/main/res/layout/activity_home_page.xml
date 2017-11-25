@@ -81,20 +81,40 @@
         android:id="@+id/left_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_marginBottom="0dp"
         android:layout_weight="1"
+        android:backgroundTint="@android:color/black"
+        android:background="@android:color/black"
         android:orientation="vertical">
 
+        <ListView
+            android:id="@+id/left_drawer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#111"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp">
+
+        </ListView>
+
+        <ImageButton
+            android:id="@+id/addUserButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@android:color/black"
+            android:onClick="addUser"
+            android:padding="20dp"
+            android:paddingBottom="50dp"
+            android:src="@drawable/ic_add_person_white" />
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#111"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+
 
 </android.support.v4.widget.DrawerLayout>

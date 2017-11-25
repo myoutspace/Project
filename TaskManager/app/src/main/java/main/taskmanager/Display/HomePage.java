@@ -50,8 +50,8 @@ public class HomePage extends AppCompatActivity {
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(userListAdaptor);
-        View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.drawer_list_footer, null, false);
-        mDrawerList.addFooterView(footerView);
+        //View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.drawer_list_footer, null, false);
+        //mDrawerList.addFooterView(footerView);
 
         final ArrayList<Task> taskList;
         taskList = databaseHelper.getAllActiveTasks();
