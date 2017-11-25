@@ -71,7 +71,7 @@ public class CreateUsers extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long
                     id) {
                 final User user = users.get(position);
-                deleteDialog.setTitle("Are you sure you want to delete " + user.getUsername() +
+                deleteDialog.setTitle("Are you sure you want to delete " + SimpleAction.capitalizeString(user.getUsername()) +
                         "?");
                 deleteDialog.setButton(deleteDialog.BUTTON_POSITIVE, "Yes", new DialogInterface
                         .OnClickListener() {
@@ -137,7 +137,7 @@ public class CreateUsers extends AppCompatActivity {
         final Intent intent = new Intent(this, HomePage.class);
 
         createAlert = new AlertDialog.Builder(this).create();
-        createAlert.setTitle("Confirm users in " + groupName);
+        createAlert.setTitle("Confirm users in " + SimpleAction.capitalizeString(groupName));
         createAlert.setMessage("Are you sure to create a group with these users?");
         createAlert.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface
                 .OnClickListener() {

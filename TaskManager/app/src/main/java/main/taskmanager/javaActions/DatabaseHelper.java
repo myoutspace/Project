@@ -105,8 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, user.getPassword());
         values.put(KEY_POINTS, Integer.toString(user.getPointAmount()));
         values.put(KEY_GROUP, user.getGroupName());
-        long insert = database.insert(TABLE_USERS, null, values);
-
+        database.insert(TABLE_USERS, null, values);
         if (activeUsers != null) activeUsers.add(user);
     }
 
@@ -118,8 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_TAG, task.getTag());
         values.put(KEY_POINTS, Integer.toString(task.getPointAmount()));
         values.put(KEY_GROUP, groupName);
-        long insert = database.insert(TABLE_TASKS, null, values);
-
+        database.insert(TABLE_TASKS, null, values);
         if (activeTasks != null) activeTasks.add(task);
     }
 
@@ -136,8 +134,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 User user = new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), Integer
                         .parseInt(cursor
                         .getString(cursor.getColumnIndex(KEY_POINTS))), cursor
-                        .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
                         .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
+                        .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
                         .getString(cursor.getColumnIndex(KEY_GROUP)));
                 activeUsers.add(user);
                 cursor.moveToNext();

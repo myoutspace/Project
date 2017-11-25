@@ -37,26 +37,13 @@ public class DisplayUser extends Activity {
     private static DatabaseHelper database;
     private ArrayList<User> users;
 
-    /*
-    Notes:
-    - a mon avis avoir une méthode qui détermine le nombre d'utilisateurs dans la base de
-    donnée. Ainsi lorsqu'il y a deux utilisateur on crée un nouveau xml et classe identique à
-    displayUser mais avec un boutton secondaire pour continuer dans la page d'assigner une tache
-
-    - aussi au lieu d'utiliser intent.putExtra, on cherche directement l'information de la base
-    de données
-    */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_user);
         name = (TextView) findViewById(R.id.editTextName);
-        setClickEvent(name);
         title = (TextView) findViewById(R.id.editTextTitle);
-        setClickEvent(title);
         pass = (TextView) findViewById(R.id.editTextPass);
-        setClickEvent(pass);
 
         database = DatabaseHelper.getInstance(getApplicationContext());
 
@@ -66,7 +53,6 @@ public class DisplayUser extends Activity {
 
         if (extras.getString("name") != null) {
             String value = extras.getString("name");
-            int id = extras.getInt("id");
             users = database.getAllActiveUsers();
             if (!users.isEmpty()) {
                 User user = null;
@@ -77,7 +63,6 @@ public class DisplayUser extends Activity {
 
                 String name1 = user.getUsername();
                 String title1 = user.getTitle();
-                String password = user.getPassword();
 
                 ImageButton b = (ImageButton)findViewById(R.id.btnAdd);
                 b.setVisibility(View.INVISIBLE);
@@ -95,65 +80,6 @@ public class DisplayUser extends Activity {
 
                 pass.setVisibility(View.INVISIBLE);
             }
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.create_users, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        switch(item.getItemId()) {
-            case R.id.Edit_Contact:
-                ImageButton b = (ImageButton)findViewById(R.id.btnAdd);
-                b.setVisibility(View.VISIBLE);
-                name.setEnabled(true);
-                name.setFocusableInTouchMode(true);
-                name.setClickable(true);
-
-                title.setEnabled(true);
-                title.setFocusableInTouchMode(true);
-                title.setClickable(true);
-
-                pass.setEnabled(true);
-                pass.setFocusableInTouchMode(true);
-                pass.setClickable(true);
-
-                return true;
-            case R.id.Delete_Contact:
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(R.string.delete_User)
-                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                User user = new User(name.getText().toString(), 0, pass.getText()
-                                        .toString(), title
-                                        .getText().toString(), groupName);
-                                database.deleteUser(user);
-                                Toast.makeText(getApplicationContext(), "Deleted Successfully",
-                                        Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
-                            }
-                        });
-
-                AlertDialog d = builder.create();
-                d.setTitle("Are you sure");
-                d.show();
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -184,7 +110,7 @@ public class DisplayUser extends Activity {
         } else if (name.getText().toString().length() == 0 || pass.getText().toString().length()
                 == 0) {
             Toast.makeText(this.getApplicationContext(), "Enter your name and password",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this.getApplicationContext(), "User added succesfully!",
                     Toast.LENGTH_LONG).show();

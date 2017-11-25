@@ -45,7 +45,6 @@ public class CreateGroup extends AppCompatActivity {
         final String groupName = group.getText().toString();
         final Intent intent = new Intent(this, DisplayUser.class);
         ArrayList<String> groups = database.getAllGroups();
-        boolean check = false;
         Bundle dataBundle = new Bundle();
         dataBundle.putString("groupName", group.getText().toString().toLowerCase());
         intent.putExtras(dataBundle);
@@ -57,17 +56,16 @@ public class CreateGroup extends AppCompatActivity {
             dlgAlert.setPositiveButton("OK", null);
             dlgAlert.setCancelable(true);
             dlgAlert.create().show();
-            check = true;
         }
 
-        if(check == false){
+        else{
             if(groupName.length() < 4){
                 Toast.makeText(getApplicationContext(), "Enter a group name with minimum 4 letters",
                         Toast.LENGTH_SHORT).show();
             }
             else{
                 createAlert = new AlertDialog.Builder(this).create();
-                createAlert.setTitle("Group name is " + groupName);
+                createAlert.setTitle("Group name is " + SimpleAction.capitalizeString(groupName));
                 createAlert.setMessage("Is that correct?");
                 createAlert.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface
                         .OnClickListener() {
