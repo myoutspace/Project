@@ -59,6 +59,16 @@
                 android:text="@string/groupName"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
+            <TextView
+                android:id="@+id/nameMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="TextView"
+                android:textColor="#000080"
+                android:visibility="gone" />
+
             <EditText
                 android:id="@+id/editTextTitle"
                 android:layout_width="wrap_content"
@@ -100,6 +110,16 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:text="@string/password"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/passMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="TextView"
+                android:textColor="#000080"
+                android:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/btnAdd"
