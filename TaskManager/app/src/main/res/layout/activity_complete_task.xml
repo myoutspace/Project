@@ -44,7 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="THEUSERPOST"
-                        android:textColor="#000080"
+                        android:textColor="@color/colorNavyBlue"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -69,7 +69,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="THEPOINTS"
-                        android:textColor="#000080"
+                        android:textColor="@color/colorNavyBlue"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TAG"
-                    android:textColor="#000080"
+                    android:textColor="@color/colorNavyBlue"
                     android:textSize="24sp" />
 
             </LinearLayout>
@@ -130,7 +130,7 @@
                     android:layout_weight="1"
                     android:paddingLeft="5sp"
                     android:text="TASKDESCRIPTION"
-                    android:textColor="#000080"
+                    android:textColor="@color/colorNavyBlue"
                     android:textSize="18sp" />
             </LinearLayout>
 

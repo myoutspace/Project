@@ -19,7 +19,7 @@
             android:paddingTop="40dp"
             android:text="@string/app_name"
             android:textAlignment="center"
-            android:textColor="#4CAF50"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="45sp"
             android:textStyle="normal|bold" />
 

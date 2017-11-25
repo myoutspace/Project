@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:paddingTop="0dp"
             android:text="@string/choose_a_group"
-            android:textColor="#000080"
+            android:textColor="@color/colorNavyBlue"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.074"

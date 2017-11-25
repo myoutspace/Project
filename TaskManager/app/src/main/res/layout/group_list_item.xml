@@ -18,7 +18,7 @@
             android:padding="10sp"
             android:text="Button"
             android:textAlignment="textStart"
-            android:textColor="#000080"
+            android:textColor="@color/colorNavyBlue"
             android:textSize="18sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
