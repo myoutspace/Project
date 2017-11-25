@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import main.taskmanager.R;
 import main.taskmanager.javaActions.DatabaseHelper;
+import main.taskmanager.javaActions.SimpleAction;
 import main.taskmanager.javaActions.User;
 
 import android.app.Activity;
@@ -19,9 +20,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -42,8 +46,10 @@ public class DisplayUser extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_user);
         name = (TextView) findViewById(R.id.editTextName);
+        setClickEvent(name);
         title = (TextView) findViewById(R.id.editTextTitle);
         pass = (TextView) findViewById(R.id.editTextPass);
+        setClickEvent(pass);
 
         database = DatabaseHelper.getInstance(getApplicationContext());
 
@@ -64,17 +70,17 @@ public class DisplayUser extends Activity {
                 String name1 = user.getUsername();
                 String title1 = user.getTitle();
 
-                ImageButton b = (ImageButton)findViewById(R.id.btnAdd);
+                ImageButton b = (ImageButton) findViewById(R.id.btnAdd);
                 b.setVisibility(View.INVISIBLE);
 
                 TextView passText = (TextView) findViewById(R.id.textView4);
                 passText.setVisibility(View.INVISIBLE);
 
-                name.setText((CharSequence)name1);
+                name.setText((CharSequence) SimpleAction.capitalizeString(name1));
                 name.setFocusable(false);
                 name.setClickable(false);
 
-                title.setText((CharSequence)title1);
+                title.setText((CharSequence) title1);
                 title.setFocusable(false);
                 title.setClickable(false);
 
@@ -95,7 +101,7 @@ public class DisplayUser extends Activity {
     public void add() {
         Intent intent = new Intent(this, CreateUsers.class);
         User user = new User(name.getText().toString().toLowerCase(), 500, pass.getText()
-                .toString(), title .getText().toString(), groupName);
+                .toString(), title.getText().toString(), groupName);
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usernames = new ArrayList<String>();
 
@@ -107,13 +113,13 @@ public class DisplayUser extends Activity {
         if (usernames.contains(user.getUsername().toLowerCase())) {
             Toast.makeText(this.getApplicationContext(), "The user already exists.",
                     Toast.LENGTH_LONG).show();
-        } else if (name.getText().toString().length() == 0 || pass.getText().toString().length()
-                == 0) {
-            Toast.makeText(this.getApplicationContext(), "Enter your name and password",
-                    Toast.LENGTH_SHORT).show();
+        } else if (name.getText().toString().trim().equalsIgnoreCase("") ||
+                name.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(this.getApplicationContext(), "View the errors!",
+                    Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this.getApplicationContext(), "User added succesfully!",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
             database.addUser(user);
 
             String previousActivity = getIntent().getExtras().getString("previousActivity");
@@ -123,13 +129,16 @@ public class DisplayUser extends Activity {
     }
 
     public void setClickEvent(View view) {
+        final EditText editText = ((EditText) view);
         view.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
-                    add();
+                    if (editText.getText().toString().trim().equalsIgnoreCase("")) {
+                        editText.setError("This field can not be blank");
+                    }
                     return true;
                 }
                 return false;
@@ -140,4 +149,4 @@ public class DisplayUser extends Activity {
     public void addUser(View view) {
         add();
     }
-    }
+}
