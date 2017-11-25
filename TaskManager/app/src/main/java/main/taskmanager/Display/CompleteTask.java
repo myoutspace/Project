@@ -51,7 +51,7 @@ public class CompleteTask extends AppCompatActivity {
         completedBy = (Spinner) findViewById(R.id.spinnerCompleteTask);
         //Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout
+        adapter = new ArrayAdapter<String>(this, android.R.layout
                 .simple_spinner_dropdown_item, usersArray);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
