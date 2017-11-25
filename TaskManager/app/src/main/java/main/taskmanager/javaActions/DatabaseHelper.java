@@ -179,7 +179,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         while (cursor.isAfterLast() == false) {
             String groupName = (cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-            array_list.add(groupName);
+            array_list.add(SimpleAction.capitalizeString(groupName));
             cursor.moveToNext();
         }
 

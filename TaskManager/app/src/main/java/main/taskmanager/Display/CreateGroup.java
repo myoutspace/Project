@@ -49,7 +49,7 @@ public class CreateGroup extends AppCompatActivity {
         dataBundle.putString("groupName", group.getText().toString().toLowerCase());
         intent.putExtras(dataBundle);
 
-        if (groups.contains(groupName.toLowerCase())) {
+        if (groups.contains(SimpleAction.capitalizeString(groupName))) {
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
             dlgAlert.setMessage("The group already exists, try another name.");
             dlgAlert.setTitle("Sorry");
