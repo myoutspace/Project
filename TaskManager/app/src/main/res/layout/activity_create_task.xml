@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="From"
-                android:textColor="#000080"
+                android:textColor="@color/colorNavyBlue"
                 android:textSize="18sp" />
 
             <Spinner
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                />
+                android:theme="@style/AppTheme" />
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
