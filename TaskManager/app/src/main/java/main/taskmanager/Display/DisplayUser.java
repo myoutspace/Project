@@ -114,7 +114,7 @@ public class DisplayUser extends Activity {
             Toast.makeText(this.getApplicationContext(), "The user already exists.",
                     Toast.LENGTH_LONG).show();
         } else if (name.getText().toString().trim().equalsIgnoreCase("") ||
-                name.getText().toString().trim().equalsIgnoreCase("")) {
+                pass.getText().toString().trim().equalsIgnoreCase("")) {
             Toast.makeText(this.getApplicationContext(), "Name and password fields cannot be blank!",
                     Toast.LENGTH_LONG).show();
         } else {
