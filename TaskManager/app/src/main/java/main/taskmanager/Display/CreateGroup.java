@@ -59,11 +59,11 @@ public class CreateGroup extends AppCompatActivity {
         }
 
         else{
-            if(groupName.length() < 4){
-                Toast.makeText(getApplicationContext(), "Enter a group name with minimum 4 letters",
-                        Toast.LENGTH_SHORT).show();
-            }
-            else{
+            if(groupName.trim().equalsIgnoreCase("")){
+                group.setError("This field can not be blank");
+            } else if(groupName.length() < 2){
+                group.setError("The group name has to be at least 2 letters");
+            } else{
                 createAlert = new AlertDialog.Builder(this).create();
                 createAlert.setTitle("Group name is " + SimpleAction.capitalizeString(groupName));
                 createAlert.setMessage("Is that correct?");
