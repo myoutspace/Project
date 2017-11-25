@@ -9,21 +9,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 import main.taskmanager.R;
-import main.taskmanager.javaActions.DatabaseHelper;
-import main.taskmanager.javaActions.Group;
-import main.taskmanager.javaActions.SimpleAction;
-import main.taskmanager.javaActions.User;
+import main.taskmanager.javaActions.*;
+
 
 public class CreateUsers extends AppCompatActivity {
     public static String groupName;
@@ -56,8 +50,9 @@ public class CreateUsers extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 String name = usersName.get(arg2);
                 Bundle dataBundle = new Bundle();
-                dataBundle.putString("name", name);
+                dataBundle.putString("name", name.toLowerCase());
                 dataBundle.putInt("id", arg2);
+                dataBundle.putString("previousActivity", "CreateUsers");
                 Intent intent = new Intent(getApplicationContext(),DisplayUser.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
