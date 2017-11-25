@@ -136,8 +136,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 User user = new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), Integer
                         .parseInt(cursor
                         .getString(cursor.getColumnIndex(KEY_POINTS))), cursor
-                        .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
                         .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
+                        .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
                         .getString(cursor.getColumnIndex(KEY_GROUP)));
                 activeUsers.add(user);
                 cursor.moveToNext();
