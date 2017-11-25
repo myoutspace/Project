@@ -50,24 +50,6 @@ public class GroupSelection extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.group_menu, menu);
-        return true;
-    }
-
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case R.id.action_add_group:
-                Intent addGroup = new Intent(this, CreateGroup.class);
-                this.startActivity(addGroup);
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     public void onAddGroup (View v){
         Intent addGroup = new Intent(this,CreateGroup.class);
