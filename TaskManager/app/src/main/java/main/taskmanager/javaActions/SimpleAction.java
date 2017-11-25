@@ -9,7 +9,9 @@ import android.view.View;
 
 public class SimpleAction {
     public static String capitalizeString(String name) {
-        name = name.substring(0,1).toUpperCase() + name.substring(1,name.length());
-        return name;
+        if (name == null || name.length() == 0) {
+            return name;
+        }
+        return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 }
