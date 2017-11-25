@@ -53,7 +53,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/text_box_hint_tag"
-                android:inputType="text|textShortMessage"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/editTextAmount"
+                android:nextFocusForward="@+id/editTextAmount"
                 android:textColorHint="#000080" />
         </android.support.design.widget.TextInputLayout>
 
