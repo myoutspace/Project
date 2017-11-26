@@ -95,33 +95,6 @@ public class CreateUsers extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.create_users, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-
-        switch(item.getItemId()) {
-            case R.id.Add_User:
-                Bundle dataBundle = new Bundle();
-                dataBundle.putInt("id", 0);
-                dataBundle.putString("groupName", groupName);
-
-                Intent intent = new Intent(getApplicationContext(),DisplayUser.class);
-                intent.putExtras(dataBundle);
-
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     public void addPerson(View view) {
         Intent intent = new Intent(this, DisplayUser.class);
         intent.putExtra("previousActivity", "CreateUser");
