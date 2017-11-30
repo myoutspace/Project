@@ -3,5 +3,8 @@
     <item
     android:id="@+id/action_switch_group"
     android:title="Switch group"></item>
+    <item
+        android:id="@+id/action_documentation"
+        android:title="Help"></item>
 
 </menu>
