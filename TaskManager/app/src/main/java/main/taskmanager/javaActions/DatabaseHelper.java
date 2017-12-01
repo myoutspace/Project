@@ -41,12 +41,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_TAG = "tag";
 
+    //Group Table columns
+
+    private static final String KEY_ACTIVE_GROUP = "lastactivegroup";
+
 
     // Static strings to save data
 
     //Table create Statements
     private static final String CREATE_TABLE_GROUP = "CREATE TABLE " + TABLE_GROUPS + "(" + KEY_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT" + ")";
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_ACTIVE_GROUP +
+            " TEXT)";
 
     private static final String CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_GROUP + " TEXT, "
@@ -93,6 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, group.getGroupName());
+        values.put(KEY_ACTIVE_GROUP, "0");
         long insert = database.insert(TABLE_GROUPS, null, values);
     }
 
@@ -208,11 +214,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String getActiveGroup() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_GROUPS + " where " + KEY_ACTIVE_GROUP +
+                " = ?", new String[]{"1"});
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            activeGroup = cursor.getString(cursor.getColumnIndex("name"));
+        }
         return activeGroup;
     }
 
     public void setActiveGroup(String activeGroup) {
         DatabaseHelper.activeGroup = activeGroup;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_ACTIVE_GROUP, "0");
+        db.update(TABLE_GROUPS, contentValues, null, null);
+        contentValues.put(KEY_ACTIVE_GROUP, "1");
+        db.update(TABLE_GROUPS, contentValues, "name = ?", new String[]{activeGroup});
     }
 
     public void setActiveUsers(ArrayList<User> activeUsers) {
