@@ -50,8 +50,43 @@ public class HomePage extends AppCompatActivity {
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(userListAdaptor);
-        //View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.drawer_list_footer, null, false);
-        //mDrawerList.addFooterView(footerView);
+
+        mDrawerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long
+                    l) {
+                final User user = userList.get(i);
+                final View userDialogView = inflater.inflate(R.layout.dialog_enter_group_name, null);
+                dialog.setView(userDialogView);
+                final EditText editText = (EditText) userDialogView.findViewById(R.id.editTxtPass);
+                editText.setHint("Password");
+                dialog.setTitle("Enter password of the user to delete.");
+                dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(user.getPassword().equals(editText.getText().toString())){
+                            databaseHelper.deleteUser(user);
+                            Toast.makeText(getApplicationContext(), "User deleted",
+                                    Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "Wrong password",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+                return true;
+            }
+        });
 
         final ArrayList<Task> taskList;
         taskList = databaseHelper.getAllActiveTasks();
