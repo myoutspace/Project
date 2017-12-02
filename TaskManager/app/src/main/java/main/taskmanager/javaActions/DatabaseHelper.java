@@ -41,12 +41,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_TAG = "tag";
 
+    //Group Table columns
+
+    private static final String KEY_ACTIVE_GROUP = "lastactivegroup";
+
 
     // Static strings to save data
 
     //Table create Statements
     private static final String CREATE_TABLE_GROUP = "CREATE TABLE " + TABLE_GROUPS + "(" + KEY_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT" + ")";
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_ACTIVE_GROUP +
+            " TEXT)";
 
     private static final String CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USERS + "(" + KEY_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_GROUP + " TEXT, "
@@ -93,6 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, group.getGroupName());
+        values.put(KEY_ACTIVE_GROUP, "0");
         long insert = database.insert(TABLE_GROUPS, null, values);
     }
 
@@ -105,8 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, user.getPassword());
         values.put(KEY_POINTS, Integer.toString(user.getPointAmount()));
         values.put(KEY_GROUP, user.getGroupName());
-        long insert = database.insert(TABLE_USERS, null, values);
-
+        database.insert(TABLE_USERS, null, values);
         if (activeUsers != null) activeUsers.add(user);
     }
 
@@ -118,8 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_TAG, task.getTag());
         values.put(KEY_POINTS, Integer.toString(task.getPointAmount()));
         values.put(KEY_GROUP, groupName);
-        long insert = database.insert(TABLE_TASKS, null, values);
-
+        database.insert(TABLE_TASKS, null, values);
         if (activeTasks != null) activeTasks.add(task);
     }
 
@@ -181,7 +185,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         while (cursor.isAfterLast() == false) {
             String groupName = (cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-            array_list.add(groupName);
+            array_list.add(SimpleAction.capitalizeString(groupName));
             cursor.moveToNext();
         }
 
@@ -210,11 +214,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String getActiveGroup() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_GROUPS + " where " + KEY_ACTIVE_GROUP +
+                " = ?", new String[]{"1"});
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            activeGroup = cursor.getString(cursor.getColumnIndex("name"));
+        }
         return activeGroup;
     }
 
     public void setActiveGroup(String activeGroup) {
         DatabaseHelper.activeGroup = activeGroup;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_ACTIVE_GROUP, "0");
+        db.update(TABLE_GROUPS, contentValues, null, null);
+        contentValues.put(KEY_ACTIVE_GROUP, "1");
+        db.update(TABLE_GROUPS, contentValues, "name = ?", new String[]{activeGroup});
     }
 
     public void setActiveUsers(ArrayList<User> activeUsers) {

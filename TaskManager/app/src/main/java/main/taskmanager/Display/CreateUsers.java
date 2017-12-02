@@ -9,21 +9,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 import main.taskmanager.R;
-import main.taskmanager.javaActions.DatabaseHelper;
-import main.taskmanager.javaActions.Group;
-import main.taskmanager.javaActions.SimpleAction;
-import main.taskmanager.javaActions.User;
+import main.taskmanager.javaActions.*;
+
 
 public class CreateUsers extends AppCompatActivity {
     public static String groupName;
@@ -56,8 +50,9 @@ public class CreateUsers extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 String name = usersName.get(arg2);
                 Bundle dataBundle = new Bundle();
-                dataBundle.putString("name", name);
+                dataBundle.putString("name", name.toLowerCase());
                 dataBundle.putInt("id", arg2);
+                dataBundle.putString("previousActivity", "CreateUsers");
                 Intent intent = new Intent(getApplicationContext(),DisplayUser.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
@@ -71,7 +66,7 @@ public class CreateUsers extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long
                     id) {
                 final User user = users.get(position);
-                deleteDialog.setTitle("Are you sure you want to delete " + user.getUsername() +
+                deleteDialog.setTitle("Are you sure you want to delete " + SimpleAction.capitalizeString(user.getUsername()) +
                         "?");
                 deleteDialog.setButton(deleteDialog.BUTTON_POSITIVE, "Yes", new DialogInterface
                         .OnClickListener() {
@@ -100,33 +95,6 @@ public class CreateUsers extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.create_users, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-
-        switch(item.getItemId()) {
-            case R.id.Add_User:
-                Bundle dataBundle = new Bundle();
-                dataBundle.putInt("id", 0);
-                dataBundle.putString("groupName", groupName);
-
-                Intent intent = new Intent(getApplicationContext(),DisplayUser.class);
-                intent.putExtras(dataBundle);
-
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     public void addPerson(View view) {
         Intent intent = new Intent(this, DisplayUser.class);
         intent.putExtra("previousActivity", "CreateUser");
@@ -137,7 +105,7 @@ public class CreateUsers extends AppCompatActivity {
         final Intent intent = new Intent(this, HomePage.class);
 
         createAlert = new AlertDialog.Builder(this).create();
-        createAlert.setTitle("Confirm users in " + groupName);
+        createAlert.setTitle("Confirm users in " + SimpleAction.capitalizeString(groupName));
         createAlert.setMessage("Are you sure to create a group with these users?");
         createAlert.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface
                 .OnClickListener() {

@@ -51,7 +51,7 @@ public class CompleteTask extends AppCompatActivity {
         completedBy = (Spinner) findViewById(R.id.spinnerCompleteTask);
         //Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout
+        adapter = new ArrayAdapter<String>(this, android.R.layout
                 .simple_spinner_dropdown_item, usersArray);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -68,9 +68,9 @@ public class CompleteTask extends AppCompatActivity {
         TextView amount = (TextView) findViewById(R.id.pointAmount);
         TextView theTag = (TextView) findViewById(R.id.tag);
         TextView theDescription = (TextView) findViewById(R.id.taskDescription2);
-        poster.setText(postedBy);
+        poster.setText(SimpleAction.capitalizeString(postedBy));
         amount.setText(Integer.toString(points));
-        theTag.setText(tag);
+        theTag.setText(SimpleAction.capitalizeString(tag));
         theDescription.setText(description);
         task = new Task(postedBy, points, tag, description);
     }

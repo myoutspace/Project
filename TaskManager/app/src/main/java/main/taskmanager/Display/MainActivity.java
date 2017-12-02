@@ -38,14 +38,4 @@ public class MainActivity extends AppCompatActivity {
             }
         },SPLAH_TIME_OUT);
     }
-
-    /*
-    public void onCreateGroup(View view){
-        if(database.getActiveGroup() == null)
-            startActivity(new Intent(this, CreateGroup.class));
-        else
-            startActivity(new Intent(this, HomePage.class));
-
-    }
-    */
 }

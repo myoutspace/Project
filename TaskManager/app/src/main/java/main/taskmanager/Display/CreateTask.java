@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class CreateTask extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         //Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(getApplicationContext() ,android.R.layout.simple_spinner_dropdown_item, usersArray);
+        adapter = new ArrayAdapter<String>(this ,android.R.layout.simple_spinner_dropdown_item, usersArray);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -54,6 +56,7 @@ public class CreateTask extends AppCompatActivity {
 
         from = (Spinner) findViewById(R.id.spinner);
         tag = (TextInputEditText) findViewById(R.id.editTextTag);
+        setClickEvent(tag);
         description = (TextInputEditText) findViewById(R.id.editTextDescription);
         amount = (TextInputEditText) findViewById(R.id.editTextAmount);
     }
@@ -66,15 +69,14 @@ public class CreateTask extends AppCompatActivity {
         }catch(NumberFormatException e){
             pointsToRemove = 0;
         }
+
         User userPost = database.getUser(from.getSelectedItem().toString().toLowerCase());
         ArrayList<Task> allTasks = database.getAllActiveTasks();
 
         if(userPost.getPointAmount() - pointsToRemove < 0) {
             Toast.makeText(this.getApplicationContext(), "You do not have enough points to create this task",
                     Toast.LENGTH_LONG).show();
-        }
-
-        else {
+        } else{
 
             Task task;
             String taskTag = tag.getText().toString().toLowerCase();
@@ -85,11 +87,13 @@ public class CreateTask extends AppCompatActivity {
                     check = true;
             }
 
-            if (check)
+            if (check){
                 Toast.makeText(this.getApplicationContext(), "A task with that tag already exits!",
                         Toast.LENGTH_LONG).show();
-
-            else {
+            } else if(taskTag.trim().equalsIgnoreCase("")){
+                Toast.makeText(this.getApplicationContext(), "The tag field cannot be empty!",
+                        Toast.LENGTH_LONG).show();
+            } else {
                 Toast.makeText(this.getApplicationContext(), "Task added succesfully",
                         Toast.LENGTH_LONG).show();
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
@@ -108,5 +112,23 @@ public class CreateTask extends AppCompatActivity {
     public void onCancelTask(View view) {
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
+    }
+
+    public void setClickEvent(View view) {
+        final EditText editText = ((EditText) view);
+        view.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    if (editText.getText().toString().trim().equalsIgnoreCase("")) {
+                        editText.setError("This field can not be blank");
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

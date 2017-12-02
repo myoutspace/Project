@@ -1,9 +1,9 @@
 package main.taskmanager.Display;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -136,6 +136,10 @@ public class HomePage extends AppCompatActivity {
                 databaseHelper.setActiveTasks(null);
                 databaseHelper.setActiveUsers(null);
                 Intent intent = new Intent(this, GroupSelection.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_documentation:
+                intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://rukazana.com"));
                 startActivity(intent);
                 return true;
             default:

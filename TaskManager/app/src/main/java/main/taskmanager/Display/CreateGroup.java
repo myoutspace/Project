@@ -45,29 +45,27 @@ public class CreateGroup extends AppCompatActivity {
         final String groupName = group.getText().toString();
         final Intent intent = new Intent(this, DisplayUser.class);
         ArrayList<String> groups = database.getAllGroups();
-        boolean check = false;
         Bundle dataBundle = new Bundle();
         dataBundle.putString("groupName", group.getText().toString().toLowerCase());
         intent.putExtras(dataBundle);
 
-        if (groups.contains(groupName.toLowerCase())) {
+        if (groups.contains(SimpleAction.capitalizeString(groupName))) {
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
             dlgAlert.setMessage("The group already exists, try another name.");
             dlgAlert.setTitle("Sorry");
             dlgAlert.setPositiveButton("OK", null);
             dlgAlert.setCancelable(true);
             dlgAlert.create().show();
-            check = true;
         }
 
-        if(check == false){
-            if(groupName.length() < 4){
-                Toast.makeText(getApplicationContext(), "Enter a group name with minimum 4 letters",
-                        Toast.LENGTH_SHORT).show();
-            }
-            else{
+        else{
+            if(groupName.trim().equalsIgnoreCase("")){
+                group.setError("This field can not be blank");
+            } else if(groupName.length() < 2){
+                group.setError("The group name has to be at least 2 letters");
+            } else{
                 createAlert = new AlertDialog.Builder(this).create();
-                createAlert.setTitle("Group name is " + groupName);
+                createAlert.setTitle("Group name is " + SimpleAction.capitalizeString(groupName));
                 createAlert.setMessage("Is that correct?");
                 createAlert.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface
                         .OnClickListener() {

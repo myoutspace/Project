@@ -33,7 +33,7 @@
                     android:paddingBottom="10sp"
                     android:text="@string/task_list"
                     android:textAllCaps="false"
-                    android:textColor="#000080"
+                    android:textColor="@color/colorNavyBlue"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
