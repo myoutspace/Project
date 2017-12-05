@@ -1,5 +1,5 @@
 <resources>
-    <string name="text_box_hint_tag">Tag:</string>
+    <string name="text_box_hint_tag">Title:</string>
     <string name="text_box_hint_description">Description</string>
     <string name="text_box_hint_amount">Amount</string>
     <string name="app_name">Task Manager</string>
@@ -31,7 +31,7 @@
     <string name="action_settings">Settings</string>
     <string name="choose_a_group">Group selection</string>
     <string name="task_user_post">Posted by:</string>
-    <string name="task_tag">Tag: </string>
+    <string name="task_tag">Title:</string>
     <string name="task_point_amount">Points: </string>
     <string name="task_description">Task Description: </string>
 

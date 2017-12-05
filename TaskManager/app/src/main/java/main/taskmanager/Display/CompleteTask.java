@@ -115,4 +115,43 @@ public class CompleteTask extends AppCompatActivity {
         });
         dialog.show();
     }
+
+    public void onEditTask(View view){
+        final User userPost = database.getUser(postedBy);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_enter_group_name, null);
+        dialog.setView(dialogView);
+        final EditText editText = (EditText) dialogView.findViewById(R.id.editTxtPass);
+        editText.setHint("Password");
+        dialog.setTitle("Enter password of the user that created the task.");
+        dialog.setMessage("password");
+        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(userPost.getPassword().equals(editText.getText().toString())){
+                    Intent intent = new Intent(getApplicationContext(), CreateTask.class);
+                    Bundle dataBundle = new Bundle();
+                    dataBundle.putString("tag", tag);
+                    dataBundle.putInt("amount", points);
+                    dataBundle.putString("from", postedBy);
+                    dataBundle.putString("desc", description);
+                    dataBundle.putString("previousActivity","CompleteTask");
+                    intent.putExtras(dataBundle);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Wrong password",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 }

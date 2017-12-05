@@ -184,6 +184,7 @@ public class HomePage extends AppCompatActivity {
 
     public void addTask(View view) {
         Intent intent = new Intent(this, CreateTask.class);
+        intent.putExtra("previousActivity", "HomePage");
         startActivityForResult(intent,1);
     }
 

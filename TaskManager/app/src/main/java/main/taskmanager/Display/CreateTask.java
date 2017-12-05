@@ -1,24 +1,16 @@
 package main.taskmanager.Display;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.*;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
-
+import android.transition.Visibility;
+import android.view.*;
+import android.widget.*;
 import java.util.ArrayList;
-
 import main.taskmanager.R;
-import main.taskmanager.javaActions.DatabaseHelper;
-import main.taskmanager.javaActions.SimpleAction;
-import main.taskmanager.javaActions.Task;
-import main.taskmanager.javaActions.User;
+import main.taskmanager.javaActions.*;
+
 
 import static android.widget.ArrayAdapter.createFromResource;
 
@@ -29,13 +21,14 @@ public class CreateTask extends AppCompatActivity {
     private static TextInputEditText description;
     private static TextInputEditText amount;
     private static DatabaseHelper database;
+    private static User userPost;
+    private static Task oldTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
         database = DatabaseHelper.getInstance(getApplicationContext());
-
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usersArray = new ArrayList<String>();
 
@@ -59,9 +52,24 @@ public class CreateTask extends AppCompatActivity {
         setClickEvent(tag);
         description = (TextInputEditText) findViewById(R.id.editTextDescription);
         amount = (TextInputEditText) findViewById(R.id.editTextAmount);
+        if(getIntent().getStringExtra("previousActivity").equals("CompleteTask")){
+            ((LinearLayout) findViewById(R.id.layout_horizental_top)).setVisibility(View.GONE);
+            ((Space) findViewById(R.id.spaceCreate)).setVisibility(View.VISIBLE);
+            tag.setText(getIntent().getStringExtra("tag"));
+            userPost = database.getUser(getIntent().getStringExtra("from"));
+            userPost.addPoints(getIntent().getIntExtra("amount",0));
+            description.setText(getIntent().getStringExtra("desc"));
+            amount.setText(Integer.toString(getIntent().getIntExtra("amount", 0)));
+            oldTask = new Task(getIntent().getStringExtra("from"), getIntent().getIntExtra("amount",
+                    0), getIntent().getStringExtra("tag"), getIntent().getStringExtra("desc"));
+        }
     }
 
     public void addTask(View view) {
+
+        if(getIntent().getStringExtra("previousActivity").equals("HomePage"))
+            userPost = database.getUser(from.getSelectedItem().toString().toLowerCase());
+
         Integer pointsToRemove;
         try
         {
@@ -70,7 +78,6 @@ public class CreateTask extends AppCompatActivity {
             pointsToRemove = 0;
         }
 
-        User userPost = database.getUser(from.getSelectedItem().toString().toLowerCase());
         ArrayList<Task> allTasks = database.getAllActiveTasks();
 
         if(userPost.getPointAmount() - pointsToRemove < 0) {
@@ -87,18 +94,35 @@ public class CreateTask extends AppCompatActivity {
                     check = true;
             }
 
-            if (check){
+            if (check && getIntent().getStringExtra("previousActivity").equals("HomePage")){
                 Toast.makeText(this.getApplicationContext(), "A task with that tag already exits!",
                         Toast.LENGTH_LONG).show();
             } else if(taskTag.trim().equalsIgnoreCase("")){
                 Toast.makeText(this.getApplicationContext(), "The tag field cannot be empty!",
                         Toast.LENGTH_LONG).show();
-            } else {
+            } else if(getIntent().getStringExtra("previousActivity").equals("CompleteTask")){
+                Toast.makeText(this.getApplicationContext(), "Task updated succesfully",
+                        Toast.LENGTH_LONG).show();
+                task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
+                        description.getText().toString());
+                if(taskTag.toLowerCase().equals(getIntent().getStringExtra("tag"))){
+                    database.updateTask(task);
+                    userPost.removePoints(pointsToRemove);
+                    database.updateUser(userPost);
+                }
+                else{
+                    database.deleteTask(oldTask);
+                    userPost.removePoints(pointsToRemove);
+                    database.addTask(task, database.getActiveGroup());
+                    database.updateUser(userPost);
+                }
+                Intent intent = new Intent(this, HomePage.class);
+                startActivity(intent);
+            }else {
                 Toast.makeText(this.getApplicationContext(), "Task added succesfully",
                         Toast.LENGTH_LONG).show();
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
                         description.getText().toString());
-
                 database.addTask(task,database.getActiveGroup());
                 userPost.removePoints(pointsToRemove);
                 database.updateUser(userPost);
@@ -110,8 +134,21 @@ public class CreateTask extends AppCompatActivity {
     }
 
     public void onCancelTask(View view) {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
+        if(getIntent().getStringExtra("previousActivity").equals("HomePage")){
+            Intent intent = new Intent(this, HomePage.class);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(this, CompleteTask.class);
+            Bundle dataBundle = new Bundle();
+            dataBundle.putString("previousActivity", getIntent().getStringExtra("CreateTask"));
+            dataBundle.putString("from", getIntent().getStringExtra("from"));
+            dataBundle.putString("tag", getIntent().getStringExtra("tag"));
+            dataBundle.putString("desc", getIntent().getStringExtra("desc"));
+            dataBundle.putInt("amount", getIntent().getIntExtra("amount",0));
+            intent.putExtras(dataBundle);
+            startActivity(intent);
+        }
     }
 
     public void setClickEvent(View view) {
