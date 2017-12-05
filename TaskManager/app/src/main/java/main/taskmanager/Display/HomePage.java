@@ -106,11 +106,13 @@ public class HomePage extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(getApplicationContext(), CompleteTask.class);
                     Task task = taskList.get(i);
+                    String res = databaseHelper.getTaskResource(task.getTag());
                     Bundle dataBundle = new Bundle();
                     dataBundle.putString("from", task.getUserPost());
                     dataBundle.putString("tag", task.getTag());
                     dataBundle.putString("desc", task.getDescription());
                     dataBundle.putInt("amount", task.getPointAmount());
+                    dataBundle.putString("res", res);
                     intent.putExtras(dataBundle);
                     startActivityForResult(intent, 1);
                 }

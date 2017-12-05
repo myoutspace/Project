@@ -31,6 +31,7 @@ public class CompleteTask extends AppCompatActivity {
     private static String tag;
     private static Spinner completedBy;
     private static String description;
+    private static String res;
     private static DatabaseHelper database;
     private static ArrayList<Task> tasks;
     private static Task task;
@@ -63,15 +64,17 @@ public class CompleteTask extends AppCompatActivity {
         points = getIntent().getIntExtra("amount", 0);
         tag = getIntent().getStringExtra("tag");
         description = getIntent().getStringExtra("desc");
-
+        res = getIntent().getStringExtra("res");
         TextView poster = (TextView) findViewById(R.id.postingUser);
         TextView amount = (TextView) findViewById(R.id.pointAmount);
         TextView theTag = (TextView) findViewById(R.id.tag);
         TextView theDescription = (TextView) findViewById(R.id.taskDescription2);
+        TextView resources = (TextView) findViewById(R.id.res);
         poster.setText(SimpleAction.capitalizeString(postedBy));
         amount.setText(Integer.toString(points));
         theTag.setText(SimpleAction.capitalizeString(tag));
         theDescription.setText(description);
+        resources.setText(res);
         task = new Task(postedBy, points, tag, description);
     }
 

@@ -46,6 +46,9 @@
             android:name=".Display.CreateTask"
             android:theme="@style/AppTheme" />
         <activity android:name=".Display.CompleteTask" />
+        <activity
+            android:name=".Display.ResourceSelection"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

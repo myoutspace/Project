@@ -4,15 +4,11 @@ import android.content.Intent;
 import android.support.design.widget.*;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Visibility;
 import android.view.*;
 import android.widget.*;
 import java.util.ArrayList;
 import main.taskmanager.R;
 import main.taskmanager.javaActions.*;
-
-
-import static android.widget.ArrayAdapter.createFromResource;
 
 public class CreateTask extends AppCompatActivity {
 
@@ -20,6 +16,8 @@ public class CreateTask extends AppCompatActivity {
     private static TextInputEditText tag;
     private static TextInputEditText description;
     private static TextInputEditText amount;
+    private static CheckBox addRessources;
+    private static ArrayList<String> resources;
     private static DatabaseHelper database;
     private static User userPost;
     private static Task oldTask;
@@ -31,11 +29,10 @@ public class CreateTask extends AppCompatActivity {
         database = DatabaseHelper.getInstance(getApplicationContext());
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usersArray = new ArrayList<String>();
-
+        resources = new ArrayList<String>();
         for (User u : users) {
             usersArray.add(SimpleAction.capitalizeString(u.getUsername()));
         }
-
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         //Create an ArrayAdapter using the string array and a default spinner layout
@@ -52,6 +49,16 @@ public class CreateTask extends AppCompatActivity {
         setClickEvent(tag);
         description = (TextInputEditText) findViewById(R.id.editTextDescription);
         amount = (TextInputEditText) findViewById(R.id.editTextAmount);
+        addRessources = (CheckBox) findViewById(R.id.check_add_ressources);
+        addRessources.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox) v).isChecked()) {
+                    Intent intent = new Intent(getApplicationContext(), ResourceSelection.class);
+                    startActivityForResult(intent, 1);
+                }
+            }
+        });
         if(getIntent().getStringExtra("previousActivity").equals("CompleteTask")){
             ((LinearLayout) findViewById(R.id.layout_horizental_top)).setVisibility(View.GONE);
             ((Space) findViewById(R.id.spaceCreate)).setVisibility(View.VISIBLE);
@@ -62,6 +69,14 @@ public class CreateTask extends AppCompatActivity {
             amount.setText(Integer.toString(getIntent().getIntExtra("amount", 0)));
             oldTask = new Task(getIntent().getStringExtra("from"), getIntent().getIntExtra("amount",
                     0), getIntent().getStringExtra("tag"), getIntent().getStringExtra("desc"));
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && getIntent()
+                .getStringExtra("previousActivity").equals("ResourceSelection")) {
+            resources = data.getStringArrayListExtra("listResource");
         }
     }
 
@@ -111,19 +126,31 @@ public class CreateTask extends AppCompatActivity {
                     database.updateUser(userPost);
                 }
                 else{
+                    String res = "";
+                    if (!resources.isEmpty()) {
+                        for (String s : resources) {
+                            res = res + "/" + s;
+                        }
+                    }
                     database.deleteTask(oldTask);
                     userPost.removePoints(pointsToRemove);
-                    database.addTask(task, database.getActiveGroup());
+                    database.addTask(task, database.getActiveGroup(), res);
                     database.updateUser(userPost);
                 }
                 Intent intent = new Intent(this, HomePage.class);
                 startActivity(intent);
             }else {
+                String res = "";
+                if (!resources.isEmpty()) {
+                    for (String s : resources) {
+                        res = res + ", " + SimpleAction.capitalizeString(s);
+                    }
+                }
                 Toast.makeText(this.getApplicationContext(), "Task added succesfully",
                         Toast.LENGTH_LONG).show();
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
                         description.getText().toString());
-                database.addTask(task,database.getActiveGroup());
+                database.addTask(task, database.getActiveGroup(), res);
                 userPost.removePoints(pointsToRemove);
                 database.updateUser(userPost);
 

@@ -34,6 +34,7 @@
     <string name="task_tag">Title:</string>
     <string name="task_point_amount">Points: </string>
     <string name="task_description">Task Description: </string>
+    <string name="text_view_res">Resources: </string>
 
     <string-array name="planets_array">
         <item>Mercury</item>
@@ -55,4 +56,6 @@
         <item>Chapter 10</item>
     </string-array>
     <string name="title_activity_group_selection">GroupSelection</string>
+    <string name="add_ressources">Add ressources</string>
+    <string name="title_activity_ressource_selection">ressource_selection</string>
 </resources>

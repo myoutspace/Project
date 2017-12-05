@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -25,6 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_USERS = "users";
     private static final String TABLE_GROUPS = "groups";
     private static final String TABLE_TASKS = "tasks";
+    private static final String TABLE_RESOURCES = "resource";
 
     //Same colum names
     private static final String KEY_ID = "id";
@@ -40,13 +40,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_USER_POST = "userpost";
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_TAG = "tag";
+    private static final String KEY_RESOURCE = "resource";
 
     //Group Table columns
-
     private static final String KEY_ACTIVE_GROUP = "lastactivegroup";
-
-
-    // Static strings to save data
 
     //Table create Statements
     private static final String CREATE_TABLE_GROUP = "CREATE TABLE " + TABLE_GROUPS + "(" + KEY_ID
@@ -60,7 +57,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_TASK = "CREATE TABLE " + TABLE_TASKS + "(" + KEY_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USER_POST + " TEXT, " + KEY_POINTS + "" +
             " TEXT, "
-            + KEY_TAG + " TEXT, " + KEY_DESCRIPTION + " TEXT, " + KEY_GROUP + " TEXT)";
+            + KEY_TAG + " TEXT, " + KEY_DESCRIPTION + " TEXT, " + KEY_GROUP + " TEXT, " +
+            KEY_RESOURCE + " TEXT)";
+
+    private static final String CREATE_TABLE_RESOURCES = "CREATE TABLE " + TABLE_RESOURCES + "" +
+            "(" + KEY_ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_GROUP +
+            " TEXT)";
+
+    // Static strings to save data
 
     private static String activeGroup;
     private static ArrayList<User> activeUsers;
@@ -83,6 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(CREATE_TABLE_GROUP);
         database.execSQL(CREATE_TABLE_USER);
         database.execSQL(CREATE_TABLE_TASK);
+        database.execSQL(CREATE_TABLE_RESOURCES);
     }
 
 
@@ -91,6 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUPS);
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS);
+        database.execSQL("DROP TABLE IF EXISTS " + TABLE_RESOURCES);
         onCreate(database);
     }
 
@@ -115,7 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (activeUsers != null) activeUsers.add(user);
     }
 
-    public void addTask(Task task, String groupName) {
+    public void addTask(Task task, String groupName, String resource) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_USER_POST, task.getUserPost());
@@ -123,8 +130,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_TAG, task.getTag());
         values.put(KEY_POINTS, Integer.toString(task.getPointAmount()));
         values.put(KEY_GROUP, groupName);
+        values.put(KEY_RESOURCE, resource);
         database.insert(TABLE_TASKS, null, values);
         if (activeTasks != null) activeTasks.add(task);
+    }
+
+    public void addResource(Resource resource) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, resource.getName());
+        values.put(KEY_GROUP, resource.getGroup());
+        long insert = database.insert(TABLE_RESOURCES, null, values);
     }
 
     public ArrayList<User> getAllActiveUsers() {
@@ -139,7 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while (cursor.isAfterLast() == false) {
                 User user = new User(cursor.getString(cursor.getColumnIndex(KEY_NAME)), Integer
                         .parseInt(cursor
-                        .getString(cursor.getColumnIndex(KEY_POINTS))), cursor
+                                .getString(cursor.getColumnIndex(KEY_POINTS))), cursor
                         .getString(cursor.getColumnIndex(KEY_PASSWORD)), cursor
                         .getString(cursor.getColumnIndex(KEY_TITLE)), cursor
                         .getString(cursor.getColumnIndex(KEY_GROUP)));
@@ -166,7 +182,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while (cursor.isAfterLast() == false) {
                 Task task = new Task(cursor.getString(cursor.getColumnIndex(KEY_USER_POST)),
                         Integer.parseInt(cursor
-                        .getString(cursor.getColumnIndex(KEY_POINTS))), cursor
+                                .getString(cursor.getColumnIndex(KEY_POINTS))), cursor
                         .getString(cursor.getColumnIndex(KEY_TAG)), cursor
                         .getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
                 activeTasks.add(task);
@@ -192,6 +208,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return array_list;
     }
 
+    public ArrayList<String> getAllResources() {
+        ArrayList<String> resources = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_RESOURCES + " where " + KEY_GROUP +
+                " = ?", new String[]{getActiveGroup()});
+
+        cursor.moveToFirst();
+
+        while (cursor.isAfterLast() == false) {
+            String resource = cursor.getString(cursor.getColumnIndex(KEY_NAME));
+            resources.add(resource);
+            cursor.moveToNext();
+        }
+
+        return resources;
+    }
+
     public void deleteUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_USERS, KEY_NAME + "= ? AND " + KEY_GROUP + " = ?", new
@@ -213,15 +246,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(TABLE_GROUPS, KEY_NAME + "= ? ", new String[]{group.getGroupName()});
     }
 
+    public Integer deleteResource(Resource resource) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_RESOURCES, KEY_NAME + "= ? AND " +
+                KEY_GROUP + " = ? ", new String[]{resource.getName(), resource.getGroup()});
+    }
+
     public String getActiveGroup() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from " + TABLE_GROUPS + " where " + KEY_ACTIVE_GROUP +
                 " = ?", new String[]{"1"});
-        if(cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             activeGroup = cursor.getString(cursor.getColumnIndex("name"));
         }
         return activeGroup;
+    }
+
+    public String getTaskResource(String tag) {
+        String ret = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_TASKS + " where " + KEY_TAG +
+                " = ?", new String[]{tag});
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            ret = cursor.getString(cursor.getColumnIndex(KEY_RESOURCE));
+        }
+        return ret;
     }
 
     public void setActiveGroup(String activeGroup) {
@@ -248,13 +299,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public User getUser(String name) {
-        for(User user : activeUsers){
+        for (User user : activeUsers) {
             if (user.getUsername().equals(name)) return user;
         }
         return null;
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_POINTS, user.getPointAmount());
@@ -262,7 +313,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name = ?", new String[]{user.getUsername()});
     }
 
-    public void updateTask(Task task){
+    public void updateTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_TAG, task.getTag());
