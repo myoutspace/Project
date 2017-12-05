@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.*;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import java.util.ArrayList;
@@ -77,6 +78,7 @@ public class CreateTask extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && getIntent()
                 .getStringExtra("previousActivity").equals("ResourceSelection")) {
             resources = data.getStringArrayListExtra("listResource");
+            Log.d("","");
         }
     }
 
@@ -129,7 +131,8 @@ public class CreateTask extends AppCompatActivity {
                     String res = "";
                     if (!resources.isEmpty()) {
                         for (String s : resources) {
-                            res = res + "/" + s;
+                            res = res + " , " + SimpleAction.capitalizeString(s);
+                            Log.d("","");
                         }
                     }
                     database.deleteTask(oldTask);

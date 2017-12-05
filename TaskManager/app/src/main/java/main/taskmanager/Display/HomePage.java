@@ -46,6 +46,15 @@ public class HomePage extends AppCompatActivity {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         final LayoutInflater inflater = this.getLayoutInflater();
         userList = databaseHelper.getAllActiveUsers();
+        if(userList.isEmpty()){
+            Intent intent = new Intent(this, DisplayUser.class);
+            intent.putExtra("previousActivity", "HomePage");
+            startActivity(intent);
+
+            Toast.makeText(getApplicationContext(), "You need at least one user in group" +
+                            SimpleAction.capitalizeString(databaseHelper.getActiveGroup()),
+                    Toast.LENGTH_SHORT).show();
+        }
         userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item,userList);
 
         // Set the adapter for the list view
@@ -106,13 +115,12 @@ public class HomePage extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(getApplicationContext(), CompleteTask.class);
                     Task task = taskList.get(i);
-                    String res = databaseHelper.getTaskResource(task.getTag());
                     Bundle dataBundle = new Bundle();
                     dataBundle.putString("from", task.getUserPost());
                     dataBundle.putString("tag", task.getTag());
                     dataBundle.putString("desc", task.getDescription());
                     dataBundle.putInt("amount", task.getPointAmount());
-                    dataBundle.putString("res", res);
+                    dataBundle.putString("res", databaseHelper.getTaskResource(task.getTag()));
                     intent.putExtras(dataBundle);
                     startActivityForResult(intent, 1);
                 }
@@ -134,6 +142,8 @@ public class HomePage extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             if(user.getPassword().equals(editText.getText().toString())){
                                 databaseHelper.deleteTask(task);
+                                user.addPoints(task.getPointAmount());
+                                databaseHelper.updateUser(user);
                                 Toast.makeText(getApplicationContext(), "Task deleted",
                                         Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), HomePage.class);
