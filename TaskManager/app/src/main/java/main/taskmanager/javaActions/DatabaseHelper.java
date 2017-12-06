@@ -249,8 +249,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 activeTasks.remove(task);
                 cursor.moveToNext();
             }
-        activeUsers.remove(user);
+
         }
+        activeUsers.remove(user);
     }
 
     public void deleteTask(Task task) {

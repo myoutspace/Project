@@ -82,6 +82,7 @@ public class HomePage extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                                 finish();
                                 startActivity(getIntent());
+
                             } else {
                                 Toast.makeText(getApplicationContext(), "Wrong password",
                                         Toast.LENGTH_SHORT).show();
