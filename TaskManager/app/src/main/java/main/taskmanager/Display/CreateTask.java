@@ -18,7 +18,7 @@ public class CreateTask extends AppCompatActivity {
     private static TextInputEditText description;
     private static TextInputEditText amount;
     private static CheckBox addRessources;
-    private static ArrayList<String> resources;
+    private static String resources;
     private static DatabaseHelper database;
     private static User userPost;
     private static Task oldTask;
@@ -30,7 +30,7 @@ public class CreateTask extends AppCompatActivity {
         database = DatabaseHelper.getInstance(getApplicationContext());
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usersArray = new ArrayList<String>();
-        resources = new ArrayList<String>();
+        resources = "";
         for (User u : users) {
             usersArray.add(SimpleAction.capitalizeString(u.getUsername()));
         }
@@ -76,8 +76,8 @@ public class CreateTask extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (getIntent().getStringExtra("previousActivity").equals("ResourceSelection")) {
-            resources = data.getStringArrayListExtra("listResource");
+        if(data.getStringExtra("listResource") != null){
+            resources = data.getStringExtra("listResource");
         }
     }
 
@@ -128,32 +128,19 @@ public class CreateTask extends AppCompatActivity {
                     database.updateUser(userPost);
                 }
                 else{
-                    String res = "";
-                    if (!resources.isEmpty()) {
-                        for (String s : resources) {
-                            res = res + " , " + SimpleAction.capitalizeString(s);
-                            Log.d("","");
-                        }
-                    }
                     database.deleteTask(oldTask);
                     userPost.removePoints(pointsToRemove);
-                    database.addTask(task, database.getActiveGroup(), res);
+                    database.addTask(task, database.getActiveGroup(), resources);
                     database.updateUser(userPost);
                 }
                 Intent intent = new Intent(this, HomePage.class);
                 startActivity(intent);
             }else {
-                String res = "";
-                if (!resources.isEmpty()) {
-                    for (String s : resources) {
-                        res = res + ", " + SimpleAction.capitalizeString(s);
-                    }
-                }
                 Toast.makeText(this.getApplicationContext(), "Task added successfully",
                         Toast.LENGTH_LONG).show();
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
                         description.getText().toString());
-                database.addTask(task, database.getActiveGroup(), res);
+                database.addTask(task, database.getActiveGroup(), resources);
                 userPost.removePoints(pointsToRemove);
                 database.updateUser(userPost);
 

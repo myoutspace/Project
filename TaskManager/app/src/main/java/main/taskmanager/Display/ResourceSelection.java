@@ -30,7 +30,7 @@ public class ResourceSelection extends AppCompatActivity {
     private DatabaseHelper database;
     AlertDialog.Builder dialog;
     ArrayList<String> resources;
-    ArrayList<String> returnResources;
+    String returnResources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class ResourceSelection extends AppCompatActivity {
         final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
         dialog.setTitle("Add a resource");
         dialog.setMessage("Resource name: ");
-        returnResources = new ArrayList<>();
+        returnResources = "";
         resources = database.getAllResources();
         dataResources = new ArrayList<>();
         if (resources.isEmpty()) {
@@ -94,10 +94,10 @@ public class ResourceSelection extends AppCompatActivity {
                     CheckBox cb = (CheckBox) view.findViewById(R.id.checkBoxResource);
                     if (!cb.isChecked()) {
                         cb.setChecked(true);
-                        returnResources.add(dataResources.get(position).name);
+                        returnResources = (dataResources.get(position).name) + ", " + returnResources;
                     } else {
                         cb.setChecked(false);
-                        returnResources.remove(dataResources.get(position).name); // remove the
+                        returnResources.replaceAll(dataResources.get(position).name + ", ", ""); // remove the
                         // position when the
                     }
                 }
@@ -142,7 +142,7 @@ public class ResourceSelection extends AppCompatActivity {
 
     public void onConfirmResources(View view) {
         Intent intent = new Intent();
-        intent.putStringArrayListExtra("listResource", returnResources);
+        intent.putExtra("listResource", returnResources);
         intent.putExtra("previousActivity", "ResourceSelection");
         setResult(RESULT_OK, intent);
         finish();
