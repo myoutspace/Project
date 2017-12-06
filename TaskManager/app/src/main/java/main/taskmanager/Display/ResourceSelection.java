@@ -141,7 +141,7 @@ public class ResourceSelection extends AppCompatActivity {
 
     public void onConfirmResources(View view) {
         Intent intent = new Intent();
-        intent.putExtra("listResource", returnResources);
+        intent.putStringArrayListExtra("listResource", returnResources);
         intent.putExtra("previousActivity", "ResourceSelection");
         setResult(RESULT_OK, intent);
         finish();

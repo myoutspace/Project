@@ -229,7 +229,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_USERS, KEY_NAME + "= ? AND " + KEY_GROUP + " = ?", new
                 String[]{user.getUsername(), user.getGroupName()});
+        db.delete(TABLE_TASKS, KEY_USER_POST + "= ? AND " + KEY_GROUP + " = ?", new
+                String[]{user.getUsername(), user.getGroupName()});
+        if (activeTasks != null && !activeTasks.isEmpty()) {
+            SQLiteDatabase db1 = this.getReadableDatabase();
+            Cursor cursor = db1.rawQuery("select * from " + TABLE_TASKS + " where " + KEY_GROUP +
+                    " = '" + user.getGroupName() + "' AND " + KEY_USER_POST + " = '" + user
+                            .getUsername() + "'",
+                    null);
+
+            cursor.moveToFirst();
+
+            while (cursor.isAfterLast() == false) {
+                Task task = new Task(cursor.getString(cursor.getColumnIndex(KEY_USER_POST)),
+                        Integer.parseInt(cursor
+                                .getString(cursor.getColumnIndex(KEY_POINTS))), cursor
+                        .getString(cursor.getColumnIndex(KEY_TAG)), cursor
+                        .getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
+                activeTasks.remove(task);
+                cursor.moveToNext();
+            }
         activeUsers.remove(user);
+        }
     }
 
     public void deleteTask(Task task) {

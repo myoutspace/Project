@@ -51,51 +51,54 @@ public class HomePage extends AppCompatActivity {
             intent.putExtra("previousActivity", "HomePage");
             startActivity(intent);
 
-            Toast.makeText(getApplicationContext(), "You need at least one user in group" +
+            Toast.makeText(getApplicationContext(), "You need at least one user in group " +
                             SimpleAction.capitalizeString(databaseHelper.getActiveGroup()),
                     Toast.LENGTH_SHORT).show();
         }
-        userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item,userList);
+        else {
+            userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item, userList);
 
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(userListAdaptor);
+            // Set the adapter for the list view
+            mDrawerList.setAdapter(userListAdaptor);
 
-        mDrawerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long
-                    l) {
-                final User user = userList.get(i);
-                final View userDialogView = inflater.inflate(R.layout.dialog_enter_group_name, null);
-                dialog.setView(userDialogView);
-                final EditText editText = (EditText) userDialogView.findViewById(R.id.editTxtPass);
-                editText.setHint("Password");
-                dialog.setTitle("Enter password of the user to delete.");
-                dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(user.getPassword().equals(editText.getText().toString())){
-                            databaseHelper.deleteUser(user);
-                            Toast.makeText(getApplicationContext(), "User deleted",
-                                    Toast.LENGTH_SHORT).show();
-                            finish();
-                            startActivity(getIntent());
+            mDrawerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long
+                        l) {
+                    final User user = userList.get(i);
+                    final View userDialogView = inflater.inflate(R.layout.dialog_enter_group_name, null);
+
+                    dialog.setView(userDialogView);
+                    final EditText editText = (EditText) userDialogView.findViewById(R.id
+                            .editTxtPass);
+                    editText.setHint("Password");
+                    dialog.setTitle("Enter password of the user to delete.");
+                    dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (user.getPassword().equals(editText.getText().toString())) {
+                                databaseHelper.deleteUser(user);
+                                Toast.makeText(getApplicationContext(), "User deleted",
+                                        Toast.LENGTH_SHORT).show();
+                                finish();
+                                startActivity(getIntent());
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Wrong password",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else{
-                            Toast.makeText(getApplicationContext(), "Wrong password",
-                                    Toast.LENGTH_SHORT).show();
+                    });
+                    dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
-                    }
-                });
-                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-                return true;
-            }
-        });
+                    });
+                    dialog.show();
+                    return true;
+                }
+            });
+        }
 
         final ArrayList<Task> taskList;
         taskList = databaseHelper.getAllActiveTasks();

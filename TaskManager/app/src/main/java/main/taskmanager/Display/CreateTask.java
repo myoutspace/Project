@@ -63,6 +63,7 @@ public class CreateTask extends AppCompatActivity {
         if(getIntent().getStringExtra("previousActivity").equals("CompleteTask")){
             ((LinearLayout) findViewById(R.id.layout_horizental_top)).setVisibility(View.GONE);
             ((Space) findViewById(R.id.spaceCreate)).setVisibility(View.VISIBLE);
+            ((CheckBox) findViewById(R.id.check_add_ressources)).setText("Modify resources");
             tag.setText(getIntent().getStringExtra("tag"));
             userPost = database.getUser(getIntent().getStringExtra("from"));
             userPost.addPoints(getIntent().getIntExtra("amount",0));
@@ -75,10 +76,8 @@ public class CreateTask extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && getIntent()
-                .getStringExtra("previousActivity").equals("ResourceSelection")) {
+        if (getIntent().getStringExtra("previousActivity").equals("ResourceSelection")) {
             resources = data.getStringArrayListExtra("listResource");
-            Log.d("","");
         }
     }
 
@@ -112,13 +111,14 @@ public class CreateTask extends AppCompatActivity {
             }
 
             if (check && getIntent().getStringExtra("previousActivity").equals("HomePage")){
-                Toast.makeText(this.getApplicationContext(), "A task with that tag already exits!",
+                Toast.makeText(this.getApplicationContext(), "A task with that title already " +
+                                "exits!",
                         Toast.LENGTH_LONG).show();
             } else if(taskTag.trim().equalsIgnoreCase("")){
-                Toast.makeText(this.getApplicationContext(), "The tag field cannot be empty!",
+                Toast.makeText(this.getApplicationContext(), "The title field cannot be empty!",
                         Toast.LENGTH_LONG).show();
             } else if(getIntent().getStringExtra("previousActivity").equals("CompleteTask")){
-                Toast.makeText(this.getApplicationContext(), "Task updated succesfully",
+                Toast.makeText(this.getApplicationContext(), "Task updated successfully",
                         Toast.LENGTH_LONG).show();
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
                         description.getText().toString());
@@ -149,7 +149,7 @@ public class CreateTask extends AppCompatActivity {
                         res = res + ", " + SimpleAction.capitalizeString(s);
                     }
                 }
-                Toast.makeText(this.getApplicationContext(), "Task added succesfully",
+                Toast.makeText(this.getApplicationContext(), "Task added successfully",
                         Toast.LENGTH_LONG).show();
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
                         description.getText().toString());
