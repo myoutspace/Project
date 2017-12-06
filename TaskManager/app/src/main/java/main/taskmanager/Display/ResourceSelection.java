@@ -49,6 +49,7 @@ public class ResourceSelection extends AppCompatActivity {
         dataResources = new ArrayList<>();
         if (resources.isEmpty()) {
             listView.setVisibility(View.GONE);
+            ((ImageButton) findViewById(R.id.cancelResources)).setVisibility(View.VISIBLE);
             message.setText("There are currently no ressources available!");
             message.setVisibility(View.VISIBLE);
             confirm.setVisibility(View.GONE);
@@ -142,6 +143,13 @@ public class ResourceSelection extends AppCompatActivity {
     public void onConfirmResources(View view) {
         Intent intent = new Intent();
         intent.putStringArrayListExtra("listResource", returnResources);
+        intent.putExtra("previousActivity", "ResourceSelection");
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    public void onCancelResources(View view) {
+        Intent intent = new Intent();
         intent.putExtra("previousActivity", "ResourceSelection");
         setResult(RESULT_OK, intent);
         finish();

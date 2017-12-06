@@ -41,6 +41,19 @@
         android:paddingTop="10dp">
 
         <ImageButton
+            android:id="@+id/cancelResources"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10sp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            android:onClick="onCancelResources"
+            android:visibility="gone"
+            app:srcCompat="@drawable/cancel" />
+
+        <ImageButton
             android:id="@+id/addResources"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
