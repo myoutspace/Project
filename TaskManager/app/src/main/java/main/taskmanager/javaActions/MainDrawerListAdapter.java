@@ -52,5 +52,7 @@ public class MainDrawerListAdapter extends ArrayAdapter<User> {
         }
 
         return convertView;
+
+
     }
 }
