@@ -12,7 +12,7 @@
         android:id="@+id/txtViewRes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add ressources"
+        android:text="Select ressources"
         android:textSize="24sp" />
 
     <ListView

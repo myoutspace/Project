@@ -100,8 +100,6 @@ public class CreateTask extends AppCompatActivity {
                 Toast.makeText(this.getApplicationContext(), "The title field cannot be empty!",
                         Toast.LENGTH_LONG).show();
             } else if(getIntent().getStringExtra("previousActivity").equals("CompleteTask")){
-                Toast.makeText(this.getApplicationContext(), "Task updated successfully",
-                        Toast.LENGTH_LONG).show();
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
                         description.getText().toString());
                 if(taskTag.toLowerCase().equals(getIntent().getStringExtra("tag"))){
@@ -115,8 +113,13 @@ public class CreateTask extends AppCompatActivity {
                     database.addTask(task, database.getActiveGroup(), "");
                     database.updateUser(userPost);
                 }
-                Intent intent = new Intent(this, HomePage.class);
-                startActivity(intent);
+                if(addRessources.isChecked()){
+                    Intent intent = new Intent(this, ResourceSelection.class);
+                    intent.putExtra("tag", task.getTag());
+                    startActivity(intent);
+                }
+                else
+                    startActivity(new Intent(this, HomePage.class));
             }else {
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
                         description.getText().toString());

@@ -153,7 +153,7 @@ public class ResourceSelection extends AppCompatActivity {
         }
         intent.putExtra("previousActivity", "ResourceSelection");
         database.updateTask(task, returnResources);
-        Toast.makeText(this.getApplicationContext(), "Task added successfully",
+        Toast.makeText(this.getApplicationContext(), "Done successfully",
                 Toast.LENGTH_LONG).show();
         startActivity(intent);
         finish();
