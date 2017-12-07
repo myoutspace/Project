@@ -31,12 +31,14 @@ public class ResourceSelection extends AppCompatActivity {
     AlertDialog.Builder dialog;
     ArrayList<String> resources;
     String returnResources;
+    ArrayList<Task> tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ressource_selection);
         database = DatabaseHelper.getInstance(getApplicationContext());
+        tasks = database.getAllActiveTasks();
         listView = (ListView) findViewById(R.id.list_resources);
         message = (TextView) findViewById(R.id.txtViewNoResource);
         confirm = (ImageButton) findViewById(R.id.confirmResources);
@@ -94,10 +96,11 @@ public class ResourceSelection extends AppCompatActivity {
                     CheckBox cb = (CheckBox) view.findViewById(R.id.checkBoxResource);
                     if (!cb.isChecked()) {
                         cb.setChecked(true);
-                        returnResources = (dataResources.get(position).name) + ", " + returnResources;
+                        returnResources = (dataResources.get(position).name) + "\n" +
+                                returnResources;
                     } else {
                         cb.setChecked(false);
-                        returnResources.replaceAll(dataResources.get(position).name + ", ", ""); // remove the
+                        returnResources.replaceAll(dataResources.get(position).name, ""); // remove the
                         // position when the
                     }
                 }
@@ -141,17 +144,25 @@ public class ResourceSelection extends AppCompatActivity {
     }
 
     public void onConfirmResources(View view) {
-        Intent intent = new Intent();
-        intent.putExtra("listResource", returnResources);
+        Intent intent = new Intent(this, HomePage.class);
+        Task task = null;
+        for (Task t : tasks){
+            if(t.getTag().equals(getIntent().getStringExtra("tag"))){
+                task = t;
+            }
+        }
         intent.putExtra("previousActivity", "ResourceSelection");
-        setResult(RESULT_OK, intent);
+        database.updateTask(task, returnResources);
+        Toast.makeText(this.getApplicationContext(), "Task added successfully",
+                Toast.LENGTH_LONG).show();
+        startActivity(intent);
         finish();
     }
 
     public void onCancelResources(View view) {
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, HomePage.class);
         intent.putExtra("previousActivity", "ResourceSelection");
-        setResult(RESULT_OK, intent);
+        startActivity(intent);
         finish();
     }
 

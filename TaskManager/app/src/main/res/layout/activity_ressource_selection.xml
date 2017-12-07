@@ -8,11 +8,20 @@
     android:padding="10dp"
     tools:context="main.taskmanager.Display.ResourceSelection">
 
+    <TextView
+        android:id="@+id/txtViewRes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add ressources"
+        android:textSize="24sp" />
+
     <ListView
         android:id="@+id/list_resources"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingBottom="10sp"
+        android:paddingTop="10sp" />
 
     <TextView
         android:id="@+id/txtViewNoResource"

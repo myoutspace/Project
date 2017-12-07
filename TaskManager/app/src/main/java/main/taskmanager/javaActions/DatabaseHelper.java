@@ -335,13 +335,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name = ?", new String[]{user.getUsername()});
     }
 
-    public void updateTask(Task task) {
+    public void updateTask(Task task, String res) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_TAG, task.getTag());
         contentValues.put(KEY_USER_POST, task.getUserPost());
         contentValues.put(KEY_POINTS, task.getPointAmount());
         contentValues.put(KEY_DESCRIPTION, task.getDescription());
+        contentValues.put(KEY_RESOURCE, res);
         db.update(TABLE_TASKS, contentValues,
                 "tag = ?", new String[]{task.getTag()});
     }

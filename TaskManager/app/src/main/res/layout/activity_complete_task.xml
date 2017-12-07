@@ -138,10 +138,8 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:orientation="vertical"
-                android:paddingBottom="10sp"
                 android:paddingLeft="10sp"
-                android:paddingRight="10sp"
-                android:paddingTop="10sp">
+                android:paddingRight="10sp">
 
                 <TextView
                     android:id="@+id/staticTaskDescription2"
@@ -167,10 +165,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="horizontal"
-                android:paddingBottom="30sp"
+                android:paddingBottom="10sp"
                 android:paddingLeft="10sp"
-                android:paddingRight="10sp"
-                android:paddingTop="30sp">
+                android:paddingRight="10sp">
 
                 <TextView
                     android:id="@+id/textView"
