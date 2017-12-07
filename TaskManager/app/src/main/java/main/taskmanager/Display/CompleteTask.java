@@ -36,6 +36,7 @@ public class CompleteTask extends AppCompatActivity {
     private static ArrayList<Task> tasks;
     private static Task task;
 
+    //Activity when completing a class
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,7 @@ public class CompleteTask extends AppCompatActivity {
         task = new Task(postedBy, points, tag, description);
     }
 
+    //Method called when completing a task (with the button)
     public void onCompleteTask(View view){
         final User userPost = database.getUser(postedBy);
         final User userComplete = database.getUser(((Spinner) findViewById(R.id
@@ -87,6 +89,7 @@ public class CompleteTask extends AppCompatActivity {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_enter_group_name, null);
+        //Creates the dialog to check the password to complete the task
         dialog.setView(dialogView);
         final EditText editText = (EditText) dialogView.findViewById(R.id.editTxtPass);
         editText.setHint("Password");
@@ -119,6 +122,7 @@ public class CompleteTask extends AppCompatActivity {
         dialog.show();
     }
 
+    //Method of the button to modify the task, starts the create task activity
     public void onEditTask(View view){
         final User userPost = database.getUser(postedBy);
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);

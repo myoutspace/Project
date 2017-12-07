@@ -41,6 +41,7 @@ public class DisplayUser extends Activity {
     private static DatabaseHelper database;
     private ArrayList<User> users;
 
+    //Activity which creates a user and adds it to the group
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,7 @@ public class DisplayUser extends Activity {
 
         Bundle extras = getIntent().getExtras();
 
+        //if this page is only displayed to see the user info(not add one)
         if (extras.getString("name") != null) {
             String value = extras.getString("name");
             users = database.getAllActiveUsers();
@@ -89,6 +91,7 @@ public class DisplayUser extends Activity {
         }
     }
 
+    //Deactivates the back press on your device when in the process of creating a new group
     @Override
     public void onBackPressed() {
         if (getIntent().getStringExtra("previousActivity") != null) {
@@ -98,6 +101,7 @@ public class DisplayUser extends Activity {
         }
     }
 
+    //Method called when trying to add a user (clicking the add button)
     public void add() {
         Intent intent = new Intent(this, CreateUsers.class);
         User user = new User(name.getText().toString().toLowerCase(), 500, pass.getText()
@@ -105,11 +109,11 @@ public class DisplayUser extends Activity {
         ArrayList<User> users = database.getAllActiveUsers();
         ArrayList<String> usernames = new ArrayList<String>();
 
-        //A REVOIR, (le check est pas efficasse)
         for (User u : users) {
             usernames.add(u.getUsername());
         }
 
+        //Cannot add the user if that name already exists, if the name or if the password is empty
         if (usernames.contains(user.getUsername().toLowerCase())) {
             Toast.makeText(this.getApplicationContext(), "The user already exists.",
                     Toast.LENGTH_LONG).show();
@@ -128,6 +132,7 @@ public class DisplayUser extends Activity {
         }
     }
 
+    //Tells the us when a field cannot be blank
     public void setClickEvent(View view) {
         final EditText editText = ((EditText) view);
         view.setOnKeyListener(new View.OnKeyListener() {

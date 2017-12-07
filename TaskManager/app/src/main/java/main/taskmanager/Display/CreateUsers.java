@@ -25,6 +25,7 @@ public class CreateUsers extends AppCompatActivity {
     DatabaseHelper database;
     AlertDialog createAlert;
 
+    //Activity that displays a list of users (the ones already added to the group being created
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,8 @@ public class CreateUsers extends AppCompatActivity {
             usersName.add(SimpleAction.capitalizeString(user.getUsername()));
         }
 
+        //Creates the list of user with an on click method which sends us to the displayUser to see the
+        //information on the clicked user
         ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, usersName);
         listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(arrayAdapter);
@@ -60,7 +63,7 @@ public class CreateUsers extends AppCompatActivity {
             }
         });
 
-
+        //Longclick to delete users
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long
@@ -90,17 +93,20 @@ public class CreateUsers extends AppCompatActivity {
         });
     }
 
+    //Deactivates the effects of the back button on the device
     @Override
     public void onBackPressed() {
 
     }
 
+    //When you click on the button to add a user, you are directd to the page CreateUser
     public void addPerson(View view) {
         Intent intent = new Intent(this, DisplayUser.class);
         intent.putExtra("previousActivity", "CreateUser");
         startActivity(intent);
     }
 
+    //Button to finalize the group creation
     public void onConfirmGroup(View view) {
         final Intent intent = new Intent(this, HomePage.class);
 
