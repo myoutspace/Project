@@ -33,6 +33,7 @@ public class HomePage extends AppCompatActivity {
     private String groupName;
     private DatabaseHelper databaseHelper;
 
+    //Main page that holds all the task of a group
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,8 @@ public class HomePage extends AppCompatActivity {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         final LayoutInflater inflater = this.getLayoutInflater();
         userList = databaseHelper.getAllActiveUsers();
+
+        //If there is no user, go back to the create user activity to force the user to have atleast one use in the group.
         if(userList.isEmpty()){
             Intent intent = new Intent(this, DisplayUser.class);
             intent.putExtra("previousActivity", "HomePage");
@@ -58,9 +61,11 @@ public class HomePage extends AppCompatActivity {
         else {
             userListAdaptor = new MainDrawerListAdapter(this, R.layout.drawer_list_item, userList);
 
-            // Set the adapter for the list view
+            // Set the adapter for the user list view in the drawer
             mDrawerList.setAdapter(userListAdaptor);
 
+            //Set a long click listener which pops up a dialog to allow the deletion of a user after his
+            //password has been successfully inputed
             mDrawerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long
@@ -104,6 +109,9 @@ public class HomePage extends AppCompatActivity {
         final ArrayList<Task> taskList;
         taskList = databaseHelper.getAllActiveTasks();
 
+        //Sets up the task list on the main content page
+        //On a normal click, the user is brought to the modification and confirmation page for the task
+        //On a long click, the user is asked the password of the task creator to be able to delete the task
         if (taskList.isEmpty()) {
             TextView noTask = (TextView) findViewById(R.id.txtViewNoTask);
             contentList.setVisibility(View.GONE);
@@ -179,7 +187,8 @@ public class HomePage extends AppCompatActivity {
         return true;
     }
 
-
+    //If switch group is selected in the menu, the groupSelection activity is launched
+    //If help is selected in the menu, an internet help page is displayed
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         switch(item.getItemId()) {
@@ -198,6 +207,7 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
+    //If the + at the bottom of the page is pressed, the user is brought to the create task page
     public void addTask(View view) {
         Intent intent = new Intent(this, CreateTask.class);
         intent.putExtra("previousActivity", "HomePage");
@@ -205,12 +215,14 @@ public class HomePage extends AppCompatActivity {
     }
 
 
+    //If the + at the bottom of the drawer is pressed, the user is brought to the display user page to create a new user
     public void addUser(View view) {
         Intent intent = new Intent(this,DisplayUser.class);
         intent.putExtra("previousActivity", "HomePage");
         startActivityForResult(intent,1);
     }
 
+    //Does a partial reload of the important items on the page, when the program comes back to homepage
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         userList = databaseHelper.getAllActiveUsers();

@@ -17,9 +17,9 @@ import main.taskmanager.javaActions.*;
 
 public class CreateGroup extends AppCompatActivity {
     AlertDialog createAlert;
-    boolean inPop = false;
     DatabaseHelper database;
 
+    //The Create group class is only a text input that creates the group name
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,7 @@ public class CreateGroup extends AppCompatActivity {
         });
     }
 
+    //The method that is called when the create group is pressed.
     public void createGroup() {
         EditText group = (EditText) findViewById(R.id.edtTxtGrpName);
         final String groupName = group.getText().toString();
@@ -49,6 +50,7 @@ public class CreateGroup extends AppCompatActivity {
         dataBundle.putString("groupName", group.getText().toString().toLowerCase());
         intent.putExtras(dataBundle);
 
+        //If this group name already exists create a dialog to tell the user.
         if (groups.contains(SimpleAction.capitalizeString(groupName))) {
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
             dlgAlert.setMessage("The group already exists, try another name.");
@@ -59,11 +61,13 @@ public class CreateGroup extends AppCompatActivity {
         }
 
         else{
+            //Group name cannot be empty or smaller then 2 letters
             if(groupName.trim().equalsIgnoreCase("")){
                 group.setError("This field can not be blank");
             } else if(groupName.length() < 2){
                 group.setError("The group name has to be at least 2 letters");
             } else{
+                //Confirmation dialog
                 createAlert = new AlertDialog.Builder(this).create();
                 createAlert.setTitle("Group name is " + SimpleAction.capitalizeString(groupName));
                 createAlert.setMessage("Is that correct?");

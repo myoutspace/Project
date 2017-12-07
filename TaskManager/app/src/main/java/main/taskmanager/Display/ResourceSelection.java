@@ -33,6 +33,7 @@ public class ResourceSelection extends AppCompatActivity {
     String returnResources;
     ArrayList<Task> tasks;
 
+    //Activity to select the resource to use in a task
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,9 @@ public class ResourceSelection extends AppCompatActivity {
             message.setVisibility(View.VISIBLE);
             confirm.setVisibility(View.GONE);
         } else {
+            //If there are resources present, create a list to choose from for your task
+            //Can delete a resource on a longclick
+            //On a normal click, selects the resource
             for (String r : resources) {
                 dataResources.add(new DataResource(SimpleAction.capitalizeString(r), false));
             }
@@ -100,14 +104,15 @@ public class ResourceSelection extends AppCompatActivity {
                                 returnResources;
                     } else {
                         cb.setChecked(false);
-                        returnResources.replaceAll(dataResources.get(position).name, ""); // remove the
-                        // position when the
+                        returnResources.replaceAll(dataResources.get(position).name, "");
                     }
                 }
             });
         }
     }
 
+    //On the click of the add resource button, asks you for the name and makes sure that
+    //the resource doesnt already exist and that the text field is not already blank
     public void addResource(View view) {
         Context context = getApplicationContext();
         LinearLayout layout = new LinearLayout(context);
@@ -143,6 +148,7 @@ public class ResourceSelection extends AppCompatActivity {
         dialog.show();
     }
 
+    //On the confirmation of the resources to use, and modifies the resources
     public void onConfirmResources(View view) {
         Intent intent = new Intent(this, HomePage.class);
         Task task = null;
@@ -159,6 +165,7 @@ public class ResourceSelection extends AppCompatActivity {
         finish();
     }
 
+    //Goes back to the home page when you cancel the resource page
     public void onCancelResources(View view) {
         Intent intent = new Intent(this, HomePage.class);
         intent.putExtra("previousActivity", "ResourceSelection");

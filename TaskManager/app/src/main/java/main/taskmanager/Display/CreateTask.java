@@ -22,6 +22,7 @@ public class CreateTask extends AppCompatActivity {
     private static User userPost;
     private static Task oldTask;
 
+    //Activity to create a task, all fields are empty and editable.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class CreateTask extends AppCompatActivity {
         }
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        //Create an ArrayAdapter using the string array and a default spinner layout
+        //Create an ArrayAdapter using the string array and a default spinner layout for the users
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<String>(this ,android.R.layout.simple_spinner_dropdown_item, usersArray);
         // Specify the layout to use when the list of choices appears
@@ -49,6 +50,9 @@ public class CreateTask extends AppCompatActivity {
         description = (TextInputEditText) findViewById(R.id.editTextDescription);
         amount = (TextInputEditText) findViewById(R.id.editTextAmount);
         addRessources = (CheckBox) findViewById(R.id.check_add_ressources);
+        //If the previous activity was CompleteTask (as shown by the extra passed in the intent)
+        //We prefil the modifiable area of the page with the data associated.
+        // ex fill the points amount with the old amount of points.
         if(getIntent().getStringExtra("previousActivity").equals("CompleteTask")){
             ((LinearLayout) findViewById(R.id.layout_horizental_top)).setVisibility(View.GONE);
             ((Space) findViewById(R.id.spaceCreate)).setVisibility(View.VISIBLE);
@@ -63,12 +67,15 @@ public class CreateTask extends AppCompatActivity {
         }
     }
 
+    //Function of the addTask button
     public void addTask(View view) {
 
         if(getIntent().getStringExtra("previousActivity").equals("HomePage"))
             userPost = database.getUser(from.getSelectedItem().toString().toLowerCase());
 
         Integer pointsToRemove;
+
+        //Set the amount of points to be removed from the user. If the field is empty, assume 0 points.
         try
         {
             pointsToRemove = Integer.parseInt(amount.getText().toString());
@@ -91,7 +98,8 @@ public class CreateTask extends AppCompatActivity {
                 if (t.getTag().equals(taskTag))
                     check = true;
             }
-
+            //Checks that the title (tag in the code) of the activity does not already exist
+            //or if the task title is empty
             if (check && getIntent().getStringExtra("previousActivity").equals("HomePage")){
                 Toast.makeText(this.getApplicationContext(), "A task with that title already " +
                                 "exits!",
@@ -99,7 +107,9 @@ public class CreateTask extends AppCompatActivity {
             } else if(taskTag.trim().equalsIgnoreCase("")){
                 Toast.makeText(this.getApplicationContext(), "The title field cannot be empty!",
                         Toast.LENGTH_LONG).show();
-            } else if(getIntent().getStringExtra("previousActivity").equals("CompleteTask")){
+            }
+            //If the task is being modified, delete the old tast, create a new one and update the point amounts
+            else if(getIntent().getStringExtra("previousActivity").equals("CompleteTask")){
                 task = new Task(userPost.getUsername(), pointsToRemove, taskTag.toLowerCase(),
                         description.getText().toString());
                 if(taskTag.toLowerCase().equals(getIntent().getStringExtra("tag"))){
@@ -137,6 +147,7 @@ public class CreateTask extends AppCompatActivity {
         }
     }
 
+    //When clicking the X returns to the previous visited page
     public void onCancelTask(View view) {
         if(getIntent().getStringExtra("previousActivity").equals("HomePage")){
             Intent intent = new Intent(this, HomePage.class);

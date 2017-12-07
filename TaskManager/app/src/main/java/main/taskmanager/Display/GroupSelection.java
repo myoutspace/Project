@@ -16,6 +16,7 @@ public class GroupSelection extends AppCompatActivity {
     ListView groupListDisplay;
     ArrayList<String> groupList;
 
+    //Activity that displays the groups and allows for the switch of groups
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class GroupSelection extends AppCompatActivity {
             noGroup.setVisibility(View.VISIBLE);
         }
 
+        //Creates the list of available groups and sets a longClick listener to allow for the deletion of a group
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, groupList);
         groupListDisplay.setAdapter(arrayAdapter);
         groupListDisplay.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -62,6 +64,7 @@ public class GroupSelection extends AppCompatActivity {
             }
         });
 
+        //on click selects the group and starts the home page of the group
         groupListDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,11 +76,13 @@ public class GroupSelection extends AppCompatActivity {
         });
     }
 
+    //disables the back button on the android device
     @Override
     public void onBackPressed(){
 
     }
 
+    //when adding a new group, go to the create group activity
     public void onAddGroup (View v){
         Intent addGroup = new Intent(this,CreateGroup.class);
         this.startActivity(addGroup);

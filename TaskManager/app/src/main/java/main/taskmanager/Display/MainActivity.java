@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> groups;
     private static int SPLAH_TIME_OUT = 2000;
 
+    //Main activity to display the logo and build suspense... it works everytime!
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
