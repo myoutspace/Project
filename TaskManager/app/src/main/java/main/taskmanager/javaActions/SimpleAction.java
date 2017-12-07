@@ -4,7 +4,8 @@ import android.view.KeyEvent;
 import android.view.View;
 
 /**
- * Created by rukau on 2017-11-18.
+ * Class SimpleAction.
+ * Used for little changes.
  */
 
 public class SimpleAction {

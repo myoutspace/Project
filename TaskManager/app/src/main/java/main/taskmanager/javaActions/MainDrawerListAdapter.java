@@ -15,15 +15,27 @@ import java.util.List;
 import main.taskmanager.R;
 
 /**
- * Created by Julien on 2017-11-07.
+ * Class MainDrawerListAdapter.
+ * Used to create an adapter for the drawer on home page
  */
 
 public class MainDrawerListAdapter extends ArrayAdapter<User> {
+
+    /**
+     * viewHoder Class used to get a text view for the user name and point amount
+     */
 
     private static class ViewHolder {
         private TextView userName;
         private TextView pointAmount;
     }
+
+    /**
+     * The constructor
+     * @param textViewResourceId id for name's text view.
+     * @param items all the users.
+     * @param context Application context.
+     */
 
     public MainDrawerListAdapter(Context context, int textViewResourceId, ArrayList<User> items) {
         super(context, textViewResourceId, items);

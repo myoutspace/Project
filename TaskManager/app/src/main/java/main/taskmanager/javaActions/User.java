@@ -1,9 +1,5 @@
 package main.taskmanager.javaActions;
 
-/**
- * Created by Julien on 2017-10-06.
- */
-
 public class User {
     private String username;
     private int pointAmount;

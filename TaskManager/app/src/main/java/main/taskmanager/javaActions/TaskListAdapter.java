@@ -12,10 +12,15 @@ import java.util.ArrayList;
 import main.taskmanager.R;
 
 /**
- * Created by Julien on 2017-11-13.
+ * Class TaskListAdapter.
+ * Used to create an adapter for the list view used for tasks.
  */
 
 public class TaskListAdapter extends ArrayAdapter<Task> {
+
+    /**
+     * viewHoder Class used to get a view of a single task
+     */
 
     private static class ViewHolder {
         private TextView taskUser;
@@ -23,6 +28,12 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         private TextView taskDescription;
         private TextView taskTag;
     }
+
+    /**
+     * The constructor
+     * @param items all the tasks.
+     * @param context Application context.
+     */
 
     public TaskListAdapter(Context context, ArrayList<Task> items) {
         super(context, R.layout.task_list_item, items);

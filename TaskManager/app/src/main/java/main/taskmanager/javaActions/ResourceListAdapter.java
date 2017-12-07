@@ -1,7 +1,8 @@
 package main.taskmanager.javaActions;
 
 /**
- * Created by ad-ARUKAZAN on 05/12/2017.
+ * Class ResourceListAdapter.
+ * Used to create an adapter for the list view used for resources.
  */
 
 import android.content.Context;
@@ -19,14 +20,33 @@ import java.util.ArrayList;
 
 public class ResourceListAdapter extends ArrayAdapter {
 
+    /**
+     * dataSet ArrayList<DataResource> to represent the a resource name and a check box
+     */
+
     private ArrayList<DataResource> dataSet;
     Context mContext;
 
-    // View lookup cache
+    /**
+     * viewHoder Class used to get a text view and checkbox view
+     */
     private static class ViewHolder {
+
+        /**
+         * txtName TextView to represent the TextView
+         * checkBox CheckBox to represent the CheckBox
+         */
+
         TextView txtName;
         CheckBox checkBox;
     }
+
+
+    /**
+     * The constructor
+     * @param data all the resources.
+     * @param context Application context.
+     */
 
     public ResourceListAdapter(ArrayList data, Context context) {
         super(context, R.layout.row_item_ressource, data);

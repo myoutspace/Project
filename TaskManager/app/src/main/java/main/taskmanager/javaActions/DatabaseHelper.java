@@ -1,5 +1,10 @@
 package main.taskmanager.javaActions;
 
+/**
+ * Class DatabaseHelper.
+ * Used to create an SQLite database for the application.
+ */
+
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,12 +14,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-
-/**
- * Created by Production on 10/13/2017.
- */
-
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    /**
+     * A lot of static variables for tables, columns, etc ...
+     */
 
 
     // Database Name
@@ -72,11 +76,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static ArrayList<Task> activeTasks;
     private static DatabaseHelper instance;
 
+    /**
+     * getInstance() DatabaseHelper method used to get a singleton for the database
+     * @param context  Application context.
+     */
+
     public static DatabaseHelper getInstance(Context context) {
         if (instance == null)
             instance = new DatabaseHelper(context);
         return instance;
     }
+
+    /**
+     * The constructor
+     * @param context  Application context.
+     */
+
+
 
     private DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
@@ -101,6 +117,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(database);
     }
 
+    /**
+     * addGroup() Group used to add a group to the database
+     * @param group  The group.
+     */
+
     public void addGroup(Group group) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -108,6 +129,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_ACTIVE_GROUP, "0");
         long insert = database.insert(TABLE_GROUPS, null, values);
     }
+
+    /**
+     * addUser() User used to add a group to the database
+     * @param user  The user.
+     */
 
 
     public void addUser(User user) {
@@ -122,6 +148,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (activeUsers != null) activeUsers.add(user);
     }
 
+    /**
+     * addTask() Task used to add a group to the database
+     * @param task  The task.
+     * @param groupName  The group where the task was posted.
+     * @param resource  The resources's for the task.
+     */
+
+
     public void addTask(Task task, String groupName, String resource) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -135,6 +169,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (activeTasks != null) activeTasks.add(task);
     }
 
+    /**
+     * addResource() Resource used to add a resource to the database
+     * @param resource  The resource.
+     */
+
     public void addResource(Resource resource) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -142,6 +181,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_GROUP, resource.getGroup());
         long insert = database.insert(TABLE_RESOURCES, null, values);
     }
+
+    /**
+     * Get all active users
+     * @return Get all active users.
+     */
 
     public ArrayList<User> getAllActiveUsers() {
         if (activeUsers == null) {
@@ -166,8 +210,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return activeUsers;
     }
 
-    /*
-        Before using this method, we need to discuss how we want to work with the static variables,
+    /**
+     * Get all active tasks
+     * @return Get all active tasks.
      */
 
     public ArrayList<Task> getAllActiveTasks() {
@@ -193,6 +238,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return activeTasks;
     }
 
+    /**
+     * Get all groups
+     * @return Get all aroups.
+     */
+
     public ArrayList<String> getAllGroups() {
         ArrayList<String> array_list = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -207,6 +257,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return array_list;
     }
+
+    /**
+     * Get all the resources within a group
+     * @return Get all the resources within a group.
+     */
 
     public ArrayList<String> getAllResources() {
         ArrayList<String> resources = new ArrayList<>();
@@ -224,6 +279,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return resources;
     }
+
+    /**
+     * deleteUser() used to delete a user
+     * @param user  The user
+     */
 
     public void deleteUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -254,12 +314,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         activeUsers.remove(user);
     }
 
+    /**
+     * deleteTask() used to delete a task
+     * @param task The Task
+     */
+
     public void deleteTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TASKS, KEY_GROUP + "= ? AND " + KEY_TAG + " = ?", new
                 String[]{getActiveGroup(), task.getTag()});
         activeTasks.remove(task);
     }
+
+    /**
+     * deleteGroup() used to delete a user
+     * @param group  The group
+     */
 
     public Integer deleteGroup(Group group) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -268,11 +338,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(TABLE_GROUPS, KEY_NAME + "= ? ", new String[]{group.getGroupName()});
     }
 
+    /**
+     * deleteResource() used to delete a resource
+     * @param resource  The resource
+     */
+
     public Integer deleteResource(Resource resource) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_RESOURCES, KEY_NAME + "= ? AND " +
                 KEY_GROUP + " = ? ", new String[]{resource.getName(), resource.getGroup()});
     }
+
+    /**
+     * Get the active group
+     * @return Get the active group
+     */
 
     public String getActiveGroup() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -284,6 +364,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return activeGroup;
     }
+
+    /**
+     * Get the resources of a task
+     * @return Get the resources of a task
+     */
 
     public String getTaskResource(String tag) {
         String ret = "";
@@ -297,6 +382,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
+
+    /**
+     * Set an active group.
+     * @param activeGroup  The active group name.
+     */
+
     public void setActiveGroup(String activeGroup) {
         DatabaseHelper.activeGroup = activeGroup;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -307,18 +398,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_GROUPS, contentValues, "name = ?", new String[]{activeGroup});
     }
 
+    /**
+     * Set an active users.
+     * @param activeUsers  The active users.
+     */
+
     public void setActiveUsers(ArrayList<User> activeUsers) {
         DatabaseHelper.activeUsers = activeUsers;
     }
+
+    /**
+     * Set an active tasks.
+     * @param activeTasks  The active tasks.
+     */
 
     public void setActiveTasks(ArrayList<Task> activeTasks) {
         DatabaseHelper.activeTasks = activeTasks;
     }
 
+    /**
+     * closeConnection() closes the connection to the database
+     */
+
     public void closeConnection() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.close();
     }
+
+    /**
+     * Get a user
+     * @return Get a spedific user.
+     */
 
     public User getUser(String name) {
         for (User user : activeUsers) {
@@ -327,6 +437,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    /**
+     * Update a user
+     * @param user The user.
+     */
+
     public void updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -334,6 +449,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_USERS, contentValues,
                 "name = ?", new String[]{user.getUsername()});
     }
+    /**
+     * Update a task
+     * @param task The task.
+     */
 
     public void updateTask(Task task, String res) {
         SQLiteDatabase db = this.getWritableDatabase();
