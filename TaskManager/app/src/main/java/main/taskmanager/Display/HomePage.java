@@ -199,7 +199,8 @@ public class HomePage extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_documentation:
-                intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://rukazana.com"));
+                intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://rukazana" +
+                        ".com/TaskManager"));
                 startActivity(intent);
                 return true;
             default:
